@@ -1,8 +1,8 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
-const APP_NAME = "nextchakra-starter";
+const APP_NAME = "opyn-vault-aggregatort";
 const APP_DESCRIPTION =
-  "Next.js app template with Chakra-UI, TypeScript, and PWA configured";
+  "Vault Aggregator Interface for Opyn";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
