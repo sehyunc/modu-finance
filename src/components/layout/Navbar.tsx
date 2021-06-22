@@ -46,7 +46,7 @@ export default function Navbar() {
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Box bg={useColorModeValue("gray.100", "#000000")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -99,6 +99,12 @@ export default function Navbar() {
           </Box>
         ) : null}
       </Box>
+      <Box
+        w="100%"
+        h="2px"
+        bgGradient="linear(to-r, #f4b04a, #d15c6c)"
+        opacity="0.5"
+      />
     </>
   );
 }
