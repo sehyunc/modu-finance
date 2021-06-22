@@ -16,6 +16,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import AccessibleLink from "@/components/AccessibleLink";
 
 const Links = [
   "Your Vaults",
@@ -26,19 +27,12 @@ const Links = [
   "Optional",
 ];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
+const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
+  <Box px="2" py="1">
+    <AccessibleLink href={`/${href}`} isExternal={false} decoration={false}>
+      {children}
+    </AccessibleLink>
+  </Box>
 );
 
 export default function Navbar() {
@@ -46,7 +40,12 @@ export default function Navbar() {
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "#000000")} px={4}>
+      <Box
+        bg={useColorModeValue("gray.100", "#000000")}
+        px={4}
+        position="sticky"
+        top="0"
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -64,7 +63,9 @@ export default function Navbar() {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} href={link.toLowerCase()}>
+                  {link}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -93,7 +94,9 @@ export default function Navbar() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} href={link.toLowerCase()}>
+                  {link}
+                </NavLink>
               ))}
             </Stack>
           </Box>
@@ -104,6 +107,7 @@ export default function Navbar() {
         h="2px"
         bgGradient="linear(to-r, #f4b04a, #d15c6c)"
         opacity="0.5"
+        position="fixed"
       />
     </>
   );
