@@ -1,5 +1,5 @@
 import { theme, extendTheme } from "@chakra-ui/react";
-import { mode } from '@chakra-ui/theme-tools';
+import { mode } from "@chakra-ui/theme-tools";
 
 const customTheme = extendTheme({
   fonts: {
@@ -7,10 +7,14 @@ const customTheme = extendTheme({
     body: "Lexend, sans-serif",
     heading: "Lexend, serif",
   },
+  config: {
+    useSystemColorMode: false,
+    initialColorMode: "dark",
+  },
   styles: {
     global: (props) => ({
       body: {
-        bg: mode('#ffffff', '#000000')(props),
+        bg: mode("#ffffff", "#000000")(props),
       },
     }),
   },
