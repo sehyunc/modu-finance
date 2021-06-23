@@ -1,6 +1,6 @@
-import { Box } from "@chakra-ui/layout";
-import { Flex, Heading, HStack } from "@chakra-ui/react";
 import VaultCard from "@/components/VaultCard";
+import { Box } from "@chakra-ui/layout";
+import { Heading, HStack } from "@chakra-ui/react";
 
 const CURRENT_VAULTS = [
   {
@@ -58,8 +58,8 @@ const WATCH_VAULTS = [
 const Home = () => {
   return (
     <Box mb={8} w="full">
-      <Heading>Your Vaults</Heading>
-      <HStack align="center" p="6" spacing="6">
+      <Heading mt="6">Your Vaults</Heading>
+      <HStack align="center" p="6" spacing="12">
         {CURRENT_VAULTS.map(
           ({ name, platform, underlying, apy, current, max }) => (
             <VaultCard
@@ -74,8 +74,8 @@ const Home = () => {
           )
         )}
       </HStack>
-      <Heading>Watchlist</Heading>
-      <HStack align="center" p="6" spacing="6">
+      <Heading mt="6">Watchlist</Heading>
+      <HStack align="center" p="6" spacing="12">
         {WATCH_VAULTS.map(
           ({ name, platform, underlying, apy, current, max }) => (
             <VaultCard
