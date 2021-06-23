@@ -1,15 +1,40 @@
 import {
-  Text,
-  Flex,
+  Button,
+  ButtonGroup,
   Center,
   Container,
   Grid,
-  Box,
   Heading,
-  ButtonGroup,
-  Button,
+  VStack,
 } from "@chakra-ui/react";
-import Image from "next/image";
+import LeaderboardRow from "@/components/LeaderboardRow";
+
+const ROWS = [
+  {
+    name: "T-ETH-C",
+    platform: "Ribbon",
+    strategy: "Covered Call",
+    apy: "9.23",
+  },
+  {
+    name: "Theta-Gang",
+    platform: "Fontis",
+    strategy: "Covered Call",
+    apy: "6.78",
+  },
+  {
+    name: "Theta-Gang",
+    platform: "Fontis",
+    strategy: "Covered Call",
+    apy: "6.78",
+  },
+  {
+    name: "T-BTC-C",
+    platform: "Ribbon",
+    strategy: "Covered Call",
+    apy: "2.31",
+  },
+];
 
 const Leaderboard = () => {
   return (
@@ -22,9 +47,7 @@ const Leaderboard = () => {
       </ButtonGroup>
       <Container maxW="4xl">
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-          <Center w="100%" h="10">
-            Rank
-          </Center>
+          <Center w="100%">Rank</Center>
           <Center w="100%" h="10">
             Name
           </Center>
@@ -38,43 +61,18 @@ const Leaderboard = () => {
             Projected APY
           </Center>
         </Grid>
-        <Grid
-          templateColumns="repeat(5, 1fr)"
-          gap={6}
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
-          minW="100%"
-          rounded="md"
-          py="3"
-        >
-          <Center w="100%" h="10">
-            <Text fontWeight="700" fontSize="xl">
-              1
-            </Text>
-          </Center>
-          <Center w="100%" h="10">
-            <Text fontWeight="700" fontSize="xl">
-              T-ETH-C
-            </Text>
-          </Center>
-          <Center w="100%" h="10" position="relative">
-            <Image
-              src={`/static/ribbon.svg`}
-              alt="ribbon"
-              layout="fill"
-              objectFit="contain"
+        <VStack spacing="3">
+          {ROWS.map(({ name, platform, strategy, apy }, index) => (
+            <LeaderboardRow
+              key={index}
+              rank={index + 1}
+              name={name}
+              platform={platform}
+              strategy={strategy}
+              apy={apy}
             />
-          </Center>
-          <Center w="100%" h="10">
-            <Text fontWeight="700" fontSize="md">
-              Covered Call
-            </Text>
-          </Center>
-          <Center w="100%" h="10">
-            <Text fontWeight="700" fontSize="xl">
-              100%
-            </Text>
-          </Center>
-        </Grid>
+          ))}
+        </VStack>
       </Container>
     </>
   );
