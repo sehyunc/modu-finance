@@ -19,17 +19,35 @@ import { ReactNode } from "react";
 import AccessibleLink from "@/components/AccessibleLink";
 
 const Links = [
-  "Your Vaults",
-  "Leaderboard",
-  "Fontis",
-  "Ribbon",
-  "Opeth",
-  "Optional",
+  {
+    label: "Your Vaults",
+    href: "/",
+  },
+  {
+    label: "Leaderboard",
+    href: "/leaderboard",
+  },
+  {
+    label: "Fontis",
+    href: "/fontis",
+  },
+  {
+    label: "Ribbon",
+    href: "/ribbon",
+  },
+  {
+    label: "Opeth",
+    href: "/opeth",
+  },
+  {
+    label: "Optional",
+    href: "/optional",
+  },
 ];
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Box px="2" py="1">
-    <AccessibleLink href={`/${href}`} isExternal={false} decoration={false}>
+    <AccessibleLink href={href} isExternal={false} decoration={false}>
       {children}
     </AccessibleLink>
   </Box>
@@ -56,15 +74,15 @@ export default function Navbar() {
           />
           <HStack spacing={8} alignItems={"center"}>
             {/* <Box><ChakraNextImage src="/static/logo-white.png" alt="logo" width={{base: '48px'}} height={{base: '48px'}}/></Box> */}
-            <Box>Opyn</Box>
+            <NavLink href="/">Opyn</NavLink>
             <HStack
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link} href={link.toLowerCase()}>
-                  {link}
+              {Links.map(({ label, href }) => (
+                <NavLink key={href} href={href}>
+                  {label}
                 </NavLink>
               ))}
             </HStack>
@@ -93,9 +111,9 @@ export default function Navbar() {
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link} href={link.toLowerCase()}>
-                  {link}
+              {Links.map(({ label, href }) => (
+                <NavLink key={href} href={href}>
+                  {label}
                 </NavLink>
               ))}
             </Stack>
