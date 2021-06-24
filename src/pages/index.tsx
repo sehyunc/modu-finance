@@ -57,7 +57,7 @@ const WATCH_VAULTS = [
 ];
 const Home = () => {
   return (
-    <Box mb={8} w="full">
+    <Box m={8}>
       <Heading mt="6">Your Vaults</Heading>
       <HStack align="center" p="6" spacing="12">
         {CURRENT_VAULTS.map(

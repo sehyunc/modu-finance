@@ -13,10 +13,8 @@ const Layout = ({ children }: LayoutProps) => {
     <Box margin="0 auto" transition="0.5s ease-out">
       <Meta />
       <Navbar />
-      <Box margin="8">
-        <Box as="main" marginY={22}>
-          {children}
-        </Box>
+      <Box>
+        <Box as="main">{children}</Box>
       </Box>
     </Box>
   );
