@@ -6,6 +6,7 @@ import {
   Grid,
   Heading,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import LeaderboardRow from "@/components/LeaderboardRow";
 
@@ -39,29 +40,40 @@ const ROWS = [
 const Leaderboard = () => {
   return (
     <>
-      <Heading mt="6">Leaderboard</Heading>
-      <ButtonGroup size="sm" isAttached variant="outline" p="6">
-        <Button mr="-px">All Time</Button>
-        <Button mr="-px">This Week</Button>
-        <Button mr="-px">This Month</Button>
-      </ButtonGroup>
-      <Container maxW="4xl">
-        <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-          <Center w="100%">Rank</Center>
-          <Center w="100%" h="10">
-            Name
+      <Container maxW="6xl">
+        <Heading mt="6">Leaderboard</Heading>
+        <ButtonGroup size="sm" isAttached variant="outline" my="6">
+          <Button mr="-px">All Time</Button>
+          <Button mr="-px">This Week</Button>
+          <Button mr="-px">This Month</Button>
+        </ButtonGroup>
+      </Container>
+      <Container maxW="6xl" bg="#1a1f2c" rounded="md" py="16px">
+        <Grid
+          fontWeight="700"
+          fontSize="xl"
+          templateColumns="repeat(5, 1fr)"
+          gap={6}
+          pb="5"
+          pt="2"
+        >
+          <Center>
+            <Text>Rank</Text>
           </Center>
-          <Center w="100%" h="10">
-            Platform
+          <Center>
+            <Text>Name</Text>
           </Center>
-          <Center w="100%" h="10">
-            Strategy
+          <Center>
+            <Text>Platform</Text>
           </Center>
-          <Center w="100%" h="10">
-            Projected APY
+          <Center>
+            <Text>Strategy</Text>
+          </Center>
+          <Center>
+            <Text>Projected APY</Text>
           </Center>
         </Grid>
-        <VStack spacing="3">
+        <VStack spacing="6">
           {ROWS.map(({ name, platform, strategy, apy }, index) => (
             <LeaderboardRow
               key={index}

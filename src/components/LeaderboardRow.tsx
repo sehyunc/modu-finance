@@ -1,4 +1,4 @@
-import { Center, Grid, Text } from "@chakra-ui/react";
+import { Center, Grid, Text, Tooltip } from "@chakra-ui/react";
 import Image from "next/image";
 
 type LeaderboardRowProps = {
@@ -30,37 +30,34 @@ const LeaderboardRow = ({
       templateColumns="repeat(5, 1fr)"
       gap={6}
       bgGradient={rank === 1 ? "linear(to-l, #7928CA, #FF0080)" : ""}
+      bg={rank === 1 ? "" : "#15171e"}
       minW="100%"
       rounded="md"
       py="4"
+      fontWeight="700"
+      fontSize="xl"
     >
-      <Center w="100%">
-        <Text fontWeight="700" fontSize="xl">
-          {rank}
-        </Text>
+      <Center>
+        <Text>{rank}</Text>
       </Center>
-      <Center w="100%">
-        <Text fontWeight="700" fontSize="xl">
-          {name}
-        </Text>
+      <Center>
+        <Text>{name}</Text>
       </Center>
-      <Center w="100%" position="relative">
-        <Image
-          src={`/static/${getIcon(platform)}`}
-          alt={platform}
-          layout="fill"
-          objectFit="contain"
-        />
+      <Tooltip hasArrow label={platform} placement="top" aria-label="platform">
+        <Center position="relative">
+          <Image
+            src={`/static/${getIcon(platform)}`}
+            alt={platform}
+            layout="fill"
+            objectFit="contain"
+          />
+        </Center>
+      </Tooltip>
+      <Center>
+        <Text>{strategy}</Text>
       </Center>
-      <Center w="100%">
-        <Text fontWeight="700" fontSize="md">
-          {strategy}
-        </Text>
-      </Center>
-      <Center w="100%">
-        <Text fontWeight="700" fontSize="xl">
-          {`${apy}%`}
-        </Text>
+      <Center>
+        <Text>{`${apy}%`}</Text>
       </Center>
     </Grid>
   );
