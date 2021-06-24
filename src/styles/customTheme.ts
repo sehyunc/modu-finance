@@ -4,8 +4,8 @@ import { mode } from "@chakra-ui/theme-tools";
 const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
-    body: "Lexend, sans-serif",
-    heading: "Lexend, serif",
+    body: "Inter, sans-serif",
+    heading: "Epilogue, serif",
   },
   config: {
     useSystemColorMode: false,

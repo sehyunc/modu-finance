@@ -58,8 +58,8 @@ const WATCH_VAULTS = [
 const Home = () => {
   return (
     <Box m={8}>
-      <Heading mt="6">Your Vaults</Heading>
-      <HStack align="center" p="6" spacing="12">
+      <Heading my="6">My Vaults</Heading>
+      <HStack align="center" spacing="12">
         {CURRENT_VAULTS.map(
           ({ name, platform, underlying, apy, current, max }) => (
             <VaultCard
@@ -74,8 +74,8 @@ const Home = () => {
           )
         )}
       </HStack>
-      <Heading mt="6">Watchlist</Heading>
-      <HStack align="center" p="6" spacing="12">
+      <Heading my="6">Watchlist</Heading>
+      <HStack align="center" spacing="12">
         {WATCH_VAULTS.map(
           ({ name, platform, underlying, apy, current, max }) => (
             <VaultCard

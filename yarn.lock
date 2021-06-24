@@ -2217,6 +2217,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/epilogue@^4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/epilogue/-/epilogue-4.4.5.tgz#f1021de4af491b6cca14a3f984fb1431b62343eb"
+  integrity sha512-/w7lCBX/dIsZG+VTTG2aFIET/kLCaV9i8fIgwREIz2S087oluh8c9JJPy/9jMv064NbnnSqJuWUrnR/1XtreYg==
+
+"@fontsource/inter@^4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/inter/-/inter-4.4.5.tgz#bce26ff9dd83898bd610924cff1342cc30d0e89a"
+  integrity sha512-eRUmB54CbyC3MhAuw2VvTPEc3wy8sFi0/1mVHaC7ZXglXcrSWXY+p8Xad/Zy8AcmS9BuqCCEH2qJbOt9XdX65Q==
+
 "@fontsource/lexend@^4.4.5":
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.4.5.tgz#d4700cade416f9984923d4130507e0c8d1f30af2"

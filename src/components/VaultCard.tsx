@@ -54,11 +54,11 @@ const VaultCard = ({
         <Heading>{name}</Heading>
         <div>
           <Text>Projected APY</Text>
-          <Heading>{`${apy}%`}</Heading>
+          <Heading fontFamily="Epilogue">{`${apy}%`}</Heading>
         </div>
         <div>
           <Flex align="center" justify="space-between">
-            <Text>Current Desposits</Text>
+            <Text>Current Deposits</Text>
             <Text>{`${current} ${underlying}`}</Text>
           </Flex>
           <Progress value={(parseFloat(current) / parseFloat(max)) * 100} />
