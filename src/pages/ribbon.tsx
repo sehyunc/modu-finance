@@ -1,6 +1,8 @@
 import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react";
 import Image from "next/image";
 import VaultCard from "@/components/VaultCard";
+import { PageContainer } from "@/components/PageContainer";
+import { Main } from "@/components/Main";
 
 const CURRENT_VAULTS = [
   {
@@ -64,24 +66,26 @@ const Ribbon = () => {
           </Flex>
         </Container>
       </Box>
-      <Container maxW="6xl" position="relative" pt="9" bg="#000000">
-        <Heading mb="6">Available Vaults</Heading>
-        <HStack align="center" p="6" spacing="12">
-          {CURRENT_VAULTS.map(
-            ({ name, platform, underlying, apy, current, max }) => (
-              <VaultCard
-                key={name}
-                name={name}
-                platform={platform}
-                underlying={underlying}
-                apy={apy}
-                current={current}
-                max={max}
-              />
-            )
-          )}
-        </HStack>
-      </Container>
+      <PageContainer position="relative" bg="#000000">
+        <Main width="100%">
+          <Heading>Available Vaults</Heading>
+          <HStack align="center" spacing="12">
+            {CURRENT_VAULTS.map(
+              ({ name, platform, underlying, apy, current, max }) => (
+                <VaultCard
+                  key={name}
+                  name={name}
+                  platform={platform}
+                  underlying={underlying}
+                  apy={apy}
+                  current={current}
+                  max={max}
+                />
+              )
+            )}
+          </HStack>
+        </Main>
+      </PageContainer>
     </>
   );
 };

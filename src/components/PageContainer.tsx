@@ -16,7 +16,7 @@ const Container = (props: FlexProps) => {
 export type PageContainerProps = PropsWithChildren<FlexProps>;
 
 export const PageContainer = ({ children, ...props }: PageContainerProps) => {
-  const bgColor = useColorModeValue("white", "gray.900");
+  const bgColor = useColorModeValue("white", "#000000");
   const color = useColorModeValue("black", "white");
 
   return (
