@@ -26,9 +26,9 @@ const CURRENT_VAULTS = [
 const Fontis = () => {
   return (
     <>
-      <Box w="100%" bgGradient="linear(to-r, #272a3a, #1e1d20)">
+      <Box w="100%" bgColor="#000000">
         <Container maxW="6xl">
-          <Flex py="16" px="4" maxH="300px" position="relative">
+          <Flex py="16" px="4" position="relative">
             <Flex
               grow={1}
               shrink={1}
@@ -38,7 +38,7 @@ const Fontis = () => {
               direction="column"
             >
               <Heading mb="6">Fontis</Heading>
-              <Text>
+              <Text opacity="0.64">
                 Fontis finance enables users to earn a yield by depositing
                 assets into perpetual vaults trading options strategies. Fontis
                 creates products with a perpetual position out of instruments
@@ -68,11 +68,19 @@ const Fontis = () => {
           </Flex>
         </Container>
       </Box>
-      <PageContainer position="relative" bg="#000000">
+      <PageContainer position="relative" bg="gray.900">
         <Main width="100%">
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">
-            {CURRENT_VAULTS.map(
+            <VaultCard
+              name={"ETH-A"}
+              platform={"Fontis"}
+              underlying={"ETH"}
+              apy={"4"}
+              current={"12"}
+              max={"100"}
+            />
+            {/* {CURRENT_VAULTS.map(
               ({ name, platform, underlying, apy, current, max }) => (
                 <VaultCard
                   key={name}
@@ -84,7 +92,7 @@ const Fontis = () => {
                   max={max}
                 />
               )
-            )}
+            )} */}
           </HStack>
         </Main>
       </PageContainer>

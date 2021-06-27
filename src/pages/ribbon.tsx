@@ -26,9 +26,9 @@ const CURRENT_VAULTS = [
 const Ribbon = () => {
   return (
     <>
-      <Box w="100%" bgGradient="linear(to-r, #272a3a, #1e1d20)">
+      <Box w="100%" bgColor="#000000">
         <Container maxW="6xl">
-          <Flex py="16" px="4" maxH="300px" position="relative">
+          <Flex py="16" px="4" position="relative">
             <Flex
               grow={1}
               shrink={1}
@@ -38,7 +38,7 @@ const Ribbon = () => {
               direction="column"
             >
               <Heading mb="6">Ribbon</Heading>
-              <Text>
+              <Text opacity="0.64">
                 Ribbon uses financial engineering to create structured products
                 that deliver sustainable yield. Ribbon&apos;s first product
                 focuses on yield through automated options strategies. The
@@ -66,7 +66,7 @@ const Ribbon = () => {
           </Flex>
         </Container>
       </Box>
-      <PageContainer position="relative" bg="#000000">
+      <PageContainer position="relative" bgColor="gray.900">
         <Main width="100%">
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">

@@ -14,7 +14,7 @@ const customTheme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: mode("#ffffff", "#000000")(props),
+        bg: mode("#ffffff", "gray.900")(props),
       },
     }),
   },

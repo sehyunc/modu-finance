@@ -16,12 +16,12 @@ const Container = (props: FlexProps) => {
 export type PageContainerProps = PropsWithChildren<FlexProps>;
 
 export const PageContainer = ({ children, ...props }: PageContainerProps) => {
-  const bgColor = useColorModeValue("white", "#000000");
+  const bgColor = useColorModeValue("white", "gray.900");
   const color = useColorModeValue("black", "white");
 
   return (
     <Box bg={bgColor} color={color}>
-      <Container minHeight="100vh" maxWidth="72rem" mx="auto" {...props}>
+      <Container maxWidth="72rem" mx="auto" {...props}>
         <Container px={8} flexDirection="row" alignItems="start">
           {children}
         </Container>
