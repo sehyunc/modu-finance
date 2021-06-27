@@ -76,7 +76,7 @@ const VaultCard = ({
           bgGradient={`linear(to-r, ${COLORS[underlying]?.start}, ${COLORS[underlying]?.end})`}
         >
           <Image
-            zIndex="1"
+            // zIndex="1"
             src={`/static/${underlying}.svg`}
             alt="logo"
             minH="100%"
@@ -97,7 +97,7 @@ const VaultCard = ({
               transform: "scale(1.2)",
             }}
           />
-          <Box>
+          <Box pointerEvents="none" zIndex="1">
             <Box mb="1">
               <Tag variant="solid" colorScheme={COLORS[underlying]?.tag} mr="3">
                 {platform}
@@ -114,15 +114,12 @@ const VaultCard = ({
             <div>
               <Flex align="center" justify="space-between">
                 <Text>Current Deposits</Text>
-                <Text zIndex="2">{`${current} ${underlying}`}</Text>
+                <Text>{`${current} ${underlying}`}</Text>
               </Flex>
-              <Progress
-                value={(parseFloat(current) / parseFloat(max)) * 100}
-                zIndex="0"
-              />
+              <Progress value={(parseFloat(current) / parseFloat(max)) * 100} />
               <Flex align="center" justify="space-between">
                 <Text>Max Capacity</Text>
-                <Text zIndex="2">{`${max} ${underlying}`}</Text>
+                <Text>{`${max} ${underlying}`}</Text>
               </Flex>
             </div>
           </Box>
