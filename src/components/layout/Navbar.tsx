@@ -20,7 +20,7 @@ import AccessibleLink from "@/components/AccessibleLink";
 
 const Links = [
   {
-    label: "My Vaults",
+    label: "Dashboard",
     href: "/",
   },
   {

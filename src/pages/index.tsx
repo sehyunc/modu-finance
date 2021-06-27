@@ -1,6 +1,8 @@
 import VaultCard from "@/components/VaultCard";
 import { Box } from "@chakra-ui/layout";
 import { Heading, HStack } from "@chakra-ui/react";
+import { PageContainer } from "@/components/PageContainer";
+import { Main } from "@/components/Main";
 
 const CURRENT_VAULTS = [
   {
@@ -55,42 +57,52 @@ const WATCH_VAULTS = [
     max: "1000",
   },
 ];
+
 const Home = () => {
   return (
-    <Box m={8}>
-      <Heading my="6">My Vaults</Heading>
-      <HStack align="center" spacing="12">
-        {CURRENT_VAULTS.map(
-          ({ name, platform, underlying, apy, current, max }) => (
-            <VaultCard
-              key={name}
-              name={name}
-              platform={platform}
-              underlying={underlying}
-              apy={apy}
-              current={current}
-              max={max}
-            />
-          )
-        )}
-      </HStack>
-      <Heading my="6">Watchlist</Heading>
-      <HStack align="center" spacing="12">
-        {WATCH_VAULTS.map(
-          ({ name, platform, underlying, apy, current, max }) => (
-            <VaultCard
-              key={name}
-              name={name}
-              platform={platform}
-              underlying={underlying}
-              apy={apy}
-              current={current}
-              max={max}
-            />
-          )
-        )}
-      </HStack>
-    </Box>
+    <PageContainer>
+      <Main
+        // ml={{ md: 8 }}
+        // pl={{ base: "1rem", md: "2em" }}
+        minHeight="80vh"
+        // spacing="none"
+        // maxWidth="49rem"
+        width="100%"
+      >
+        <Heading>My Vaults</Heading>
+        <HStack align="center" spacing="12">
+          {CURRENT_VAULTS.map(
+            ({ name, platform, underlying, apy, current, max }) => (
+              <VaultCard
+                key={name}
+                name={name}
+                platform={platform}
+                underlying={underlying}
+                apy={apy}
+                current={current}
+                max={max}
+              />
+            )
+          )}
+        </HStack>
+        <Heading>Watchlist</Heading>
+        <HStack align="center" spacing="12">
+          {WATCH_VAULTS.map(
+            ({ name, platform, underlying, apy, current, max }) => (
+              <VaultCard
+                key={name}
+                name={name}
+                platform={platform}
+                underlying={underlying}
+                apy={apy}
+                current={current}
+                max={max}
+              />
+            )
+          )}
+        </HStack>
+      </Main>
+    </PageContainer>
   );
 };
 
