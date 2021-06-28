@@ -1,6 +1,5 @@
-import AccessibleLink from "@/components/AccessibleLink";
+import { vaultAtom } from "@/utils/atoms";
 import {
-  useDisclosure,
   Box,
   Flex,
   Grid,
@@ -9,8 +8,8 @@ import {
   Progress,
   Tag,
   Text,
-  Slide,
 } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 
 const COLORS = {
   ETH: {
@@ -42,11 +41,10 @@ const VaultCard = ({
   current,
   max,
 }: VaultCardProps) => {
-  const { isOpen, onToggle } = useDisclosure();
+  const [vault, setVault] = useAtom(vaultAtom);
   return (
-    // <AccessibleLink href={`/${platform.toLowerCase()}/${name.toLowerCase()}`}>
     <Box
-      onClick={onToggle}
+      onClick={() => setVault(name)}
       minW="30rem"
       borderRadius="lg"
       boxShadow="surface"

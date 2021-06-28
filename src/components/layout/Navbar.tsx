@@ -63,7 +63,7 @@ export default function Navbar() {
         px={4}
         position="sticky"
         top="0"
-        zIndex="99999"
+        zIndex="10"
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton

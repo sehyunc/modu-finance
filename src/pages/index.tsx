@@ -72,9 +72,9 @@ const Home = () => {
         <Heading>My Vaults</Heading>
         <HStack align="center" spacing="12">
           {CURRENT_VAULTS.map(
-            ({ name, platform, underlying, apy, current, max }) => (
+            ({ name, platform, underlying, apy, current, max }, index) => (
               <VaultCard
-                key={name}
+                key={index}
                 name={name}
                 platform={platform}
                 underlying={underlying}
@@ -88,9 +88,9 @@ const Home = () => {
         <Heading>Watchlist</Heading>
         <HStack align="center" spacing="12">
           {WATCH_VAULTS.map(
-            ({ name, platform, underlying, apy, current, max }) => (
+            ({ name, platform, underlying, apy, current, max }, index) => (
               <VaultCard
-                key={name}
+                key={index}
                 name={name}
                 platform={platform}
                 underlying={underlying}

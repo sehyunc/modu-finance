@@ -2227,11 +2227,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/inter/-/inter-4.4.5.tgz#bce26ff9dd83898bd610924cff1342cc30d0e89a"
   integrity sha512-eRUmB54CbyC3MhAuw2VvTPEc3wy8sFi0/1mVHaC7ZXglXcrSWXY+p8Xad/Zy8AcmS9BuqCCEH2qJbOt9XdX65Q==
 
-"@fontsource/lexend@^4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.4.5.tgz#d4700cade416f9984923d4130507e0c8d1f30af2"
-  integrity sha512-JRGHsXyso9V4dfTFbHIlFJTFhdmw00IIvF2SYZLfZEXDLEyStn4fRX7GajE+kKOVFv97EGFQ4YEeFbgCK1KEsA==
-
 "@fontsource/manrope@^4.4.5":
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/@fontsource/manrope/-/manrope-4.4.5.tgz#cff3368e8cf20c29b47e31f16da3db07659a45d0"
@@ -4879,6 +4874,11 @@ jest-worker@^27.0.2:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
+
+jotai@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.1.0.tgz#a0f1afd15a187ab5578250d54a42bac999bfbaf9"
+  integrity sha512-+c/bMxS/c1LgsOYVfevOYLAu+WEgn85TJhmBoNSNHjMV+mTKZY0ACSyCrX1yz8KialK4+Ggm6d7Ek3sTXy8UgA==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

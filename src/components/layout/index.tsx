@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 
 import Meta from "./Meta";
 import Navbar from "./Navbar";
+import VaultDrawer from "./VaultDrawer";
 
 type LayoutProps = {
   children: ReactNode;
@@ -13,9 +14,8 @@ const Layout = ({ children }: LayoutProps) => {
     <Box margin="0 auto" transition="0.5s ease-out">
       <Meta />
       <Navbar />
-      <Box>
-        <Box as="main">{children}</Box>
-      </Box>
+      <VaultDrawer />
+      <Box as="main">{children}</Box>
     </Box>
   );
 };
