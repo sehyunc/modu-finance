@@ -5,7 +5,7 @@ const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
     body: "Inter, sans-serif",
-    heading: "Epilogue, serif",
+    heading: "Manrope, serif",
   },
   config: {
     useSystemColorMode: false,

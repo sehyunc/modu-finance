@@ -2232,6 +2232,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.4.5.tgz#d4700cade416f9984923d4130507e0c8d1f30af2"
   integrity sha512-JRGHsXyso9V4dfTFbHIlFJTFhdmw00IIvF2SYZLfZEXDLEyStn4fRX7GajE+kKOVFv97EGFQ4YEeFbgCK1KEsA==
 
+"@fontsource/manrope@^4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/manrope/-/manrope-4.4.5.tgz#cff3368e8cf20c29b47e31f16da3db07659a45d0"
+  integrity sha512-0vfuFJ9LA+DoMwVI2pwTPdJ4bGMdUp3qDTNUsyG+O4rK/uNVV7aOulUAeeB6GUD3CbHasXMxBR0b2PWJk5q7/w==
+
 "@hapi/accept@5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.1.tgz#068553e867f0f63225a506ed74e899441af53e10"

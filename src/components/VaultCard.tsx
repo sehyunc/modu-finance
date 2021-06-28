@@ -43,7 +43,7 @@ const VaultCard = ({
   max,
 }: VaultCardProps) => {
   return (
-    <AccessibleLink href={`/${platform}/${name}`}>
+    <AccessibleLink href={`/${platform.toLowerCase()}/${name.toLowerCase()}`}>
       <Box
         minW="30rem"
         borderRadius="lg"
