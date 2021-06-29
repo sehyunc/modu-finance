@@ -80,7 +80,7 @@ const VaultCard = ({
         bgGradient={`linear(to-r, ${COLORS[underlying]?.start}, ${COLORS[underlying]?.end})`}
       >
         <Image
-          src={`/static/${underlying}.svg`}
+          src={`/static/${underlying.toLowerCase()}.svg`}
           alt="logo"
           minH="100%"
           minW="100%"
