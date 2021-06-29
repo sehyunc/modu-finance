@@ -1,26 +1,25 @@
+import { vaultAtom } from "@/utils/atoms";
 import {
+  Button,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  Button,
+  Heading,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import { useRef } from "react";
-import { useAtom, atom } from "jotai";
-import { vaultAtom } from "@/utils/atoms";
+import VaultForm from "@/components/VaultForm";
 
 const DrawerExample = () => {
   const btnRef = useRef();
   const [vault, setVault] = useAtom(vaultAtom);
-  console.log(
-    "🚀 ~ file: VaultDrawer.tsx ~ line 18 ~ DrawerExample ~ vault",
-    vault
-  );
   const isOpen = vault !== "";
-  // const isOpen = atom((get) => get(vaultAtom)) !== "";
   const onClose = () => setVault("");
 
   return (
@@ -31,20 +30,35 @@ const DrawerExample = () => {
         onClose={onClose}
         finalFocusRef={btnRef}
         zIndex="99999"
+        size="md"
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg="#1c1a19">
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>{vault}</DrawerHeader>
 
-          <DrawerBody>{"Hello"}</DrawerBody>
+          <DrawerBody>
+            <VStack align="flex-start" spacing="4">
+              <VaultForm />
+              <Heading size="md">Vault Strategy</Heading>
+              <Text>
+                This vault earns yield on its ETH deposits by running an
+                automated ETH covered call strategy. Put simply, the vault mints
+                out-of-the-money ETH call options on Opyn on a weekly basis and
+                sells these options to market makers for a fee (the market price
+                of the option, also known as the option premium). The vault
+                repeats this process on a weekly basis and reinvests the income
+                earned from selling options to mint new options, effectively
+                compounding the yields for depositors over time. The vault has a
+                manager who selects the strike price for the call options minted
+                by the vault. The manager is responsible for making the best
+                tradeoff between yield versus the risk of the call options
+                getting exercised.
+              </Text>
+            </VStack>
+          </DrawerBody>
 
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
+          <DrawerFooter></DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

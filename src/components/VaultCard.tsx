@@ -33,6 +33,8 @@ type VaultCardProps = {
   max: string | number;
 };
 
+// TODO: Make Vault object similar to Ribbon's and use hook to retrieve vault info for all places necessary
+
 const VaultCard = ({
   name,
   platform,
@@ -41,7 +43,7 @@ const VaultCard = ({
   current,
   max,
 }: VaultCardProps) => {
-  const [vault, setVault] = useAtom(vaultAtom);
+  const [, setVault] = useAtom(vaultAtom);
   return (
     <Box
       onClick={() => setVault(name)}
