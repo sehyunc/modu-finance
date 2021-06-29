@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 
-const COLORS = {
+const COLORS: ICOLORS = {
   ETH: {
     start: "#c993ff",
     end: "#415dff",
@@ -23,7 +23,15 @@ const COLORS = {
     tag: "yellow",
   },
 };
+interface color {
+  start: string;
+  end: string;
+  tag: string;
+}
 
+interface ICOLORS {
+  [key: string]: color;
+}
 type VaultCardProps = {
   name: string;
   platform: string;
