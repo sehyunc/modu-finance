@@ -21,7 +21,7 @@ import AccessibleLink from "@/components/AccessibleLink";
 const Links = [
   {
     label: "Dashboard",
-    href: "/",
+    href: "/dashboard",
   },
   {
     label: "Leaderboard",
