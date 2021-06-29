@@ -35,14 +35,6 @@ const Links = [
     label: "Ribbon",
     href: "/ribbon",
   },
-  {
-    label: "Opeth",
-    href: "/opeth",
-  },
-  {
-    label: "Optional",
-    href: "/optional",
-  },
 ];
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
