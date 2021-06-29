@@ -38,7 +38,7 @@ type VaultCardProps = {
   underlying: string;
   apy: string | number;
   current: string;
-  max: string | number;
+  max: string;
 };
 
 // TODO: Make Vault object similar to Ribbon's and use hook to retrieve vault info for all places necessary
