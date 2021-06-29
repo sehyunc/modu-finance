@@ -15,11 +15,8 @@ const Home = () => {
           Vault Aggregator
         </Heading>
         <Text>Find and compare strategies across the Opyn ecosystem</Text>
-        <Center
-          maxWidth="60rem"
-          py={2}
-        >
-          <AccessibleLink href="/dashboard" flexGrow={2} prefetch={false}>
+        <Center maxWidth="60rem" py={2}>
+          <AccessibleLink href="/dashboard" isExternal>
             <Button size="lg" width="100%" variant="outline" colorScheme="gray">
               Enter App
             </Button>

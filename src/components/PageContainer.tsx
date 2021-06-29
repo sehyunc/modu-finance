@@ -1,8 +1,8 @@
-import { Box, Flex, FlexProps, useColorModeValue } from "@chakra-ui/react";
-import { PropsWithChildren } from "react";
 import Footer from "@/components/Footer";
 import LandingNavbar from "@/components/LandingNavbar";
+import { Box, Flex, FlexProps, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { PropsWithChildren } from "react";
 
 const Container = (props: FlexProps) => {
   return (

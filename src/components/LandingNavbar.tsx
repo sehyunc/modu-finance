@@ -107,14 +107,10 @@ export const MenuStack = (props: StackProps) => (
   </Stack>
 );
 
-interface NavbarProps {
-  ifDocs: boolean;
-}
-
-const Navbar = ({ ifDocs, ...props }: NavbarProps) => {
+const Navbar = () => {
   return (
     <>
-      <NavbarContainer {...props}>
+      <NavbarContainer>
         <Logo />
         <Box
           display={{ base: "none", md: "block" }}

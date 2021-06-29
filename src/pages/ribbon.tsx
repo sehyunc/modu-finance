@@ -66,8 +66,8 @@ const Ribbon = () => {
           </Flex>
         </Container>
       </Box>
-      <PageContainer position="relative" bgColor="gray.900">
-        <Main width="100%">
+      <PageContainer position="relative" bgColor="gray.900" minH="">
+        <Main>
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">
             {CURRENT_VAULTS.map(
