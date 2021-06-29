@@ -1,6 +1,7 @@
 import VaultForm from "@/components/VaultForm";
 import { vaultAtom } from "@/utils/atoms";
 import {
+  Box,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -20,14 +21,8 @@ const DrawerExample = () => {
   const onClose = () => setVault("");
 
   return (
-    <>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        zIndex="99999"
-        size="md"
-      >
+    <Box zIndex="99999">
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
         <DrawerOverlay />
         <DrawerContent bg="#1c1a19">
           <DrawerCloseButton />
@@ -57,7 +52,7 @@ const DrawerExample = () => {
           <DrawerFooter></DrawerFooter>
         </DrawerContent>
       </Drawer>
-    </>
+    </Box>
   );
 };
 
