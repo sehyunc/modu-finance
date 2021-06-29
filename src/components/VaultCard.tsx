@@ -37,7 +37,7 @@ type VaultCardProps = {
   platform: string;
   underlying: string;
   apy: string | number;
-  current: string | number;
+  current: string;
   max: string | number;
 };
 
