@@ -1,6 +1,6 @@
+import VaultForm from "@/components/VaultForm";
 import { vaultAtom } from "@/utils/atoms";
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -13,11 +13,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { useRef } from "react";
-import VaultForm from "@/components/VaultForm";
 
 const DrawerExample = () => {
-  const btnRef = useRef();
   const [vault, setVault] = useAtom(vaultAtom);
   const isOpen = vault !== "";
   const onClose = () => setVault("");
@@ -28,7 +25,6 @@ const DrawerExample = () => {
         isOpen={isOpen}
         placement="right"
         onClose={onClose}
-        finalFocusRef={btnRef}
         zIndex="99999"
         size="md"
       >
