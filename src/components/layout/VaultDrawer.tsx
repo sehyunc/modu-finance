@@ -1,6 +1,9 @@
 import VaultForm from "@/components/VaultForm";
 import { vaultAtom } from "@/utils/atoms";
 import {
+  Flex,
+  Spacer,
+  Button,
   Box,
   Drawer,
   DrawerBody,
@@ -14,6 +17,26 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
+import AccessibleLink from "@/components/AccessibleLink";
+import Image from "next/image";
+
+const VaultRow = () => (
+  <Flex
+    bg="#252322"
+    px="6"
+    borderRadius="lg"
+    h="50px"
+    w="100%"
+    align="center"
+    position="relative"
+    fontWeight="semibold"
+  >
+    <Image src={`/static/ribbon.svg`} alt="eth" width="30px" height="30px" />
+    <Text ml="3">T-ETH-C</Text>
+    <Spacer />
+    <Text>10.08%</Text>
+  </Flex>
+);
 
 const DrawerExample = () => {
   const [vault, setVault] = useAtom(vaultAtom);
@@ -29,8 +52,11 @@ const DrawerExample = () => {
           <DrawerHeader>{vault}</DrawerHeader>
 
           <DrawerBody>
-            <VStack align="flex-start" spacing="4">
+            <VStack align="flex-start" spacing="6">
               <VaultForm />
+              <Heading size="md">Other ETH Vault Yields</Heading>
+              <VaultRow />
+
               <Heading size="md">Vault Strategy</Heading>
               <Text>
                 This vault earns yield on its ETH deposits by running an
@@ -49,7 +75,14 @@ const DrawerExample = () => {
             </VStack>
           </DrawerBody>
 
-          <DrawerFooter></DrawerFooter>
+          <DrawerFooter>
+            <AccessibleLink
+              href="https://app.ribbon.finance/theta-vault/T-ETH-C"
+              isExternal
+            >
+              <Button colorScheme="gray">View on Ribbon</Button>
+            </AccessibleLink>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </Box>

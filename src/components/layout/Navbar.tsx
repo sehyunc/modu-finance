@@ -1,3 +1,4 @@
+import AccessibleLink from "@/components/AccessibleLink";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -5,18 +6,13 @@ import {
   Flex,
   HStack,
   IconButton,
-  Link,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
   Stack,
+  Text,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
-import AccessibleLink from "@/components/AccessibleLink";
 
 const Links = [
   {
@@ -47,6 +43,7 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
   return (
     <>
@@ -75,7 +72,13 @@ export default function Navbar() {
             >
               {Links.map(({ label, href }) => (
                 <NavLink key={href} href={href}>
-                  {label}
+                  <Text
+                    fontWeight="500"
+                    opacity={router.pathname === href ? 1 : 0.6}
+                    _hover={{ opacity: "1" }}
+                  >
+                    {label}
+                  </Text>
                 </NavLink>
               ))}
             </HStack>
