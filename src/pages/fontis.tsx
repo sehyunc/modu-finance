@@ -68,8 +68,8 @@ const Fontis = () => {
           </Flex>
         </Container>
       </Box>
-      <PageContainer position="relative" bg="gray.900">
-        <Main minH="">
+      <PageContainer position="relative" bg="gray.900" minH="">
+        <Main mb="6">
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">
             <VaultCard

@@ -122,6 +122,7 @@ export default function Navbar() {
         bgGradient="linear(to-r, #f4b04a, #d15c6c)"
         opacity="0.5"
         position="fixed"
+        zIndex="10"
       />
     </>
   );

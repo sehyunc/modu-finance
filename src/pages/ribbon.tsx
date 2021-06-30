@@ -67,7 +67,7 @@ const Ribbon = () => {
         </Container>
       </Box>
       <PageContainer position="relative" bgColor="gray.900" minH="">
-        <Main>
+        <Main maxWidth="49rem" mb="6">
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">
             {CURRENT_VAULTS.map(
