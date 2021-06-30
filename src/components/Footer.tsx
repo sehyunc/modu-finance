@@ -21,7 +21,7 @@ const Footer = (props: FlexProps) => {
           Copyright
         </Button>
       </AccessibleLink>
-      <Link href="https://github.com/fontsource/fontsource" isExternal>
+      <Link href="https://github.com/sehyunc/opyn-vault-aggregator" isExternal>
         <Button variant="ghost" size="sm" rightIcon={<AiFillGithub />}>
           GitHub
         </Button>
