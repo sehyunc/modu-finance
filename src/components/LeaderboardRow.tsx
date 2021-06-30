@@ -14,7 +14,7 @@ const getIcon = (platform: string) => {
     case "Fontis":
       return "fontis.png";
     default:
-      return `${platform}.svg`;
+      return `${platform.toLowerCase()}.svg`;
   }
 };
 
