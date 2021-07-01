@@ -39,7 +39,6 @@ const useOnboard = () => {
         if (!walletIsReady) {
           return;
         }
-
         postSignInCallback?.();
       } catch (e) {
         console.warn("Onboard isn't ready!");

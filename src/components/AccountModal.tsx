@@ -19,7 +19,7 @@ import {
 import React from "react";
 
 export default function AccountModal() {
-  const { address, wallet, onboard } = useOnboard();
+  const { address, walletName, onboard } = useOnboard();
 
   const { onCopy } = useClipboard(address);
   const { colorMode } = useColorMode();
@@ -52,7 +52,7 @@ export default function AccountModal() {
               padding={6}
             >
               <Text fontSize="sm" fontWeight="500">
-                Connected Wallet: {`${wallet.name}`}
+                Connected Wallet: {walletName}
               </Text>
               <Text fontSize="1.6em" fontWeight="500">
                 {address?.substr(0, 8)}...{address?.substr(address.length - 6)}

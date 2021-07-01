@@ -1,12 +1,20 @@
 import { Box, Button, Center, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import useOnboard from "@/hooks/useOnboard";
 
-const VaultForm = () => {
+const VaultForm = ({ onClose }) => {
+  const { connectWallet, isWalletConnected } = useOnboard();
   const [isDeposit, setIsDeposit] = useState(true);
   const buttonText = isDeposit ? "Deposit ETH" : "Withdraw ETH";
   const footerText = isDeposit
     ? "Wallet Balance: 0.7 ETH"
     : "Your Position: 1 ETH";
+
+  const closeAndConnect = () => {
+    onClose();
+    connectWallet();
+  };
+
   return (
     <>
       <Box>
@@ -54,8 +62,13 @@ const VaultForm = () => {
             Amount (ETH)
           </Text>
           <Input mb="12" variant="filled" placeholder="0" size="lg" />
-          <Button size="lg" w="100%" mb="6">
-            {buttonText}
+          <Button
+            size="lg"
+            w="100%"
+            mb="6"
+            onClick={!isWalletConnected ? closeAndConnect : () => {}}
+          >
+            {isWalletConnected ? buttonText : "Connect Wallet"}
           </Button>
           <Text textAlign="center" color="white">
             {footerText}

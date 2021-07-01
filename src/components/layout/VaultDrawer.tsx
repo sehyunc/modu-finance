@@ -53,7 +53,7 @@ const DrawerExample = () => {
 
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
-              <VaultForm />
+              <VaultForm onClose={onClose} />
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
 
