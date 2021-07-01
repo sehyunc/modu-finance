@@ -5,7 +5,7 @@ import "@fontsource/manrope/latin.css";
 import "@fontsource/inter/latin.css";
 import "@fontsource/epilogue/latin.css";
 import useInitializeOnboard from "@/hooks/useInitializeOnboard";
-import { useInitCookieOptions } from "@/hooks/useInitCookieOptions";
+import { useInitCookieOptions } from "@/hooks/useCookieOptions";
 
 import Layout from "components/layout";
 
@@ -29,11 +29,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </ChakraProvider>
   );
 };
+console.log(
+  "🚀 ~ file: _app.tsx ~ line 38 ~ InitHooks ~ process.env.NEXT_JS_DEFAULT_ETHEREUM_NETWORK_NAME,",
+  process.env.NEXT_PUBLIC_DEFAULT_ETHEREUM_NETWORK_NAME
+);
 
 const InitHooks = ({ children }) => {
-  useInitCookieOptions(process.env.NEXT_JS_DOMAIN_NAME);
+  useInitCookieOptions(process.env.NEXT_PUBLIC_DOMAIN_NAME);
   useInitializeOnboard({
-    defaultNetworkName: process.env.NEXT_JS_DEFAULT_ETHEREUM_NETWORK_NAME,
+    defaultNetworkName: process.env.NEXT_PUBLIC_DEFAULT_ETHEREUM_NETWORK_NAME,
   });
   return children;
 };
