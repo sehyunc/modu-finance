@@ -1,4 +1,5 @@
 import AccessibleLink from "@/components/AccessibleLink";
+import useOnboard from "@/hooks/useOnboard";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -13,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
+import AccountModal from "@/components/AccountModal";
 
 const Links = [
   {
@@ -44,6 +46,7 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const { connectWallet, address, wallet, onboard } = useOnboard();
 
   return (
     <>
@@ -84,9 +87,19 @@ export default function Navbar() {
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button variant={"solid"} colorScheme={"teal"} size={"sm"} mr={4}>
-              Connect Wallet
-            </Button>
+            {address ? (
+              <AccountModal />
+            ) : (
+              <Button
+                onClick={connectWallet}
+                variant={"solid"}
+                colorScheme={"teal"}
+                size={"sm"}
+                mr={4}
+              >
+                Connect Wallet
+              </Button>
+            )}
             {/* <Menu>
               <MenuButton
                 as={IconButton}

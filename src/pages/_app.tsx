@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { Provider as JotaiProvider } from "jotai";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import "@fontsource/manrope/latin.css";
@@ -14,19 +15,21 @@ import "styles/globals.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <ChakraProvider theme={customTheme}>
-      <Head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-        />
-      </Head>
-      <InitHooks>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </InitHooks>
-    </ChakraProvider>
+    <JotaiProvider>
+      <ChakraProvider theme={customTheme}>
+        <Head>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+          />
+        </Head>
+        <InitHooks>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </InitHooks>
+      </ChakraProvider>
+    </JotaiProvider>
   );
 };
 

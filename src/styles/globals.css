@@ -1,1 +1,4 @@
 /* Global Styling here */
+.bn-onboard-custom.bn-onboard-modal {
+  z-index: 99;
+}
