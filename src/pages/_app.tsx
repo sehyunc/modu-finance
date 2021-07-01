@@ -29,10 +29,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </ChakraProvider>
   );
 };
-console.log(
-  "🚀 ~ file: _app.tsx ~ line 38 ~ InitHooks ~ process.env.NEXT_JS_DEFAULT_ETHEREUM_NETWORK_NAME,",
-  process.env.NEXT_PUBLIC_DEFAULT_ETHEREUM_NETWORK_NAME
-);
 
 const InitHooks = ({ children }) => {
   useInitCookieOptions(process.env.NEXT_PUBLIC_DOMAIN_NAME);
