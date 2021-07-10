@@ -4,6 +4,7 @@ import VaultCard from "@/components/VaultCard";
 import { Button, Heading, HStack } from "@chakra-ui/react";
 import useRibbon from "@/hooks/useRibbon";
 import useFontis from "@/hooks/useFontis";
+import useToken from "@/hooks/useToken";
 import useOnboard from "@/hooks/useOnboard";
 import { utils, ethers } from "ethers";
 
@@ -64,6 +65,7 @@ const WATCH_VAULTS = [
 const Dashboard = () => {
   const { provider } = useOnboard();
   const { depositETH, contract, readValue, estimateGas } = useFontis(provider);
+  const { approve } = useToken(provider, "usdc");
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
@@ -91,7 +93,13 @@ const Dashboard = () => {
     <PageContainer>
       <Main maxWidth="49rem">
         <Button onClick={() => readValue("state")}>Fetch Value</Button>
-        <Button onClick={() => deposit("0.1")}>Deposit 0.01 ETH</Button>
+        <Button
+          onClick={() =>
+            approve("0xa6f018bbed3300ed2b2f42c5b3013a9cbc984f90", 1)
+          }
+        >
+          Approve 1 USDC
+        </Button>
         <Heading>My Vaults</Heading>
         <HStack align="center" spacing="12">
           {CURRENT_VAULTS.map(
