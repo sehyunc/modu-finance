@@ -2,11 +2,12 @@
 /* eslint-disable global-require */
 import { useEffect, useState } from "react";
 import RibbonABI from "../RibbonCoveredCall.json";
+import { utils, ethers, BigNumberish } from "ethers";
 
-const { ethers } = require("ethers");
-
-export default function useRibbon(providerOrSigner) {
-  const [contract, setContract] = useState();
+export default function useRibbon(
+  providerOrSigner: ethers.providers.Web3Provider
+) {
+  const [contract, setContract] = useState<ethers.Contract>();
   useEffect(() => {
     let active = true;
 
@@ -30,7 +31,10 @@ export default function useRibbon(providerOrSigner) {
     };
   }, [providerOrSigner]);
 
-  const readValue = async (value, formatter) => {
+  const readValue = async (
+    value: string,
+    formatter: (wei: BigNumberish) => string
+  ) => {
     if (typeof contract !== "undefined") {
       try {
         let res = await contract[value]();
@@ -51,5 +55,42 @@ export default function useRibbon(providerOrSigner) {
     }
   };
 
-  return { contract, readValue };
+  const estimateGas = async (fn: string, args: {}) => {
+    if (typeof contract !== "undefined") {
+      try {
+        const gas = await contract.estimateGas[fn]({
+          ...args,
+        });
+        return gas;
+      } catch (err) {
+        console.log("Error: ", err);
+      }
+    } else {
+      console.log("NO CONTRACT");
+    }
+  };
+
+  const depositETH = async (value: ethers.BigNumber) => {
+    if (typeof contract !== "undefined") {
+      try {
+        const gasPrice = await estimateGas("depositETH", {
+          value,
+        });
+        const overrides = {
+          gasLimit: ethers.BigNumber.from(200000),
+          gasPrice,
+          value,
+        };
+        const tx = await contract.depositETH(overrides);
+        const receipt = await tx.wait();
+        return receipt;
+      } catch (err) {
+        console.log("Error: ", err);
+      }
+    } else {
+      console.log("NO CONTRACT");
+    }
+  };
+
+  return { estimateGas, contract, depositETH, readValue };
 }

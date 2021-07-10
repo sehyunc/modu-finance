@@ -62,7 +62,7 @@ const WATCH_VAULTS = [
 
 const Dashboard = () => {
   const { provider } = useOnboard();
-  const { contract, readValue } = useRibbon(provider);
+  const { depositETH, contract, readValue, estimateGas } = useRibbon(provider);
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
@@ -80,52 +80,11 @@ const Dashboard = () => {
     }
   }
 
-  const deposit = async () => {
-    if (typeof contract !== "undefined") {
-      const depositAmount = utils.parseEther("0.1");
-      const gasPrice = await contract.estimateGas.depositETH({
-        value: depositAmount,
-      });
-      console.log(
-        "🚀 ~ file: dashboard.tsx ~ line 87 ~ deposit ~ g",
-        utils.parseUnits(gasPrice, "gwei")
-      );
-      const gasLimit = utils.parseUnits("21000", "gwei");
-      const overrides = {
-        // gasLimit: gasPrice.mul(ethers.BigNumber.from(2)),
-        gasLimit: ethers.BigNumber.from(200000),
-        gasPrice,
-        value: depositAmount,
-      };
-      try {
-        const tx = await contract.depositETH(overrides);
-        console.log(`Swap transaction hash: ${tx.hash}`);
-
-        const receipt = await tx.wait();
-        console.log(
-          `Swap transaction was mined in block ${receipt.blockNumber}`
-        );
-      } catch (err) {
-        console.log("Error: ", err);
-      }
-    } else {
-      console.log("NO CONTRACT");
-    }
+  const deposit = async (amount: string) => {
+    const tx = await depositETH(utils.parseEther(amount));
+    console.log(`Transaction hash: ${tx.hash}`);
+    console.log(`Transaction was mined in block ${tx.receipt.blockNumber}`);
   };
-
-  // const fetchBalance = async () => {
-  //   if (typeof contract !== "undefined") {
-  //     try {
-  //       let res = await contract.totalBalance();
-  //       res = utils.formatEther(res);
-  //       return res;
-  //     } catch (err) {
-  //       console.log("Error: ", err);
-  //     }
-  //   } else {
-  //     console.log("NO CONTRACT");
-  //   }
-  // };
 
   return (
     <PageContainer>
@@ -133,7 +92,7 @@ const Dashboard = () => {
         <Button onClick={() => readValue("totalBalance", utils.formatEther)}>
           Fetch Value
         </Button>
-        <Button onClick={deposit}>Deposit 0.01 ETH</Button>
+        <Button onClick={() => deposit("0.1")}>Deposit 0.01 ETH</Button>
         <Heading>My Vaults</Heading>
         <HStack align="center" spacing="12">
           {CURRENT_VAULTS.map(
