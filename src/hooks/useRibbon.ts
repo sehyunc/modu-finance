@@ -22,7 +22,7 @@ export default function useRibbon(
         try {
           const _contract = new ethers.Contract(
             _address,
-            RibbonTUSDCPAbi,
+            RibbonTWBTCCAbi,
             signer
           );
           if (active) setContract(_contract);

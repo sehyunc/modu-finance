@@ -22,7 +22,7 @@ export default function useApproveToken(
       break;
     case "wbtc":
       _address = test
-        ? "0xe0C9275E44Ea80eF17579d33c55136b7DA269aEb"
+        ? "0xd3A691C852CDB01E281545A27064741F0B7f6825"
         : "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599";
       break;
     default:

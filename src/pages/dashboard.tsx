@@ -66,7 +66,7 @@ const Dashboard = () => {
   const { provider } = useOnboard();
   const { depositErc20, depositETH, contract, readValue, estimateGas } =
     useRibbon(provider);
-  const { approve } = useToken(provider, "wbtc");
+  const { approve } = useToken(provider, "wbtc", true);
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
