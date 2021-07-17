@@ -8,17 +8,22 @@ type TokenTicker = "wbtc" | "usdc";
 
 export default function useApproveToken(
   providerOrSigner: ethers.providers.Web3Provider,
-  token: TokenTicker
+  token: TokenTicker,
+  test: boolean = false
 ) {
   const [contract, setContract] = useState<ethers.Contract>();
 
   let _address: string | undefined;
   switch (token) {
     case "usdc":
-      _address = "0x75b0622cec14130172eae9cf166b92e5c112faff";
+      _address = test
+        ? "0x75b0622cec14130172eae9cf166b92e5c112faff"
+        : "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
       break;
     case "wbtc":
-      _address = "0xe0C9275E44Ea80eF17579d33c55136b7DA269aEb";
+      _address = test
+        ? "0xe0C9275E44Ea80eF17579d33c55136b7DA269aEb"
+        : "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599";
       break;
     default:
       break;
@@ -45,8 +50,13 @@ export default function useApproveToken(
     };
   }, [_address, providerOrSigner]);
 
-  const approve = async (accountAddress: string, amount: number) => {
-    const value = ethers.BigNumber.from(amount);
+  const approve = async (
+    accountAddress: string,
+    amount: string,
+    decimals: number
+  ) => {
+    // const value = ethers.BigNumber.from(amount);
+    const value = utils.parseUnits(amount, decimals);
     if (typeof contract !== "undefined") {
       try {
         const tx = await contract.approve(accountAddress, value);

@@ -64,8 +64,9 @@ const WATCH_VAULTS = [
 
 const Dashboard = () => {
   const { provider } = useOnboard();
-  const { depositETH, contract, readValue, estimateGas } = useFontis(provider);
-  const { approve } = useToken(provider, "usdc");
+  const { depositErc20, depositETH, contract, readValue, estimateGas } =
+    useRibbon(provider);
+  const { approve } = useToken(provider, "wbtc");
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
@@ -83,23 +84,37 @@ const Dashboard = () => {
     }
   }
 
-  const deposit = async (amount: string) => {
-    const tx = await depositETH(utils.parseEther(amount));
-    console.log(`Transaction hash: ${tx.hash}`);
-    console.log(`Transaction was mined in block ${tx.receipt.blockNumber}`);
+  // const deposit = async (amount: string) => {
+  //   const tx = await depositETH(utils.parseEther(amount));
+  //   console.log(`Transaction hash: ${tx.hash}`);
+  //   console.log(`Transaction was mined in block ${tx.receipt.blockNumber}`);
+  // };
+
+  const deposit = async (amount: string, decimals: number) => {
+    const amt = utils.parseUnits(amount, decimals);
+    const tx = await depositErc20(amt);
+    console.log(`Transaction hash: ${tx?.hash}`);
+    console.log(`Transaction was mined in block ${tx?.receipt.blockNumber}`);
   };
 
   return (
     <PageContainer>
       <Main maxWidth="49rem">
-        <Button onClick={() => readValue("state")}>Fetch Value</Button>
         <Button
           onClick={() =>
-            approve("0xa6f018bbed3300ed2b2f42c5b3013a9cbc984f90", 1)
+            readValue("totalBalance", (value) => utils.formatUnits(value, 8))
           }
         >
-          Approve 1 USDC
+          Fetch Value
         </Button>
+        <Button
+          onClick={() =>
+            approve("0xa6f018bbed3300ed2b2f42c5b3013a9cbc984f90", "0.1", 8)
+          }
+        >
+          Approve 0.1 WBTC
+        </Button>
+        <Button onClick={() => deposit("0.1", 8)}>Deposit</Button>
         <Heading>My Vaults</Heading>
         <HStack align="center" spacing="12">
           {CURRENT_VAULTS.map(

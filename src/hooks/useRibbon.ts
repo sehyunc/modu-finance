@@ -1,8 +1,10 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import { useEffect, useState } from "react";
-import RibbonABI from "../RibbonCoveredCall.json";
+import RibbonTUSDCPAbi from "../RibbonTUSDCP.json";
+import RibbonTWBTCCAbi from "../RibbonTWBTCC.json";
 import { utils, ethers, BigNumberish } from "ethers";
+import { getVaultAddress } from "@/utils/helpers";
 
 export default function useRibbon(
   providerOrSigner: ethers.providers.Web3Provider
@@ -12,12 +14,17 @@ export default function useRibbon(
     let active = true;
 
     async function loadContracts() {
-      if (providerOrSigner && typeof providerOrSigner !== "undefined") {
+      // const _address = getVaultAddress("ribbon", "T-WBTC-C", false); //check wallet network here
+      const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
+      if (providerOrSigner && _address) {
         const signer = providerOrSigner.getSigner();
         console.log(`loading contracts`);
         try {
-          const _address = "0x5B8E6eaB6502CC642d00A55F0d8B5f5557c94Bc5";
-          const _contract = new ethers.Contract(_address, RibbonABI, signer);
+          const _contract = new ethers.Contract(
+            _address,
+            RibbonTUSDCPAbi,
+            signer
+          );
           if (active) setContract(_contract);
         } catch (e) {
           console.log("ERROR LOADING CONTRACTS!!", e);
@@ -33,7 +40,7 @@ export default function useRibbon(
 
   const readValue = async (
     value: string,
-    formatter: (wei: BigNumberish) => string
+    formatter?: (wei: BigNumberish) => string
   ) => {
     if (typeof contract !== "undefined") {
       try {
@@ -92,5 +99,25 @@ export default function useRibbon(
     }
   };
 
-  return { estimateGas, contract, depositETH, readValue };
+  const depositErc20 = async (value: ethers.BigNumber) => {
+    if (typeof contract !== "undefined") {
+      try {
+        const gasPrice = await estimateGas("deposit", value);
+        const overrides = {
+          gasLimit: ethers.BigNumber.from(200000),
+          gasPrice,
+          // value,
+        };
+
+        const tx = await contract.deposit(value, overrides);
+        const receipt = await tx.wait();
+        return receipt;
+      } catch (err) {
+        console.log("Error: ", err);
+      }
+    } else {
+      console.log("NO CONTRACT");
+    }
+  };
+  return { estimateGas, contract, depositErc20, depositETH, readValue };
 }
