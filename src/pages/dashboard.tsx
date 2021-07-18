@@ -64,9 +64,15 @@ const WATCH_VAULTS = [
 
 const Dashboard = () => {
   const { provider } = useOnboard();
-  const { depositErc20, depositETH, contract, readValue, estimateGas } =
-    useRibbon(provider);
-  const { approve } = useToken(provider, "wbtc", true);
+  const {
+    address,
+    depositErc20,
+    depositETH,
+    contract,
+    readValue,
+    estimateGas,
+  } = useRibbon(provider);
+  const { approve, decimals } = useToken(provider, "usdc", true);
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
@@ -102,17 +108,15 @@ const Dashboard = () => {
       <Main maxWidth="49rem">
         <Button
           onClick={() =>
-            readValue("totalBalance", (value) => utils.formatUnits(value, 8))
+            readValue("totalBalance", (value) =>
+              utils.formatUnits(value, decimals)
+            )
           }
         >
           Fetch Value
         </Button>
-        <Button
-          onClick={() =>
-            approve("0xa6f018bbed3300ed2b2f42c5b3013a9cbc984f90", "0.1", 8)
-          }
-        >
-          Approve 0.1 WBTC
+        <Button onClick={() => approve(address, "10", decimals)}>
+          Approve 10 USDC
         </Button>
         <Button onClick={() => deposit("0.1", 8)}>Deposit</Button>
         <Heading>My Vaults</Heading>

@@ -10,12 +10,14 @@ export default function useRibbon(
   providerOrSigner: ethers.providers.Web3Provider
 ) {
   const [contract, setContract] = useState<ethers.Contract>();
+  const [address, setAddress] = useState<string>("");
+
   useEffect(() => {
     let active = true;
 
     async function loadContracts() {
-      // const _address = getVaultAddress("ribbon", "T-WBTC-C", false); //check wallet network here
-      const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
+      const _address = getVaultAddress("ribbon", "T-USDC-P-ETH"); //check wallet network here
+      // const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
       if (providerOrSigner && _address) {
         const signer = providerOrSigner.getSigner();
         console.log(`loading contracts`);
@@ -25,7 +27,10 @@ export default function useRibbon(
             RibbonTWBTCCAbi,
             signer
           );
-          if (active) setContract(_contract);
+          if (active) {
+            setContract(_contract);
+            setAddress(_address);
+          }
         } catch (e) {
           console.log("ERROR LOADING CONTRACTS!!", e);
         }
@@ -119,5 +124,12 @@ export default function useRibbon(
       console.log("NO CONTRACT");
     }
   };
-  return { estimateGas, contract, depositErc20, depositETH, readValue };
+  return {
+    address,
+    estimateGas,
+    contract,
+    depositErc20,
+    depositETH,
+    readValue,
+  };
 }

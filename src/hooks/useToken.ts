@@ -12,22 +12,31 @@ export default function useApproveToken(
   test: boolean = false
 ) {
   const [contract, setContract] = useState<ethers.Contract>();
+  const [decimals, setDecimals] = useState<number>(0);
 
   let _address: string | undefined;
   switch (token) {
     case "usdc":
       _address = test
-        ? "0x75b0622cec14130172eae9cf166b92e5c112faff"
+        ? "0x7e6edA50d1c833bE936492BF42C1BF376239E9e2"
         : "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
       break;
     case "wbtc":
       _address = test
-        ? "0xd3A691C852CDB01E281545A27064741F0B7f6825"
-        : "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599";
+        ? "0x50570256f0da172a1908207aaf0c80d4b279f303"
+        : "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
       break;
     default:
       break;
   }
+
+  useEffect(() => {
+    if (token === "usdc") {
+      setDecimals(6);
+    } else if (token === "wbtc") {
+      setDecimals(8);
+    }
+  }, [token]);
 
   useEffect(() => {
     let active = true;
@@ -70,5 +79,5 @@ export default function useApproveToken(
     }
   };
 
-  return { approve, contract };
+  return { approve, contract, decimals };
 }

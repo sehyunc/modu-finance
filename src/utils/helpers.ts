@@ -1,7 +1,7 @@
 export const getVaultAddress = (
   platform: string,
   vault: string,
-  test: boolean = false
+  test: boolean = true
 ): string | undefined => {
   if (test) {
     switch (platform) {
