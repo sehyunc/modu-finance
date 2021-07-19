@@ -1,10 +1,9 @@
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable global-require */
 import { useEffect, useState } from "react";
-import RibbonTUSDCPAbi from "../RibbonTUSDCP.json";
-import RibbonTWBTCCAbi from "../RibbonTWBTCC.json";
+import ribbonthetavault from "@/constants/abi/ribbonthetavault.json";
 import { utils, ethers, BigNumberish } from "ethers";
 import { getVaultAddress } from "@/utils/helpers";
+
+// TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
 export default function useRibbon(
   providerOrSigner: ethers.providers.Web3Provider
@@ -24,7 +23,7 @@ export default function useRibbon(
         try {
           const _contract = new ethers.Contract(
             _address,
-            RibbonTWBTCCAbi,
+            ribbonthetavault,
             signer
           );
           if (active) {

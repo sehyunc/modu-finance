@@ -72,7 +72,7 @@ const Dashboard = () => {
     readValue,
     estimateGas,
   } = useRibbon(provider);
-  const { approve, decimals } = useToken(provider, "usdc", true);
+  const { onApprove, decimals } = useToken(contract?.address, "usdc", true);
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
@@ -115,9 +115,7 @@ const Dashboard = () => {
         >
           Fetch Value
         </Button>
-        <Button onClick={() => approve(address, "10", decimals)}>
-          Approve 10 USDC
-        </Button>
+        <Button onClick={() => onApprove()}>Approve 10 USDC</Button>
         <Button onClick={() => deposit("0.1", 8)}>Deposit</Button>
         <Heading>My Vaults</Heading>
         <HStack align="center" spacing="12">

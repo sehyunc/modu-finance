@@ -16,6 +16,7 @@
     "baseUrl": "src",
     "paths": {
       "@/components/*": ["components/*"],
+      "@/constants/*": ["constants/*"],
       "@/hooks/*": ["hooks/*"],
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"],
