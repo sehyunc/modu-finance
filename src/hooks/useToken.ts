@@ -74,7 +74,7 @@ export default function useApproveToken(
     const txHash = await tokenContract
       .approve(proxyContractAddress, ethers.constants.MaxUint256, {
         gasLimit,
-        gasPrice: utils.parseUnits("20", "gwei"),
+        gasPrice: utils.parseUnits("5", "gwei"),
       })
       .then((tx) => {
         return tx.hash;

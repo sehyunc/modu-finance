@@ -71,7 +71,7 @@ const Dashboard = () => {
     contract,
     readValue,
     estimateGas,
-  } = useRibbon(provider);
+  } = useRibbon();
   const { onApprove, decimals } = useToken(contract?.address, "usdc", true);
 
   async function fetchBalance() {

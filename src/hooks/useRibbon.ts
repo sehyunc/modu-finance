@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
 import ribbonthetavault from "@/constants/abi/ribbonthetavault.json";
-import { utils, ethers, BigNumberish } from "ethers";
 import { getVaultAddress } from "@/utils/helpers";
+import { BigNumberish, ethers } from "ethers";
+import { useEffect, useState } from "react";
+import useGas from "@/hooks/useGas";
+import useOnboard from "@/hooks/useOnboard";
 
 // TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
-export default function useRibbon(
-  providerOrSigner: ethers.providers.Web3Provider
-) {
+export default function useRibbon() {
+  const { provider } = useOnboard();
   const [contract, setContract] = useState<ethers.Contract>();
   const [address, setAddress] = useState<string>("");
 
@@ -17,8 +18,8 @@ export default function useRibbon(
     async function loadContracts() {
       const _address = getVaultAddress("ribbon", "T-USDC-P-ETH"); //check wallet network here
       // const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
-      if (providerOrSigner && _address) {
-        const signer = providerOrSigner.getSigner();
+      if (provider && _address) {
+        const signer = provider.getSigner();
         console.log(`loading contracts`);
         try {
           const _contract = new ethers.Contract(
@@ -40,7 +41,7 @@ export default function useRibbon(
     return () => {
       active = false;
     };
-  }, [providerOrSigner]);
+  }, [provider]);
 
   const readValue = async (
     value: string,
