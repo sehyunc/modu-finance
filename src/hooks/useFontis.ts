@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import { useEffect, useState } from "react";
-import FontisABI from "../FontisPerpetual.json";
+import fontisabi from "@/constants/abi/fontisperpetualvault.json";
 import { utils, ethers, BigNumberish } from "ethers";
 
 export default function useFontis(
@@ -17,7 +17,7 @@ export default function useFontis(
       console.log(`loading contracts`);
       try {
         const _address = "0x21Ed852c14e1858C5d3F7afD9f3bBE714269Dc31";
-        const _contract = new ethers.Contract(_address, FontisABI, signer);
+        const _contract = new ethers.Contract(_address, fontisabi, signer);
         if (active) setContract(_contract);
       } catch (e) {
         console.log("ERROR LOADING CONTRACTS!!", e);

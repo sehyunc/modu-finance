@@ -3,8 +3,8 @@ import erc20abi from "constants/abi/erc20.json";
 import { utils, ethers } from "ethers";
 import useOnboard from "@/hooks/useOnboard";
 
-export default function useApproveToken(
-  proxyContractAddress: string | undefined,
+export default function useApprove(
+  proxyContractAddress: string,
   token: "wbtc" | "usdc",
   test: boolean = false
 ) {
