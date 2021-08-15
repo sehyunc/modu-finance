@@ -7,8 +7,8 @@ const VaultForm = ({ onClose }) => {
   const [isDeposit, setIsDeposit] = useState(true);
   const buttonText = isDeposit ? "Deposit ETH" : "Withdraw ETH";
   const footerText = isDeposit
-    ? "Wallet Balance: 0.7 ETH"
-    : "Your Position: 1 ETH";
+    ? "Wallet Balance: x ETH"
+    : "Your Position: x ETH";
 
   const closeAndConnect = () => {
     onClose();
@@ -66,7 +66,7 @@ const VaultForm = ({ onClose }) => {
             size="lg"
             w="100%"
             mb="6"
-            onClick={!isWalletConnected ? closeAndConnect : () => {}}
+            onClick={!isWalletConnected ? closeAndConnect : () => { console.log("empty function")}}
           >
             {isWalletConnected ? buttonText : "Connect Wallet"}
           </Button>

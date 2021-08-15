@@ -18,9 +18,11 @@ export default function useRibbon() {
     async function loadContracts() {
       const _address = getVaultAddress("ribbon", "T-USDC-P-ETH"); //check wallet network here
       // const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
+      console.log("dashboard address :",_address)
       if (provider && _address) {
         const signer = provider.getSigner();
-        console.log(`loading contracts`);
+
+        console.log(`loading contracts`, signer);
         try {
           const _contract = new ethers.Contract(
             _address,
