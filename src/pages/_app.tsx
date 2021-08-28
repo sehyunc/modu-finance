@@ -7,28 +7,36 @@ import "@fontsource/inter/latin.css";
 import "@fontsource/epilogue/latin.css";
 import useInitializeOnboard from "@/hooks/useInitializeOnboard";
 import { useInitCookieOptions } from "@/hooks/useCookieOptions";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 import Layout from "components/layout";
 
 import customTheme from "styles/customTheme";
 import "styles/globals.css";
 
+const client = new ApolloClient({
+  uri: "https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance",
+  cache: new InMemoryCache(),
+});
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <JotaiProvider>
-      <ChakraProvider theme={customTheme}>
-        <Head>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-          />
-        </Head>
-        <InitHooks>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </InitHooks>
-      </ChakraProvider>
+      <ApolloProvider client={client}>
+        <ChakraProvider theme={customTheme}>
+          <Head>
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+            />
+          </Head>
+          <InitHooks>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </InitHooks>
+        </ChakraProvider>
+      </ApolloProvider>
     </JotaiProvider>
   );
 };

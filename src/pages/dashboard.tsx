@@ -1,12 +1,12 @@
 import { Main } from "@/components/Main";
 import { PageContainer } from "@/components/PageContainer";
 import VaultCard from "@/components/VaultCard";
-import { Button, Heading, HStack } from "@chakra-ui/react";
-import useRibbon from "@/hooks/useRibbon";
-import useFontis from "@/hooks/useFontis";
 import useApprove from "@/hooks/useApprove";
 import useOnboard from "@/hooks/useOnboard";
-import { utils, ethers } from "ethers";
+import useRibbon from "@/hooks/useRibbon";
+import useRibbonData from "@/hooks/useRibbonData";
+import { Button, Heading, HStack } from "@chakra-ui/react";
+import { utils } from "ethers";
 
 const CURRENT_VAULTS = [
   {
@@ -66,6 +66,8 @@ const Dashboard = () => {
   const { provider } = useOnboard();
   const { address, depositErc20, readValue } = useRibbon();
   const { onApprove, decimals } = useApprove(address, "usdc", true);
+  const vaults = useRibbonData();
+  console.log("🚀 ~ Dashboard ~ vaults", vaults);
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
