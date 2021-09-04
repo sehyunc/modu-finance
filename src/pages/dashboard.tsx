@@ -5,7 +5,7 @@ import { Button, Heading, HStack } from "@chakra-ui/react";
 import useRibbon from "@/hooks/useRibbon";
 import useFontis from "@/hooks/useFontis";
 import useApprove from "@/hooks/useApprove";
-import useOnboard from "@/hooks/useOnboard";
+import {useOnboard} from "@/hooks/useOnboard";
 import { utils, ethers } from "ethers";
 
 const CURRENT_VAULTS = [

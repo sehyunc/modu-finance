@@ -1,10 +1,24 @@
 import { Box, Button, Center, Flex, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import useOnboard from "@/hooks/useOnboard";
+import { useEffect, useState } from "react";
+import {useOnboard} from "@/hooks/useOnboard";
+import erc20abi from "../constants/abi/erc20.json"
+import { ethers } from "ethers";
+import { roundOffBigInt } from "@/utils/helpers";
 
-const VaultForm = ({ onClose, provider, tokenAddress  }) => {
-  const { connectWallet, isWalletConnected } = useOnboard();
+export const VaultForm = ({ onClose, provider, tokenAddress  }) => {
+  const [userBalance, setUserBalance] = useState('0');
+  const { address, connectWallet, isWalletConnected } = useOnboard();
   const [isDeposit, setIsDeposit] = useState(true);
+
+  useEffect( async () => {
+    const tokenContract = new ethers.Contract(tokenAddress, erc20abi, provider)
+    const tokenDecimals = await tokenContract.decimals()
+    const balance = await tokenContract.balanceOf(address)
+    setUserBalance(roundOffBigInt(balance, tokenDecimals))
+
+  }, [tokenAddress, address, provider])
+
+  console.log("userBalance", userBalance)
   const buttonText = isDeposit ? "Deposit ETH" : "Withdraw ETH";
   const footerText = isDeposit
     ? "Wallet Balance: x ETH"
@@ -79,4 +93,3 @@ const VaultForm = ({ onClose, provider, tokenAddress  }) => {
   );
 };
 
-export default VaultForm;

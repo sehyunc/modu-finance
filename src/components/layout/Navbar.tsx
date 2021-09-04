@@ -1,5 +1,5 @@
 import AccessibleLink from "@/components/AccessibleLink";
-import useOnboard from "@/hooks/useOnboard";
+import {useOnboard} from "@/hooks/useOnboard";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,

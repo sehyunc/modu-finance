@@ -3,7 +3,7 @@ import { getVaultAddress } from "@/utils/helpers";
 import { BigNumberish, ethers } from "ethers";
 import { useEffect, useState } from "react";
 import useGas from "@/hooks/useGas";
-import useOnboard from "@/hooks/useOnboard";
+import {useOnboard} from "@/hooks/useOnboard";
 
 // TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
