@@ -38,7 +38,7 @@ const VaultRow = () => (
   </Flex>
 );
 
-const DrawerExample = () => {
+export const VaultDrawer = ({provider : any }) => {
   const [vault, setVault] = useAtom(vaultAtom);
   const isOpen = vault !== "";
   const onClose = () => setVault("");
@@ -53,7 +53,7 @@ const DrawerExample = () => {
 
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
-              <VaultForm onClose={onClose} />
+              <VaultForm onClose={onClose} provider={provider} />
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
 
@@ -89,4 +89,4 @@ const DrawerExample = () => {
   );
 };
 
-export default DrawerExample;
+// export DrawerExample;
