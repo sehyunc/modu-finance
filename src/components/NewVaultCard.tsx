@@ -45,7 +45,6 @@ const NewVaultCard = (props: Vault) => {
     decimals,
     platform,
   } = props;
-  console.log("🚀 ~ NewVaultCard ~ decimals", decimals);
   const [, setVault] = useAtom(vaultAtom);
   const parsedCap = utils.formatUnits(cap, decimals);
   const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals);

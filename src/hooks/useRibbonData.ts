@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
-import ribbonClient from "../../apollo-client";
+import ribbonClient from "../../ribbonClient";
 import { Vault } from "@/models/Vault";
-import { VaultConstructor } from "@/models/types";
+import { RibbonVaultConstructor } from "@/models/types";
 
 const useRibbonData = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);
@@ -26,8 +26,8 @@ const useRibbonData = () => {
         `,
       });
       const newVaults: Vault[] = [];
-      data.vaults.forEach((vault: VaultConstructor) => {
-        const v = Vault.fromGraph({ ...vault, platform: "ribbon" });
+      data.vaults.forEach((vault: RibbonVaultConstructor) => {
+        const v = Vault.fromRibbonSubgraph({ ...vault, platform: "ribbon" });
         newVaults.push(v);
       });
       setVaults(newVaults);

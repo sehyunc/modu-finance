@@ -1,8 +1,9 @@
 import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react";
 import Image from "next/image";
-import VaultCard from "@/components/VaultCard";
+import VaultCard from "@/components/NewVaultCard";
 import { PageContainer } from "@/components/PageContainer";
 import { Main } from "@/components/Main";
+import useFontisData from "@/hooks/useFontisData";
 
 const CURRENT_VAULTS = [
   {
@@ -24,6 +25,7 @@ const CURRENT_VAULTS = [
 ];
 
 const Fontis = () => {
+  const vaults = useFontisData();
   return (
     <>
       <Box w="100%" bgColor="#000000">
@@ -72,27 +74,28 @@ const Fontis = () => {
         <Main mb="6">
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">
-            <VaultCard
-              name={"ETH-A"}
-              platform={"Fontis"}
-              underlying={"ETH"}
-              apy={"4"}
-              current={"12"}
-              max={"100"}
-            />
-            {/* {CURRENT_VAULTS.map(
-              ({ name, platform, underlying, apy, current, max }) => (
+            {vaults.map(
+              ({
+                symbol,
+                platform,
+                decimals,
+                underlyingSymbol,
+                cap,
+                lockedAmount,
+                id,
+              }) => (
                 <VaultCard
-                  key={name}
-                  name={name}
+                  key={id}
+                  symbol={symbol}
+                  underlyingSymbol={underlyingSymbol}
+                  cap={cap}
+                  lockedAmount={lockedAmount}
+                  id={id}
+                  decimals={decimals}
                   platform={platform}
-                  underlying={underlying}
-                  apy={apy}
-                  current={current}
-                  max={max}
                 />
               )
-            )} */}
+            )}
           </HStack>
         </Main>
       </PageContainer>

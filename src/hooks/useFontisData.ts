@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
-import client from "../../apollo-client";
+import client from "../../fontisClient";
 import { Vault } from "@/models/Vault";
-import { VaultConstructor } from "@/models/types";
+import { FontisVaultConstructor } from "@/models/types";
 
-const useRibbonData = () => {
+const useFontisClient = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);
 
   useEffect(() => {
@@ -12,25 +12,25 @@ const useRibbonData = () => {
       const { data } = await client.query({
         query: gql`
           query Vaults {
-            vaults {
+            mintAndSells(first: 1) {
               id
-              name
-              symbol
-              underlyingSymbol
-              lockedAmount
-              cap
-              totalWithdrawalFee
-              depositors
+              timestamp
+              collateralAmount
+              otokenAmount
+              yieldFromPremium
+              vaultTotalAssets
             }
           }
         `,
       });
+      console.log("🚀 ~ fetchData ~ data", data);
       const newVaults: Vault[] = [];
-      data.vaults.forEach((vault: VaultConstructor) => {
-        const v = Vault.fromGraph(vault);
+      data.mintAndSells.forEach((vault: FontisVaultConstructor) => {
+        const v = Vault.fromFontisSubgraph(vault);
         newVaults.push(v);
       });
       setVaults(newVaults);
+      console.log("🚀 ~ fetchData ~ newVaults", newVaults);
     };
     fetchData();
   }, []);
@@ -38,4 +38,4 @@ const useRibbonData = () => {
   return vaults;
 };
 
-export default useRibbonData;
+export default useFontisClient;

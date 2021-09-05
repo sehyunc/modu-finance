@@ -26,7 +26,6 @@ const CURRENT_VAULTS = [
 
 const Ribbon = () => {
   const vaults = useRibbonData();
-  console.log("🚀 ~ Ribbon ~ vaults", vaults);
   return (
     <>
       <Box w="100%" bgColor="#000000">

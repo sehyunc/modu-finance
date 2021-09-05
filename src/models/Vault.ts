@@ -1,4 +1,4 @@
-import { VaultConstructor } from "./types";
+import { FontisVaultConstructor, RibbonVaultConstructor } from "./types";
 
 const symbolToDecimalMap: { [symbol: string]: number } = {
   WETH: 18,
@@ -20,7 +20,7 @@ export class Vault {
   public decimals: number;
   public platform: Platform;
 
-  constructor(options: VaultConstructor) {
+  constructor(options: RibbonVaultConstructor) {
     this.id = options.id;
     this.name = options.name;
     this.symbol = options.symbol;
@@ -33,7 +33,7 @@ export class Vault {
     this.platform = options.platform;
   }
 
-  public static fromGraph(options: VaultConstructor): Vault {
+  public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
     return new Vault({
       id: options.id,
       name: options.name,
@@ -45,6 +45,20 @@ export class Vault {
       depositors: options.depositors,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       platform: options.platform,
+    });
+  }
+
+  public static fromFontisSubgraph(options: FontisVaultConstructor): Vault {
+    return new Vault({
+      id: options.id,
+      name: "P-WETH-C",
+      symbol: "fWETH-PERP",
+      underlyingSymbol: "WETH",
+      lockedAmount: options.collateralAmount,
+      cap: "1000000000000000000000",
+      withdrawalFee: 0.04,
+      decimals: symbolToDecimalMap["WETH"],
+      platform: "fontis",
     });
   }
 }
