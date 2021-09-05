@@ -1,8 +1,9 @@
 import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react";
 import Image from "next/image";
-import VaultCard from "@/components/VaultCard";
+import VaultCard from "@/components/NewVaultCard";
 import { PageContainer } from "@/components/PageContainer";
 import { Main } from "@/components/Main";
+import useRibbonData from "@/hooks/useRibbonData";
 
 const CURRENT_VAULTS = [
   {
@@ -24,6 +25,8 @@ const CURRENT_VAULTS = [
 ];
 
 const Ribbon = () => {
+  const vaults = useRibbonData();
+  console.log("🚀 ~ Ribbon ~ vaults", vaults);
   return (
     <>
       <Box w="100%" bgColor="#000000">
@@ -69,21 +72,19 @@ const Ribbon = () => {
       <PageContainer position="relative" bgColor="gray.900" minH="">
         <Main maxWidth="49rem" mb="6">
           <Heading>Available Vaults</Heading>
-          <HStack align="center" spacing="12">
-            {CURRENT_VAULTS.map(
-              ({ name, platform, underlying, apy, current, max }) => (
-                <VaultCard
-                  key={name}
-                  name={name}
-                  platform={platform}
-                  underlying={underlying}
-                  apy={apy}
-                  current={current}
-                  max={max}
-                />
-              )
-            )}
-          </HStack>
+          {vaults.map(
+            ({ symbol, decimals, underlyingSymbol, cap, lockedAmount, id }) => (
+              <VaultCard
+                key={id}
+                symbol={symbol}
+                underlyingSymbol={underlyingSymbol}
+                cap={cap}
+                lockedAmount={lockedAmount}
+                id={id}
+                decimals={decimals}
+              />
+            )
+          )}
         </Main>
       </PageContainer>
     </>
