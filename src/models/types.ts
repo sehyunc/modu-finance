@@ -1,3 +1,5 @@
+import { Platform } from "@/models/Vault";
+
 export interface VaultConstructor {
   id: string;
   name: string;
@@ -8,4 +10,5 @@ export interface VaultConstructor {
   totalWithdrawalFee: string;
   depositors: string[];
   decimals: number;
+  platform: Platform;
 }

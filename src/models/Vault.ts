@@ -6,6 +6,8 @@ const symbolToDecimalMap: { [symbol: string]: number } = {
   USDC: 6,
 };
 
+export type Platform = "ribbon" | "fontis";
+
 export class Vault {
   public id: string;
   public name?: string;
@@ -16,6 +18,7 @@ export class Vault {
   public totalWithdrawalFee?: string;
   public depositors?: string[];
   public decimals: number;
+  public platform: Platform;
 
   constructor(options: VaultConstructor) {
     this.id = options.id;
@@ -27,6 +30,7 @@ export class Vault {
     this.totalWithdrawalFee = options.totalWithdrawalFee;
     this.depositors = options.depositors;
     this.decimals = symbolToDecimalMap[options.underlyingSymbol];
+    this.platform = options.platform;
   }
 
   public static fromGraph(options: VaultConstructor): Vault {
@@ -40,6 +44,7 @@ export class Vault {
       totalWithdrawalFee: options.totalWithdrawalFee,
       depositors: options.depositors,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
+      platform: options.platform,
     });
   }
 }

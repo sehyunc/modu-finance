@@ -73,7 +73,15 @@ const Ribbon = () => {
         <Main maxWidth="49rem" mb="6">
           <Heading>Available Vaults</Heading>
           {vaults.map(
-            ({ symbol, decimals, underlyingSymbol, cap, lockedAmount, id }) => (
+            ({
+              symbol,
+              platform,
+              decimals,
+              underlyingSymbol,
+              cap,
+              lockedAmount,
+              id,
+            }) => (
               <VaultCard
                 key={id}
                 symbol={symbol}
@@ -82,6 +90,7 @@ const Ribbon = () => {
                 lockedAmount={lockedAmount}
                 id={id}
                 decimals={decimals}
+                platform={platform}
               />
             )
           )}

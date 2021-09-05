@@ -43,6 +43,7 @@ const NewVaultCard = (props: Vault) => {
     cap,
     lockedAmount,
     decimals,
+    platform,
   } = props;
   console.log("🚀 ~ NewVaultCard ~ decimals", decimals);
   const [, setVault] = useAtom(vaultAtom);
@@ -99,7 +100,7 @@ const NewVaultCard = (props: Vault) => {
         <Box pointerEvents="none" zIndex="1">
           <Box mb="1">
             <Tag variant="solid" colorScheme={COLORS[underlying]?.tag} mr="3">
-              {"Platform"}
+              {platform}
             </Tag>
             <Tag variant="solid" colorScheme={COLORS[underlying]?.tag}>
               {underlying}

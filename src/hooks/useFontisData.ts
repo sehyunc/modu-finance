@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
-import ribbonClient from "../../apollo-client";
+import client from "../../apollo-client";
 import { Vault } from "@/models/Vault";
 import { VaultConstructor } from "@/models/types";
 
@@ -9,7 +9,7 @@ const useRibbonData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await ribbonClient.query({
+      const { data } = await client.query({
         query: gql`
           query Vaults {
             vaults {
@@ -27,7 +27,7 @@ const useRibbonData = () => {
       });
       const newVaults: Vault[] = [];
       data.vaults.forEach((vault: VaultConstructor) => {
-        const v = Vault.fromGraph({ ...vault, platform: "ribbon" });
+        const v = Vault.fromGraph(vault);
         newVaults.push(v);
       });
       setVaults(newVaults);
