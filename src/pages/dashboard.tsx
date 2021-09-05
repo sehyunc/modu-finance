@@ -63,6 +63,8 @@ const Dashboard = () => {
   const { provider } = useOnboard();
   const { address, depositErc20, readValue } = useRibbon();
   const { onApprove, decimals } = useApprove(address, "usdc", true);
+  const vaults = useRibbonData();
+  console.log("🚀 ~ Dashboard ~ vaults", vaults);
 
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
