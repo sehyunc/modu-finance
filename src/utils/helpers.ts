@@ -60,7 +60,26 @@ export const roundOffBigInt = (num : bigint, decimals : number) => {
   if(decimals> numString.length){
     while(numString.length <= decimals) numString = "0" + numString 
   }
+
   const decimalPoint = numString.length - decimals
   numString = numString.slice(0, decimalPoint) + "." + numString.slice(decimalPoint, numString.length)
   return numString.slice(0,decimalPoint+4)
+}
+
+export const convertNumberToBigInt = (value : number, decimals :number) => {
+  var stringValue = String(value)
+  if(!stringValue.includes(".")){
+    for(var i =0;i<decimals;i++) stringValue = stringValue + "0"
+    return BigInt(stringValue)
+  } else {
+    const decimalPoint = stringValue.indexOf(".")
+    var postDecimal = stringValue.slice(decimalPoint+1, stringValue.length)
+    if(postDecimal.length < decimals){
+      while(postDecimal.length < decimals) postDecimal = postDecimal + "0"
+    } else {
+      //discard extra digits
+      postDecimal = postDecimal.slice(0, decimals)
+    }
+    return BigInt(stringValue.slice(0, decimalPoint) + postDecimal)
+  }
 }

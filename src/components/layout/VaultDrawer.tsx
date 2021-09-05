@@ -53,7 +53,7 @@ export const VaultDrawer = ({provider }) => {
 
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
-              <VaultForm onClose={onClose} provider={provider} tokenAddress={"0x50570256f0da172a1908207aaf0c80d4b279f303"}/>
+              <VaultForm onClose={onClose} provider={provider} vaultAddress={"0x06ec862721C6A376B62D9718040e418ECedfDa1a"} tokenAddress={"0x50570256f0da172a1908207aaf0c80d4b279f303"}/>
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
 

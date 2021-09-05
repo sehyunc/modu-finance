@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import fontisabi from "@/constants/abi/fontisperpetualvault.json";
 import { utils, ethers, BigNumberish } from "ethers";
 
-export default function useFontis(
+export function useFontis(
   providerOrSigner: ethers.providers.Web3Provider
 ) {
   const [contract, setContract] = useState<ethers.Contract>();
