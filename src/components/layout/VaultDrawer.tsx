@@ -1,5 +1,5 @@
-import VaultForm from "components/VaultForm";
-import { vaultAtom } from "utils/atoms";
+import {VaultForm} from "@/components/VaultForm";
+import { vaultAtom } from "@/utils/atoms";
 import {
   Flex,
   Spacer,
@@ -38,7 +38,7 @@ const VaultRow = () => (
   </Flex>
 );
 
-const DrawerExample = () => {
+export const VaultDrawer = ({provider }) => {
   const [vault, setVault] = useAtom(vaultAtom);
   const isOpen = vault !== "";
   const onClose = () => setVault("");
@@ -53,7 +53,7 @@ const DrawerExample = () => {
 
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
-              <VaultForm onClose={onClose} />
+              <VaultForm onClose={onClose} provider={provider} vaultAddress={"0x06ec862721C6A376B62D9718040e418ECedfDa1a"} tokenAddress={"0x50570256f0da172a1908207aaf0c80d4b279f303"}/>
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
 
@@ -89,4 +89,4 @@ const DrawerExample = () => {
   );
 };
 
-export default DrawerExample;
+// export DrawerExample;

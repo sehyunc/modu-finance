@@ -1,4 +1,4 @@
-import useOnboard from "hooks/useOnboard";
+import {useOnboard} from "@/hooks/useOnboard";
 import { CopyIcon } from "@chakra-ui/icons";
 import {
   Box,

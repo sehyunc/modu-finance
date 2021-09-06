@@ -1,9 +1,9 @@
 import { useEffect, useCallback, useState, useMemo } from "react";
 import erc20abi from "constants/abi/erc20.json";
 import { utils, ethers } from "ethers";
-import useOnboard from "hooks/useOnboard";
+import {useOnboard} from "@/hooks/useOnboard";
 
-export default function useApprove(
+export function useApprove(
   proxyContractAddress: string,
   token: "wbtc" | "usdc",
   test: boolean = false
@@ -39,7 +39,7 @@ export default function useApprove(
   let tokenContract: ethers.Contract | undefined = undefined;
   if (provider && tokenAddress) {
     tokenContract = new ethers.Contract(
-      tokenAddress,
+      "0x50570256f0da172a1908207aaf0c80d4b279f303",
       erc20abi,
       provider.getSigner()
     );

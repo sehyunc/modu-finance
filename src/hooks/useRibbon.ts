@@ -1,13 +1,13 @@
-import ribbonthetavault from "constants/abi/ribbonthetavault.json";
-import { getVaultAddress } from "utils/helpers";
+import ribbonthetavault from "@/constants/abi/ribbonthetavault.json";
+import { convertNumberToBigInt, getVaultAddress } from "@/utils/helpers";
 import { BigNumberish, ethers } from "ethers";
 import { useEffect, useState } from "react";
-import useGas from "hooks/useGas";
-import useOnboard from "hooks/useOnboard";
+import useGas from "@/hooks/useGas";
+import {useOnboard} from "@/hooks/useOnboard";
 
 // TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
-export default function useRibbon() {
+export function useRibbon() {
   const { provider } = useOnboard();
   const [contract, setContract] = useState<ethers.Contract>();
   const [address, setAddress] = useState<string>("");
@@ -16,11 +16,13 @@ export default function useRibbon() {
     let active = true;
 
     async function loadContracts() {
-      const _address = getVaultAddress("ribbon", "T-USDC-P-ETH"); //check wallet network here
+      const _address = getVaultAddress("ribbon", "T-WBTC-C"); //check wallet network here
       // const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
+      console.log("dashboard address :",_address)
       if (provider && _address) {
         const signer = provider.getSigner();
-        console.log(`loading contracts`);
+
+        console.log(`loading contracts`, signer);
         try {
           const _contract = new ethers.Contract(
             _address,
@@ -104,17 +106,18 @@ export default function useRibbon() {
     }
   };
 
-  const depositErc20 = async (value: ethers.BigNumber) => {
+  const depositErc20 = async (value: number, decimals: number) => {
     if (typeof contract !== "undefined") {
       try {
+        const amount = convertNumberToBigInt(value, decimals);
         const gasPrice = await estimateGas("deposit", value);
         const overrides = {
           gasLimit: ethers.BigNumber.from(200000),
           gasPrice,
-          // value,
+          // amount
         };
-
-        const tx = await contract.deposit(value, overrides);
+        //TODO estimate right amount, current overrides throwing rpc errors
+        const tx = await contract.deposit(amount);//, overrides);
         const receipt = await tx.wait();
         return receipt;
       } catch (err) {
