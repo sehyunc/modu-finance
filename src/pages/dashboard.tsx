@@ -70,7 +70,7 @@ const Dashboard = () => {
     if (typeof provider !== "undefined") {
       try {
         let balance = await provider.getBalance(
-          "0xa6F018BBed3300Ed2b2F42c5b3013a9cbC984F90"
+          "0x06ec862721c6a376b62d9718040e418ecedfda1a"
         );
         balance = utils.formatEther(balance);
         console.log(balance);
@@ -107,7 +107,13 @@ const Dashboard = () => {
         >
           Fetch Value
         </Button>
-        <Button onClick={() => onApprove()}>Approve 10 USDC</Button>
+        <Button
+          onClick={() =>
+            approve("0x06ec862721c6a376b62d9718040e418ecedfda1a", "0.1", 8)
+          }
+        >
+          Approve 0.1 WBTC
+        </Button>
         <Button onClick={() => deposit("0.1", 8)}>Deposit</Button>
         <Heading>My Vaults</Heading>
         <HStack align="center" spacing="12">
