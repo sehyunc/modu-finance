@@ -5,25 +5,6 @@ import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
 import useRibbonData from "hooks/useRibbonData";
 
-const CURRENT_VAULTS = [
-  {
-    name: "T-ETH-C",
-    platform: "Ribbon",
-    underlying: "ETH",
-    apy: "9.23",
-    current: "9999.99",
-    max: "10000",
-  },
-  {
-    name: "T-BTC-C",
-    platform: "Ribbon",
-    underlying: "WBTC",
-    apy: "2.31",
-    current: "12",
-    max: "120",
-  },
-];
-
 const Ribbon = () => {
   const vaults = useRibbonData();
   return (
@@ -71,28 +52,9 @@ const Ribbon = () => {
       <PageContainer position="relative" bgColor="gray.900" minH="">
         <Main maxWidth="49rem" mb="6">
           <Heading>Available Vaults</Heading>
-          {vaults.map(
-            ({
-              symbol,
-              platform,
-              decimals,
-              underlyingSymbol,
-              cap,
-              lockedAmount,
-              id,
-            }) => (
-              <VaultCard
-                key={id}
-                symbol={symbol}
-                underlyingSymbol={underlyingSymbol}
-                cap={cap}
-                lockedAmount={lockedAmount}
-                id={id}
-                decimals={decimals}
-                platform={platform}
-              />
-            )
-          )}
+          {vaults.map((vault) => (
+            <VaultCard key={vault.id} vault={vault} />
+          ))}
         </Main>
       </PageContainer>
     </>
