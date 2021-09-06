@@ -128,7 +128,19 @@ export function useRibbon() {
     }
   };
 
-  // const withdraw = async(value: number, decimals: number)
+  const withdraw = async (value: number, decimals: number) => {
+    if (typeof contract != "undefined"){
+      try{
+        const amount = convertNumberToBigInt(value, decimals);
+        const shareAmount = await contract.assetAmountToShares(amount);
+        const tx = await contract.withdraw(shareAmount);
+        const receipt = await tx.wait();
+        return receipt;
+      }catch(error){
+        console.error("Error :", error)
+      }
+    }
+  }
   return {
     address,
     estimateGas,
@@ -136,5 +148,6 @@ export function useRibbon() {
     depositErc20,
     depositETH,
     readValue,
+    withdraw
   };
 }

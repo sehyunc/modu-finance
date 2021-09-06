@@ -14,7 +14,7 @@ export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
   const [tokenDecimals, setTokenDecimals] = useState(0);
 
   const { address, connectWallet, isWalletConnected } = useOnboard();
-  const {depositErc20} = useRibbon();
+  const {depositErc20, withdraw} = useRibbon();
 
   const tokenContract = new ethers.Contract(tokenAddress, erc20abi, provider)
   const vaultContract = new ethers.Contract(vaultAddress, thetaVaultAbi, provider)
@@ -29,7 +29,7 @@ export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
       setUserBalance(roundOffBigInt(balance, tokenDecimals))
       setUserPosition(roundOffBigInt(position, tokenDecimals))
     }
-  }, [tokenAddress, address, provider, tokenDecimals])
+  }, [tokenAddress, address, provider, tokenDecimals, userBalance, userPosition])
 
   console.log("userBalance", userBalance)
   const buttonText = isDeposit ? `Deposit ${tokenName}` : `Withdraw ${tokenName}`;
@@ -100,7 +100,7 @@ export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
               if(isDeposit){
                 await depositErc20(+inputText, tokenDecimals)
               }else{
-                
+                await withdraw(+inputText, tokenDecimals)
               }
             }}
           >
