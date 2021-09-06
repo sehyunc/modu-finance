@@ -1,6 +1,6 @@
 import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react";
 import Image from "next/image";
-import VaultCard from "components/NewVaultCard";
+import VaultCard from "components/VaultCard";
 import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
 import useRibbonData from "hooks/useRibbonData";

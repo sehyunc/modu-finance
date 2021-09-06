@@ -1,3 +1,4 @@
+import { Vault } from "models/Vault";
 import { vaultAtom } from "utils/atoms";
 import {
   Box,
@@ -10,9 +11,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
+import { utils } from "ethers";
 
+interface Props {}
 const COLORS: ICOLORS = {
-  ETH: {
+  WETH: {
     start: "#c993ff",
     end: "#415dff",
     tag: "purple",
@@ -32,29 +35,22 @@ interface color {
 interface ICOLORS {
   [key: string]: color;
 }
-type VaultCardProps = {
-  name: string;
-  platform: string;
-  underlying: string;
-  apy: string | number;
-  current: string;
-  max: string;
-};
 
-// TODO: Make Vault object similar to Ribbon's and use hook to retrieve vault info for all places necessary
-
-const VaultCard = ({
-  name,
-  platform,
-  underlying,
-  apy,
-  current,
-  max,
-}: VaultCardProps) => {
+const NewVaultCard = (props: Vault) => {
+  const {
+    symbol,
+    underlyingSymbol: underlying,
+    cap,
+    lockedAmount,
+    decimals,
+    platform,
+  } = props;
   const [, setVault] = useAtom(vaultAtom);
+  const parsedCap = utils.formatUnits(cap, decimals);
+  const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals);
   return (
     <Box
-      onClick={() => setVault(name)}
+      onClick={() => setVault(symbol)}
       minW="30rem"
       borderRadius="lg"
       boxShadow="surface"
@@ -109,20 +105,26 @@ const VaultCard = ({
               {underlying}
             </Tag>
           </Box>
-          <Heading color="white">{name}</Heading>
+          <Heading color="white">{symbol}</Heading>
           <div>
             <Text>Projected APY</Text>
-            <Heading fontFamily="Epilogue">{`${apy}%`}</Heading>
+            <Heading fontFamily="Epilogue">{`20%`}</Heading>
           </div>
           <div>
             <Flex align="center" justify="space-between">
               <Text>Current Deposits</Text>
-              <Text>{`${current} ${underlying}`}</Text>
+              <Text>{`${parsedLockedAmount} ${underlying}`}</Text>
             </Flex>
-            <Progress value={(parseFloat(current) / parseFloat(max)) * 100} />
+            <Progress
+              value={
+                (parseFloat(parsedLockedAmount.toString()) /
+                  parseFloat(parsedCap.toString())) *
+                100
+              }
+            />
             <Flex align="center" justify="space-between">
               <Text>Max Capacity</Text>
-              <Text>{`${max} ${underlying}`}</Text>
+              <Text>{`${parsedCap.toString()} ${underlying}`}</Text>
             </Flex>
           </div>
         </Box>
@@ -131,4 +133,4 @@ const VaultCard = ({
   );
 };
 
-export default VaultCard;
+export default NewVaultCard;
