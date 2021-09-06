@@ -1,5 +1,5 @@
-import {VaultForm} from "@/components/VaultForm";
-import { vaultAtom } from "@/utils/atoms";
+import {VaultForm} from "components/VaultForm";
+import { vaultAtom } from "utils/atoms";
 import {
   Flex,
   Spacer,

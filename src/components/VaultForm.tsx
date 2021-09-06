@@ -1,30 +1,35 @@
 import { Box, Button, Center, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import {useOnboard, useRibbon} from "@/hooks/index";
+import {useOnboard, useRibbon} from "hooks/index";
 import erc20abi from "../constants/abi/erc20.json"
 import thetaVaultAbi from "../constants/abi/ribbonthetavault.json"
 import { ethers } from "ethers";
-import { roundOffBigInt } from "@/utils/helpers";
+import { roundOffBigInt } from "utils/helpers";
 export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
   const [userBalance, setUserBalance] = useState('0');
   const [tokenName, setTokenName] = useState('');
   const [userPosition, setUserPosition] = useState('');
-  const { address, connectWallet, isWalletConnected } = useOnboard();
   const [isDeposit, setIsDeposit] = useState(true);
+  const [inputText, setInputText] = useState('0');
+  const [tokenDecimals, setTokenDecimals] = useState(0);
+
+  const { address, connectWallet, isWalletConnected } = useOnboard();
   const {depositErc20} = useRibbon();
+
   const tokenContract = new ethers.Contract(tokenAddress, erc20abi, provider)
   const vaultContract = new ethers.Contract(vaultAddress, thetaVaultAbi, provider)
 
   useEffect( async () => {
 
-    const tokenDecimals = await tokenContract.decimals()
-    setTokenName(await tokenContract.name())
+    setTokenDecimals(await tokenContract.decimals())
     const balance = await tokenContract.balanceOf(address)
     const position = await vaultContract.balanceOf(address)
-    setUserBalance(roundOffBigInt(balance, tokenDecimals))
-    setUserPosition(roundOffBigInt(position, tokenDecimals))
-
-  }, [tokenAddress, address, provider])
+    if(tokenDecimals!=0){
+      setTokenName(await tokenContract.name())
+      setUserBalance(roundOffBigInt(balance, tokenDecimals))
+      setUserPosition(roundOffBigInt(position, tokenDecimals))
+    }
+  }, [tokenAddress, address, provider, tokenDecimals])
 
   console.log("userBalance", userBalance)
   const buttonText = isDeposit ? `Deposit ${tokenName}` : `Withdraw ${tokenName}`;
@@ -86,14 +91,16 @@ export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
             Amount ({tokenName})
           </Text>
           {/* text input */}
-          <Input mb="12" variant="filled" placeholder="0" size="lg" />
+          <Input onChange={event => setInputText(event.target.value)} mb="12" variant="filled" placeholder="0" size="lg" />
           <Button
             size="lg"
             w="100%"
             mb="6"
             onClick={!isWalletConnected ? closeAndConnect : async () => { 
               if(isDeposit){
-                await depositErc20(1,8)
+                await depositErc20(+inputText, tokenDecimals)
+              }else{
+                
               }
             }}
           >

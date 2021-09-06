@@ -1,8 +1,8 @@
-import { Main } from "@/components/Main";
-import { PageContainer } from "@/components/PageContainer";
-import VaultCard from "@/components/VaultCard";
+import { Main } from "components/Main";
+import { PageContainer } from "components/PageContainer";
+import VaultCard from "components/VaultCard";
 import { Button, Heading, HStack } from "@chakra-ui/react";
-import {useRibbon, useApprove, useOnboard} from "@/hooks/index";
+import {useRibbon, useApprove, useOnboard, useRibbonData} from "hooks/index";
 import { utils } from "ethers";
 
 const CURRENT_VAULTS = [

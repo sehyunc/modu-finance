@@ -4,7 +4,7 @@ import ribbonClient from "../../ribbonClient";
 import { Vault } from "models/Vault";
 import { RibbonVaultConstructor } from "models/types";
 
-const useRibbonData = () => {
+export const useRibbonData = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);
 
   useEffect(() => {
@@ -37,5 +37,3 @@ const useRibbonData = () => {
 
   return vaults;
 };
-
-export default useRibbonData;

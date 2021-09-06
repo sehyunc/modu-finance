@@ -57,11 +57,13 @@ export const getVaultAddress = (
 export const roundOffBigInt = (num : bigint, decimals : number) => {
   
   var numString = num.toString()
+  console.log("numString : ", numString.length)
   if(decimals> numString.length){
     while(numString.length <= decimals) numString = "0" + numString 
   }
 
   const decimalPoint = numString.length - decimals
+  console.log(decimals, decimalPoint)
   numString = numString.slice(0, decimalPoint) + "." + numString.slice(decimalPoint, numString.length)
   return numString.slice(0,decimalPoint+4)
 }
