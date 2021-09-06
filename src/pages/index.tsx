@@ -1,6 +1,6 @@
-import AccessibleLink from "@/components/AccessibleLink";
-import { Main } from "@/components/Main";
-import { PageContainer } from "@/components/PageContainer";
+import AccessibleLink from "components/AccessibleLink";
+import { Main } from "components/Main";
+import { PageContainer } from "components/PageContainer";
 import { Button, Heading, Center, Text } from "@chakra-ui/react";
 import Head from "next/head";
 

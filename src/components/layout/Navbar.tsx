@@ -1,5 +1,5 @@
-import AccessibleLink from "@/components/AccessibleLink";
-import useOnboard from "@/hooks/useOnboard";
+import AccessibleLink from "components/AccessibleLink";
+import useOnboard from "hooks/useOnboard";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
-import AccountModal from "@/components/AccountModal";
+import AccountModal from "components/AccountModal";
 
 const Links = [
   {

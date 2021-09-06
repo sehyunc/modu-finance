@@ -1,4 +1,4 @@
-import { NETWORK } from "@/hooks/constants";
+import { NETWORK } from "hooks/constants";
 
 /**
  * Returns the chain id that maps to a provided network alias

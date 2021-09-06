@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import useOnboard from "@/hooks/useOnboard";
+import useOnboard from "hooks/useOnboard";
 
 const VaultForm = ({ onClose }) => {
   const { connectWallet, isWalletConnected } = useOnboard();

@@ -1,5 +1,5 @@
-import { Vault } from "@/models/Vault";
-import { vaultAtom } from "@/utils/atoms";
+import { Vault } from "models/Vault";
+import { vaultAtom } from "utils/atoms";
 import {
   Box,
   Flex,

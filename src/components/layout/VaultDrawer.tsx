@@ -1,5 +1,5 @@
-import VaultForm from "@/components/VaultForm";
-import { vaultAtom } from "@/utils/atoms";
+import VaultForm from "components/VaultForm";
+import { vaultAtom } from "utils/atoms";
 import {
   Flex,
   Spacer,
@@ -17,7 +17,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import AccessibleLink from "@/components/AccessibleLink";
+import AccessibleLink from "components/AccessibleLink";
 import Image from "next/image";
 
 const VaultRow = () => (

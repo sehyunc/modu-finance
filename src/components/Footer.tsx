@@ -1,4 +1,4 @@
-import AccessibleLink from "@/components/AccessibleLink";
+import AccessibleLink from "components/AccessibleLink";
 import { Button, Flex, FlexProps, Link } from "@chakra-ui/react";
 import { AiFillGithub } from "react-icons/ai";
 

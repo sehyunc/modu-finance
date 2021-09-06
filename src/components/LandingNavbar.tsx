@@ -1,4 +1,4 @@
-import AccessibleLink from "@/components/AccessibleLink";
+import AccessibleLink from "components/AccessibleLink";
 import {
   Box,
   Button,

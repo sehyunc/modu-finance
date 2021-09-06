@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import { useEffect, useState } from "react";
-import fontisabi from "@/constants/abi/fontisperpetualvault.json";
+import fontisabi from "constants/abi/fontisperpetualvault.json";
 import { utils, ethers, BigNumberish } from "ethers";
 
 export default function useFontis(

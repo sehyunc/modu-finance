@@ -8,9 +8,9 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
-import LeaderboardRow from "@/components/LeaderboardRow";
-import { PageContainer } from "@/components/PageContainer";
-import { Main } from "@/components/Main";
+import LeaderboardRow from "components/LeaderboardRow";
+import { PageContainer } from "components/PageContainer";
+import { Main } from "components/Main";
 
 const ROWS = [
   {

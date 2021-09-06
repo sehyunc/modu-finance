@@ -1,4 +1,4 @@
-import { vaultAtom } from "@/utils/atoms";
+import { vaultAtom } from "utils/atoms";
 import {
   Box,
   Flex,

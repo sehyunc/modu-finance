@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useMemo } from "react";
 import erc20abi from "constants/abi/erc20.json";
 import { utils, ethers } from "ethers";
-import useOnboard from "@/hooks/useOnboard";
+import useOnboard from "hooks/useOnboard";
 
 export default function useApprove(
   proxyContractAddress: string,

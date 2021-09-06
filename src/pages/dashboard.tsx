@@ -1,10 +1,10 @@
-import { Main } from "@/components/Main";
-import { PageContainer } from "@/components/PageContainer";
-import VaultCard from "@/components/VaultCard";
-import useApprove from "@/hooks/useApprove";
-import useOnboard from "@/hooks/useOnboard";
-import useRibbon from "@/hooks/useRibbon";
-import useRibbonData from "@/hooks/useRibbonData";
+import { Main } from "components/Main";
+import { PageContainer } from "components/PageContainer";
+import VaultCard from "components/VaultCard";
+import useApprove from "hooks/useApprove";
+import useOnboard from "hooks/useOnboard";
+import useRibbon from "hooks/useRibbon";
+import useRibbonData from "hooks/useRibbonData";
 import { Button, Heading, HStack } from "@chakra-ui/react";
 import { utils } from "ethers";
 

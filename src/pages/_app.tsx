@@ -5,8 +5,8 @@ import Head from "next/head";
 import "@fontsource/manrope/latin.css";
 import "@fontsource/inter/latin.css";
 import "@fontsource/epilogue/latin.css";
-import useInitializeOnboard from "@/hooks/useInitializeOnboard";
-import { useInitCookieOptions } from "@/hooks/useCookieOptions";
+import useInitializeOnboard from "hooks/useInitializeOnboard";
+import { useInitCookieOptions } from "hooks/useCookieOptions";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 import Layout from "components/layout";

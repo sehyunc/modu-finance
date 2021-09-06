@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 import client from "../../fontisClient";
-import { Vault } from "@/models/Vault";
-import { FontisVaultConstructor } from "@/models/types";
+import { Vault } from "models/Vault";
+import { FontisVaultConstructor } from "models/types";
 
 const useFontisClient = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);

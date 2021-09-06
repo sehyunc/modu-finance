@@ -1,9 +1,9 @@
 import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react";
 import Image from "next/image";
-import VaultCard from "@/components/NewVaultCard";
-import { PageContainer } from "@/components/PageContainer";
-import { Main } from "@/components/Main";
-import useFontisData from "@/hooks/useFontisData";
+import VaultCard from "components/NewVaultCard";
+import { PageContainer } from "components/PageContainer";
+import { Main } from "components/Main";
+import useFontisData from "hooks/useFontisData";
 
 const CURRENT_VAULTS = [
   {

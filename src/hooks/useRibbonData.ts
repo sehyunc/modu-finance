@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 import ribbonClient from "../../ribbonClient";
-import { Vault } from "@/models/Vault";
-import { RibbonVaultConstructor } from "@/models/types";
+import { Vault } from "models/Vault";
+import { RibbonVaultConstructor } from "models/types";
 
 const useRibbonData = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);

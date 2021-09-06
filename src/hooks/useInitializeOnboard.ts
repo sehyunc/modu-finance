@@ -5,12 +5,9 @@ import { atom, useAtom } from "jotai";
 import { ethers } from "ethers";
 import { API, Wallet } from "bnc-onboard/dist/src/interfaces";
 import Onboard from "bnc-onboard";
-import {
-  getNetworkNameAliasByChainId,
-  getChainIdByAlias,
-} from "@/utils/network";
+import { getNetworkNameAliasByChainId, getChainIdByAlias } from "utils/network";
 
-import { SELECTED_WALLET_COOKIE_KEY } from "@/hooks/constants";
+import { SELECTED_WALLET_COOKIE_KEY } from "hooks/constants";
 import { useCookieOptions } from "./useCookieOptions";
 
 export const onboardAtom = atom<API>(undefined as API);
