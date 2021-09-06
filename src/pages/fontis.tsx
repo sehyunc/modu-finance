@@ -3,26 +3,7 @@ import Image from "next/image";
 import VaultCard from "components/VaultCard";
 import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
-import useFontisData from "hooks/useFontisData";
-
-const CURRENT_VAULTS = [
-  {
-    name: "T-ETH-C",
-    platform: "Ribbon",
-    underlying: "ETH",
-    apy: "9.23",
-    current: "9999.99",
-    max: "10000",
-  },
-  {
-    name: "T-BTC-C",
-    platform: "Ribbon",
-    underlying: "WBTC",
-    apy: "2.31",
-    current: "12",
-    max: "120",
-  },
-];
+import { useFontisData } from "hooks";
 
 const Fontis = () => {
   const vaults = useFontisData();

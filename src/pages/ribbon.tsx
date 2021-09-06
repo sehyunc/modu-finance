@@ -3,7 +3,7 @@ import Image from "next/image";
 import VaultCard from "components/VaultCard";
 import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
-import useRibbonData from "hooks/useRibbonData";
+import { useRibbonData } from "hooks";
 
 const Ribbon = () => {
   const vaults = useRibbonData();

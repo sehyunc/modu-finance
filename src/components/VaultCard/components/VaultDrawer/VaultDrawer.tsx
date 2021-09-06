@@ -13,7 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import AccessibleLink from "components/AccessibleLink";
-import VaultForm from "components/VaultForm";
+import { VaultForm } from "components/VaultForm";
 import VaultRow from "./components/VaultRow";
 import { Vault } from "models/Vault";
 

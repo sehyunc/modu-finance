@@ -4,7 +4,7 @@ import client from "../../fontisClient";
 import { Vault } from "models/Vault";
 import { FontisVaultConstructor } from "models/types";
 
-const useFontisClient = () => {
+export const useFontisData = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);
 
   useEffect(() => {
@@ -37,5 +37,3 @@ const useFontisClient = () => {
 
   return vaults;
 };
-
-export default useFontisClient;

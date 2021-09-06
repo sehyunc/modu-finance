@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Meta from "./Meta";
 import Navbar from "./Navbar";
 import { ethers } from "ethers";
+import { VaultDrawer } from "./VaultDrawer";
 
 type LayoutProps = {
   children: ReactNode;
@@ -19,6 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
     <Box margin="0 auto" transition="0.5s ease-out">
       <Meta />
       {router.pathname !== "/" ? <Navbar /> : null}
+      <VaultDrawer provider={provider} />
       <Box as="main">{children}</Box>
     </Box>
   );
