@@ -43,10 +43,12 @@ interface VaultCardProps {
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   if (!vault) {
+    console.warn("Vault is null!")
     return null;
   }
   const {
     symbol,
+    name,
     underlyingSymbol: underlying,
     cap,
     lockedAmount,

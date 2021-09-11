@@ -11,6 +11,7 @@ import {
 import LeaderboardRow from "components/LeaderboardRow";
 import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
+import { querySubgraph } from "utils/helpers";
 
 const ROWS = [
   {
@@ -40,6 +41,7 @@ const ROWS = [
 ];
 
 const Leaderboard = () => {
+  // var { data } = await querySubgraph() 
   return (
     <>
       <PageContainer>

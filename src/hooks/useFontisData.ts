@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import client from "../../fontisClient";
 import { Vault } from "models/Vault";
 import { FontisVaultConstructor } from "models/types";
+import { querySubgraph } from "utils/helpers";
 
 export const useFontisData = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await client.query({
-        query: gql`
+      const query = `
           query Vaults {
             mintAndSells(first: 1) {
               id
@@ -21,9 +21,10 @@ export const useFontisData = () => {
               vaultTotalAssets
             }
           }
-        `,
-      });
-      console.log("🚀 ~ fetchData ~ data", data);
+        `;
+      const response = await querySubgraph("https://api.thegraph.com/subgraphs/name/fontus-god/fontis", query);
+      const { data } = await response.json()
+      console.log("🚀 ~ fontisData ~ data", data);
       const newVaults: Vault[] = [];
       data.mintAndSells.forEach((vault: FontisVaultConstructor) => {
         const v = Vault.fromFontisSubgraph(vault);

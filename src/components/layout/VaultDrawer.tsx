@@ -1,5 +1,6 @@
 import {VaultForm} from "components/VaultForm";
 import { vaultAtom } from "utils/atoms";
+import { ethers } from "ethers";
 import {
   Flex,
   Spacer,
@@ -38,11 +39,11 @@ const VaultRow = () => (
   </Flex>
 );
 
-export const VaultDrawer = ({provider }) => {
+export const VaultDrawer = (props: any) => {
   const [vault, setVault] = useAtom(vaultAtom);
   const isOpen = vault !== "";
   const onClose = () => setVault("");
-
+  const {provider} = props;
   return (
     <Box zIndex="99999">
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">

@@ -66,6 +66,7 @@ const Dashboard = () => {
   const vaults = useRibbonData();
   console.log("🚀 ~ Dashboard ~ vaults", vaults);
 
+  console.log("CURRENT_VAULTS :", CURRENT_VAULTS)
   async function fetchBalance() {
     if (typeof provider !== "undefined") {
       try {
@@ -89,8 +90,8 @@ const Dashboard = () => {
   // };
 
   const deposit = async (amount: string, decimals: number) => {
-    const amt = utils.parseUnits(amount, decimals);
-    const tx = await depositErc20(amt);
+
+    const tx = await depositErc20(parseInt(amount), 8);
     console.log(`Transaction hash: ${tx?.hash}`);
     console.log(`Transaction was mined in block ${tx?.receipt.blockNumber}`);
   };
@@ -119,14 +120,18 @@ const Dashboard = () => {
         <HStack align="center" spacing="12">
           {CURRENT_VAULTS.map(
             ({ name, platform, underlying, apy, current, max }, index) => (
+
               <VaultCard
-                key={index}
-                name={name}
-                platform={platform}
-                underlying={underlying}
-                apy={apy}
-                current={current}
-                max={max}
+                vault = {
+                  {
+                    id: String(index),
+                    symbol : name,
+                    underlyingSymbol : "underlying",
+                    lockedAmount : "12",
+                    cap: "10",
+                    decimals : 8
+                  }
+                }
               />
             )
           )}

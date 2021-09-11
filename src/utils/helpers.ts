@@ -85,3 +85,16 @@ export const convertNumberToBigInt = (value : number, decimals :number) => {
     return BigInt(stringValue.slice(0, decimalPoint) + postDecimal)
   }
 }
+
+export const querySubgraph = ( url: string, query :string) : Promise<Response> => {
+  const response = fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: query,
+    }),
+  });
+  return response;
+}

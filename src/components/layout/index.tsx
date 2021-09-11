@@ -12,7 +12,7 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  const provider = new ethers.getDefaultProvider(
+  const provider : ethers.providers.WebSocketProvider = new ethers.getDefaultProvider(
     "wss://kovan.infura.io/ws/v3/6462ee1e07a545188f9d444247d3a9e1"
   );
   const router = useRouter();

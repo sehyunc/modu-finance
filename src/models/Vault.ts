@@ -18,7 +18,7 @@ export class Vault {
   public totalWithdrawalFee?: string;
   public depositors?: string[];
   public decimals: number;
-  public platform: Platform;
+  public platform?: Platform;
 
   constructor(options: RibbonVaultConstructor) {
     this.id = options.id;

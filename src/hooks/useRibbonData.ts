@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import ribbonClient from "../../ribbonClient";
 import { Vault } from "models/Vault";
 import { RibbonVaultConstructor } from "models/types";
+import { querySubgraph } from "utils/helpers";
 
 export const useRibbonData = () => {
   const [vaults, setVaults] = useState<Vault[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await ribbonClient.query({
-        query: gql`
+      const query = `
           query Vaults {
             vaults {
               id
@@ -23,8 +23,11 @@ export const useRibbonData = () => {
               depositors
             }
           }
-        `,
-      });
+        `;
+
+      const response = await querySubgraph("https://api.thegraph.com/subgraphs/name/kenchangh/ribbon-finance", query);
+      const {data}  = await response.json()
+      console.log("Data :", data)
       const newVaults: Vault[] = [];
       data.vaults.forEach((vault: RibbonVaultConstructor) => {
         const v = Vault.fromRibbonSubgraph({ ...vault, platform: "ribbon" });
