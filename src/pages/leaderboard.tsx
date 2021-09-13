@@ -1,48 +1,44 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Center,
-  Container,
-  Grid,
-  Heading,
-  VStack,
-  Text,
-} from "@chakra-ui/react";
-import { PageContainer } from "components/PageContainer";
+import { useMemo, useState } from "react";
+import { Box } from "@chakra-ui/react";
+
 import Header from "components/Leaderboard/components/Header";
 import Row from "components/Leaderboard/components/Row";
-import { useRibbonData } from "hooks";
 
-const ROWS = [
-  {
-    name: "T-ETH-C",
-    platform: "Ribbon",
-    strategy: "Covered Call",
-    apy: "9.23",
-  },
-  {
-    name: "Theta-Gang",
-    platform: "Fontis",
-    strategy: "Covered Call",
-    apy: "6.78",
-  },
-  {
-    name: "Theta-Gang",
-    platform: "Fontis",
-    strategy: "Covered Call",
-    apy: "6.78",
-  },
-  {
-    name: "T-BTC-C",
-    platform: "Ribbon",
-    strategy: "Covered Call",
-    apy: "2.31",
-  },
-];
+import useVaults from "contexts/vaults/useVaults";
+
+type SortColumnOption = "name" | "platform" | "symbol" | "apy";
+type SortDirection = "up" | "down";
 
 const Leaderboard = () => {
-  const vaults = useRibbonData();
+  const { vaults } = useVaults();
+  const [activeSortColumn, setActiveSortColumn] =
+    useState<SortColumnOption>("name");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("down");
+
+  const sortedRows = useMemo(() => {
+    return vaults.sort((vaultA, vaultB) => {
+      let valA;
+      let valB;
+      if (activeSortColumn === "apy") {
+        valA = vaultA.apy;
+        valB = vaultB.apy;
+        if (sortDirection === "down") {
+          return (valA || 0) < (valB || 0) ? -1 : 1;
+        } else {
+          return (valA || 0) > (valB || 0) ? -1 : 1;
+        }
+      } else {
+        valA = vaultA[activeSortColumn]?.trim();
+        valB = vaultB[activeSortColumn]?.trim();
+        if (sortDirection === "down") {
+          return (valA || 0) < (valB || 0) ? -1 : 1;
+        } else {
+          return (valA || 0) > (valB || 0) ? -1 : 1;
+        }
+      }
+    });
+  }, [activeSortColumn, sortDirection, vaults]);
+
   return (
     <>
       <Box
@@ -52,13 +48,24 @@ const Leaderboard = () => {
         height="44px"
         width="100%"
       >
-        <Header title="Vault Name" flex={3} />
-        <Header title="Platform" />
-        <Header title="Strategy" />
-        <Header align="right" title="APY" />
+        <Header
+          flex={3}
+          onClick={() => setActiveSortColumn("name")}
+          title="Vault Name"
+        />
+        <Header
+          onClick={() => setActiveSortColumn("platform")}
+          title="Platform"
+        />
+        <Header onClick={() => setActiveSortColumn("symbol")} title="Symbol" />
+        <Header
+          onClick={() => setActiveSortColumn("apy")}
+          align="right"
+          title="Projected APY"
+        />
       </Box>
 
-      {vaults.map((vault) => {
+      {sortedRows.map((vault) => {
         return <Row key={vault.id} vault={vault} />;
       })}
     </>

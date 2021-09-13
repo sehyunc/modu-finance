@@ -12,6 +12,7 @@ export interface RibbonVaultConstructor {
   depositors?: string[];
   decimals: number;
   platform: Platform;
+  apy: number;
 }
 
 export interface FontisVaultConstructor {

@@ -24,8 +24,8 @@ const Row = ({ vault }: Props) => {
         <Box alignItems="center" display="flex" flex={1} justifyContent="left">
           <Text>{vault.symbol}</Text>
         </Box>
-        <Box alignItems="center" display="flex" flex={1} justifyContent="left">
-          <Text></Text>
+        <Box alignItems="center" display="flex" flex={1} justifyContent="right">
+          <Text>{`${String(vault.apy * 100).substr(0, 5)}%`}</Text>
         </Box>
       </Box>
     </>

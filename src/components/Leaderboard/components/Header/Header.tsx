@@ -4,10 +4,11 @@ import { Box, Text } from "@chakra-ui/react";
 interface Props {
   align?: "left" | "right";
   flex?: number;
+  onClick: () => void;
   title: string;
 }
 
-const Header = ({ align = "left", flex = 1, title }: Props) => {
+const Header = ({ align = "left", flex = 1, onClick, title }: Props) => {
   const justifyContent = align === "left" ? "flex-start" : "flex-end";
 
   return (
@@ -16,6 +17,7 @@ const Header = ({ align = "left", flex = 1, title }: Props) => {
       cursor="pointer"
       display="flex"
       flex={flex}
+      onClick={onClick}
       style={{ justifyContent }}
     >
       <Text>{title}</Text>
