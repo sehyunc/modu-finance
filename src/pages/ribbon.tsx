@@ -3,7 +3,6 @@ import Image from "next/image";
 import VaultCard from "components/VaultCard";
 import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
-import { useRibbonData } from "hooks";
 
 import useVaults from "contexts/vaults/useVaults";
 
