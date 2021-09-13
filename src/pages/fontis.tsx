@@ -5,8 +5,11 @@ import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
 import { useFontisData } from "hooks";
 
+import useVaults from "contexts/vaults/useVaults";
+
 const Fontis = () => {
-  const vaults = useFontisData();
+  const { fontisVaults: vaults } = useVaults();
+  console.log("🚀 ~ Fontis ~ vaults", vaults);
   return (
     <>
       <Box w="100%" bgColor="#000000">

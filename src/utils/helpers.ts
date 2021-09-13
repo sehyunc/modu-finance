@@ -1,4 +1,13 @@
-import {KOVAN_FONTIS_PERP_VAULT, KOVAN_TWBTC_ADDRESS, KOVAN_TUSDCP_ETH_ADDRESS, KOVAN_TETHC_ADDRESS, TETHC_ADDRESS, TWBTC_ADDRESS, TUSDCP_ETH_ADDRESS, FONTIS_PERP_VAULT} from '../constants/constants'
+import {
+  KOVAN_FONTIS_PERP_VAULT,
+  KOVAN_TWBTC_ADDRESS,
+  KOVAN_TUSDCP_ETH_ADDRESS,
+  KOVAN_TETHC_ADDRESS,
+  TETHC_ADDRESS,
+  TWBTC_ADDRESS,
+  TUSDCP_ETH_ADDRESS,
+  FONTIS_PERP_VAULT,
+} from "../constants/constants";
 
 export const getVaultAddress = (
   platform: string,
@@ -54,47 +63,52 @@ export const getVaultAddress = (
   }
 };
 
-export const roundOffBigInt = (num : bigint, decimals : number) => {
-  
-  var numString = num.toString()
-  console.log("numString : ", numString.length)
-  if(decimals> numString.length){
-    while(numString.length <= decimals) numString = "0" + numString 
+export const roundOffBigInt = (num: bigint, decimals: number) => {
+  var numString = num.toString();
+  console.log("numString : ", numString.length);
+  if (decimals > numString.length) {
+    while (numString.length <= decimals) numString = "0" + numString;
   }
 
-  const decimalPoint = numString.length - decimals
-  console.log(decimals, decimalPoint)
-  numString = numString.slice(0, decimalPoint) + "." + numString.slice(decimalPoint, numString.length)
-  return numString.slice(0,decimalPoint+4)
-}
+  const decimalPoint = numString.length - decimals;
+  console.log(decimals, decimalPoint);
+  numString =
+    numString.slice(0, decimalPoint) +
+    "." +
+    numString.slice(decimalPoint, numString.length);
+  return numString.slice(0, decimalPoint + 4);
+};
 
-export const convertNumberToBigInt = (value : number, decimals :number) => {
-  var stringValue = String(value)
-  if(!stringValue.includes(".")){
-    for(var i =0;i<decimals;i++) stringValue = stringValue + "0"
-    return BigInt(stringValue)
+export const convertNumberToBigInt = (value: number, decimals: number) => {
+  var stringValue = String(value);
+  if (!stringValue.includes(".")) {
+    for (var i = 0; i < decimals; i++) stringValue = stringValue + "0";
+    return BigInt(stringValue);
   } else {
-    const decimalPoint = stringValue.indexOf(".")
-    var postDecimal = stringValue.slice(decimalPoint+1, stringValue.length)
-    if(postDecimal.length < decimals){
-      while(postDecimal.length < decimals) postDecimal = postDecimal + "0"
+    const decimalPoint = stringValue.indexOf(".");
+    var postDecimal = stringValue.slice(decimalPoint + 1, stringValue.length);
+    if (postDecimal.length < decimals) {
+      while (postDecimal.length < decimals) postDecimal = postDecimal + "0";
     } else {
       //discard extra digits
-      postDecimal = postDecimal.slice(0, decimals)
+      postDecimal = postDecimal.slice(0, decimals);
     }
-    return BigInt(stringValue.slice(0, decimalPoint) + postDecimal)
+    return BigInt(stringValue.slice(0, decimalPoint) + postDecimal);
   }
-}
+};
 
-export const querySubgraph = ( url: string, query :string) : Promise<Response> => {
+export const querySubgraph = (
+  url: string,
+  query: string
+): Promise<Response> => {
   const response = fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: query,
+      query,
     }),
   });
   return response;
-}
+};

@@ -5,8 +5,10 @@ import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
 import { useRibbonData } from "hooks";
 
+import useVaults from "contexts/vaults/useVaults";
+
 const Ribbon = () => {
-  const vaults = useRibbonData();
+  const { ribbonVaults: vaults } = useVaults();
   return (
     <>
       <Box w="100%" bgColor="#000000">
