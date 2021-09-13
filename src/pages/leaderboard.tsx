@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Center,
@@ -8,10 +9,10 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
-import LeaderboardRow from "components/LeaderboardRow";
 import { PageContainer } from "components/PageContainer";
-import { Main } from "components/Main";
-import { querySubgraph } from "utils/helpers";
+import Header from "components/Leaderboard/components/Header";
+import Row from "components/Leaderboard/components/Row";
+import { useRibbonData } from "hooks";
 
 const ROWS = [
   {
@@ -41,55 +42,25 @@ const ROWS = [
 ];
 
 const Leaderboard = () => {
-  // var { data } = await querySubgraph() 
+  const vaults = useRibbonData();
   return (
     <>
-      <PageContainer>
-        <Main width="100%">
-          <Heading>Leaderboard</Heading>
-          <ButtonGroup size="sm" isAttached variant="outline">
-            <Button mr="-px">All Time</Button>
-            <Button mr="-px">This Week</Button>
-            <Button mr="-px">This Month</Button>
-          </ButtonGroup>
-          <Grid
-            fontWeight="700"
-            fontSize="xl"
-            templateColumns="repeat(5, 1fr)"
-            gap={6}
-          >
-            <Center>
-              <Text>Rank</Text>
-            </Center>
-            <Center>
-              <Text>Name</Text>
-            </Center>
-            <Center>
-              <Text>Platform</Text>
-            </Center>
-            <Center>
-              <Text>Strategy</Text>
-            </Center>
-            <Center>
-              <Text>Projected APY</Text>
-            </Center>
-          </Grid>
-          <VStack spacing="6">
-            {ROWS.map(({ name, platform, strategy, apy }, index) => (
-              <LeaderboardRow
-                key={index}
-                rank={index + 1}
-                name={name}
-                platform={platform}
-                strategy={strategy}
-                apy={apy}
-              />
-            ))}
-          </VStack>
-        </Main>
-      </PageContainer>
-      {/* <Container maxW="6xl" bg="#1a1f2c" rounded="md" py="16px"> */}
-      {/* </Container> */}
+      <Box
+        alignItems="center"
+        borderBottom="1px solid #000"
+        display="flex"
+        height="44px"
+        width="100%"
+      >
+        <Header title="Vault Name" flex={3} />
+        <Header title="Platform" />
+        <Header title="Strategy" />
+        <Header align="right" title="APY" />
+      </Box>
+
+      {vaults.map((vault) => {
+        return <Row key={vault.id} vault={vault} />;
+      })}
     </>
   );
 };
