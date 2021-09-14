@@ -16,16 +16,19 @@ import AccessibleLink from "components/AccessibleLink";
 import { VaultForm } from "components/VaultForm";
 import VaultRow from "./components/VaultRow";
 import { Vault } from "models/Vault";
+import { ethers, providers } from "ethers";
 
 interface VaultDrawerProps {
   vault: Vault;
   isOpen: boolean;
+  provider: ethers.providers.WebSocketProvider;
   onClose: () => void;
 }
 
 const VaultDrawer: React.FC<VaultDrawerProps> = ({
   vault,
   isOpen,
+  provider,
   onClose,
 }) => {
   return (
@@ -38,7 +41,8 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
 
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
-              <VaultForm onClose={onClose} />
+              {/* TODO:VaultAddress=vault.id */}
+              <VaultForm onClose={onClose} provider={provider} vaultAddress={"0x06ec862721C6A376B62D9718040e418ECedfDa1a"} tokenAddress={"0x50570256f0da172a1908207aaf0c80d4b279f303"}/>
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
 

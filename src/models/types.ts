@@ -13,6 +13,8 @@ export interface RibbonVaultConstructor {
   decimals: number;
   platform: Platform;
   apy: number;
+  address?:string;
+  underlyingTokenAddress?:string;
 }
 
 export interface FontisVaultConstructor {
@@ -22,4 +24,6 @@ export interface FontisVaultConstructor {
   vaultTotalAssets: string;
   yieldFromPremium: string;
   platform: Platform;
+  address?:string;
+  underlyingTokenAddress?:string;
 }

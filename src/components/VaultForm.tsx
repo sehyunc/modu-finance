@@ -16,20 +16,23 @@ export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
   const { address, connectWallet, isWalletConnected } = useOnboard();
   const {depositErc20, withdraw} = useRibbon();
 
-  const tokenContract = new ethers.Contract(tokenAddress, erc20abi, provider)
-  const vaultContract = new ethers.Contract(vaultAddress, thetaVaultAbi, provider)
-
-  useEffect( async () => {
-
-    setTokenDecimals(await tokenContract.decimals())
-    const balance = await tokenContract.balanceOf(address)
-    const position = await vaultContract.balanceOf(address)
-    if(tokenDecimals!=0){
-      setTokenName(await tokenContract.name())
-      setUserBalance(roundOffBigInt(balance, tokenDecimals))
-      setUserPosition(roundOffBigInt(position, tokenDecimals))
+  
+  useEffect(() => {
+    
+    const tokenContract = new ethers.Contract(tokenAddress, erc20abi, provider)
+    const vaultContract = new ethers.Contract(vaultAddress, thetaVaultAbi, provider)
+    const fetchData = async () => {
+      setTokenDecimals(await tokenContract.decimals())
+      const balance = await tokenContract.balanceOf(address)
+      const position = await vaultContract.balanceOf(address)
+      if(tokenDecimals!=0){
+        setTokenName(await tokenContract.name())
+        setUserBalance(roundOffBigInt(balance, tokenDecimals))
+        setUserPosition(roundOffBigInt(position, tokenDecimals))
+      }
+    fetchData()
     }
-  }, [tokenAddress, address, provider, tokenDecimals, userBalance, userPosition])
+  }, [tokenAddress, address, provider, tokenDecimals, userBalance, userPosition, vaultAddress])
 
   console.log("userBalance", userBalance)
   const buttonText = isDeposit ? `Deposit ${tokenName}` : `Withdraw ${tokenName}`;

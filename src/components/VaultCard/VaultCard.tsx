@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { utils } from "ethers";
+import { ethers, utils } from "ethers";
 import VaultDrawer from "components/VaultCard/components/VaultDrawer";
 import { useState } from "react";
 
@@ -57,7 +57,10 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   } = vault;
   const parsedCap = utils.formatUnits(cap, decimals);
   const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals);
-
+  //TODO:Drop in provider from a top level component 
+const provider : ethers.providers.WebSocketProvider = new ethers.getDefaultProvider(
+    "wss://kovan.infura.io/ws/v3/6462ee1e07a545188f9d444247d3a9e1"
+  );
   return (
     <>
       <Box
@@ -144,6 +147,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
       <VaultDrawer
         vault={vault}
         isOpen={isOpen}
+        provider={provider}
         onClose={() => setIsOpen(false)}
       />
     </>
