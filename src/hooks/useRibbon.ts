@@ -7,8 +7,8 @@ import {useOnboard} from "hooks/useOnboard";
 
 // TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
-export function useRibbon() {
-  const { provider } = useOnboard();
+export function useRibbon(props) {
+  const { provider } = props;
   const [contract, setContract] = useState<ethers.Contract>();
   const [address, setAddress] = useState<string>("");
 
@@ -107,6 +107,7 @@ export function useRibbon() {
   };
 
   const depositErc20 = async (value: number, decimals: number) => {
+    
     if (typeof contract !== "undefined") {
       try {
         const amount = convertNumberToBigInt(value, decimals);
@@ -141,11 +142,24 @@ export function useRibbon() {
       }
     }
   }
+
+  const approve = async () => {
+  if (typeof contract != "undefined"){
+      try{
+        const tx = await contract.approve(BigInt(-1));
+        const receipt = await tx.wait();
+        return receipt;
+      }catch(error){
+        console.error("Error :", error)
+      }
+    }
+  }
   return {
     address,
     estimateGas,
     contract,
     depositErc20,
+    approve,
     depositETH,
     readValue,
     withdraw

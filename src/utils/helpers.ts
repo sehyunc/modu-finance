@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import {
   KOVAN_FONTIS_PERP_VAULT,
   KOVAN_TWBTC_ADDRESS,
