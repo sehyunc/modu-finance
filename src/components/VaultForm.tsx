@@ -34,7 +34,7 @@ export const VaultForm = ({ onClose, provider, tokenAddress, vaultAddress}) => {
         setTokenName(await tokenContract.name())
         setUserBalance(roundOffBigInt(balance, tokenDecimals))
         setUserPosition(roundOffBigInt(position, tokenDecimals))
-        setIsApproved(BigInt(0)!=approved)
+        setIsApproved(BigInt(balance) > approved)
       // }
   }, [tokenAddress, provider, tokenDecimals, userBalance, userPosition, vaultAddress, account, tokenContract, vaultContract])
 
