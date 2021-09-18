@@ -1,5 +1,4 @@
 import AccessibleLink from "components/AccessibleLink";
-import { useOnboard } from "hooks/useOnboard";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -20,6 +19,10 @@ import useWallet from "contexts/wallet/useWallet";
 
 const Links = [
   {
+    label: "Modu",
+    href: "/",
+  },
+  {
     label: "Dashboard",
     href: "/dashboard",
   },
@@ -37,19 +40,22 @@ const Links = [
   },
 ];
 
-const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
+interface NavLinkProps {
+  children: ReactNode;
+  href: string;
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ children, href }) => (
   <Box px="2" py="1">
-    <AccessibleLink href={href} isExternal={false} decoration={false}>
+    <AccessibleLink href={href} decoration={false}>
       {children}
     </AccessibleLink>
   </Box>
 );
 
-export default function Navbar() {
+const TopBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
-  const { connectWallet, address, wallet, onboard } = useOnboard();
-
   const { account, onConnectToMetaMask } = useWallet();
   console.log("🚀 ~ Navbar ~ account", account);
 
@@ -60,24 +66,18 @@ export default function Navbar() {
         px={4}
         position="sticky"
         top="0"
-        zIndex="10"
+        zIndex={10}
       >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+        <Flex alignItems="center" h={16} justifyContent="space-between">
           <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
+            aria-label="Open Menu"
             display={{ md: "none" }}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             onClick={isOpen ? onClose : onOpen}
+            size="md"
           />
-          <HStack spacing={8} alignItems={"center"}>
-            {/* <Box><ChakraNextImage src="/static/logo-white.png" alt="logo" width={{base: '48px'}} height={{base: '48px'}}/></Box> */}
-            <NavLink href="/">Opyn</NavLink>
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
+          <Box alignItems="center" display="flex">
+            <HStack display={{ base: "none", md: "flex" }} spacing={4}>
               {Links.map(({ label, href }) => (
                 <NavLink key={href} href={href}>
                   <Text
@@ -90,9 +90,9 @@ export default function Navbar() {
                 </NavLink>
               ))}
             </HStack>
-          </HStack>
-          <Flex alignItems={"center"}>
-            {address ? (
+          </Box>
+          <Flex alignItems="center">
+            {account ? (
               <AccountModal />
             ) : (
               <Button
@@ -105,20 +105,6 @@ export default function Navbar() {
                 Connect Wallet
               </Button>
             )}
-            {/* <Menu>
-              <MenuButton
-                as={IconButton}
-                // variant={'link'}
-                cursor={"pointer"}
-                icon={<HamburgerIcon />}
-              />
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
-              </MenuList>
-            </Menu> */}
           </Flex>
         </Flex>
 
@@ -135,13 +121,15 @@ export default function Navbar() {
         ) : null}
       </Box>
       <Box
-        w="100%"
-        h="2px"
         bgGradient="linear(to-r, #f4b04a, #d15c6c)"
+        h="2px"
         opacity="0.5"
         position="fixed"
-        zIndex="10"
+        w="100%"
+        zIndex={10}
       />
     </>
   );
-}
+};
+
+export default TopBar;

@@ -6,7 +6,7 @@ import WalletContext from "./WalletContext";
 const WalletProvider: React.FC = ({ children }) => {
   const [connectWalletIsOpen, setConnectWalletIsOpen] = useState(false);
   const [account, setAccount] = useState<string>("");
-  const [provider, setProvider] = useState<ethers.providers.Provider>();
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [ethereum, setEthereum] = useState<ethers.providers.ExternalProvider>();
 
   useEffect(() => {

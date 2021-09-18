@@ -10,7 +10,6 @@ import {
   Tag,
   Text,
 } from "@chakra-ui/react";
-import { useAtom } from "jotai";
 import { ethers, utils } from "ethers";
 import VaultDrawer from "components/VaultCard/components/VaultDrawer";
 import { useState } from "react";
@@ -43,7 +42,7 @@ interface VaultCardProps {
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   if (!vault) {
-    console.warn("Vault is null!")
+    console.warn("Vault is null!");
     return null;
   }
   const {
@@ -57,10 +56,11 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   } = vault;
   const parsedCap = utils.formatUnits(cap, decimals);
   const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals);
-  //TODO:Drop in provider from a top level component 
-const provider : ethers.providers.WebSocketProvider = new ethers.getDefaultProvider(
-    "wss://kovan.infura.io/ws/v3/6462ee1e07a545188f9d444247d3a9e1"
-  );
+  //TODO:Drop in provider from a top level component
+  const provider: ethers.providers.WebSocketProvider =
+    new ethers.getDefaultProvider(
+      "wss://kovan.infura.io/ws/v3/6462ee1e07a545188f9d444247d3a9e1"
+    );
   return (
     <>
       <Box

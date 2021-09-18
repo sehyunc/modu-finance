@@ -1,14 +1,14 @@
 import { useEffect, useCallback, useState, useMemo } from "react";
 import erc20abi from "constants/abi/erc20.json";
 import { utils, ethers } from "ethers";
-import {useOnboard} from "hooks/useOnboard";
+import useWallet from "contexts/wallet/useWallet";
 
 export function useApprove(
   proxyContractAddress: string,
   token: "wbtc" | "usdc",
   test: boolean = false
 ) {
-  const { provider } = useOnboard();
+  const { provider } = useWallet();
   const [decimals, setDecimals] = useState<number>(0);
   const [gasLimit, setGasLimit] = useState<number>();
 

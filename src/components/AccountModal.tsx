@@ -1,4 +1,3 @@
-import {useOnboard} from "hooks/useOnboard";
 import { CopyIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -16,10 +15,10 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import useWallet from "contexts/wallet/useWallet";
 
 export default function AccountModal() {
-  const { address, walletName, onboard } = useOnboard();
+  const { account: address } = useWallet();
 
   const { onCopy } = useClipboard(address);
   const { colorMode } = useColorMode();
@@ -52,7 +51,7 @@ export default function AccountModal() {
               padding={6}
             >
               <Text fontSize="sm" fontWeight="500">
-                Connected Wallet: {walletName}
+                Connected Wallet: {address}
               </Text>
               <Text fontSize="1.6em" fontWeight="500">
                 {address?.substr(0, 8)}...{address?.substr(address.length - 6)}
@@ -62,18 +61,7 @@ export default function AccountModal() {
               </Button>
             </Box>
           </ModalBody>
-          <ModalFooter>
-            <Button
-              bgGradient="linear(to-l, #FF0080,#7928CA)"
-              colorScheme={useColorModeValue("blue", "gray")}
-              onClick={() => {
-                onClose();
-                onboard.walletSelect();
-              }}
-            >
-              Change Wallet
-            </Button>
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>

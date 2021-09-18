@@ -2,15 +2,14 @@ import ribbonthetavault from "constants/abi/ribbonthetavault.json";
 import { convertNumberToBigInt, getVaultAddress } from "utils/helpers";
 import { BigNumberish, ethers } from "ethers";
 import { useEffect, useState } from "react";
-import useGas from "hooks/useGas";
-import {useOnboard} from "hooks/useOnboard";
+import useWallet from "contexts/wallet/useWallet";
 
 // TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
-export function useRibbon(props) {
-  const { provider } = props;
+export function useRibbon() {
   const [contract, setContract] = useState<ethers.Contract>();
   const [address, setAddress] = useState<string>("");
+  const { provider } = useWallet();
 
   useEffect(() => {
     let active = true;
@@ -18,7 +17,7 @@ export function useRibbon(props) {
     async function loadContracts() {
       const _address = getVaultAddress("ribbon", "T-WBTC-C"); //check wallet network here
       // const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
-      console.log("dashboard address :",_address)
+      console.log("dashboard address :", _address);
       if (provider && _address) {
         const signer = provider.getSigner();
 
@@ -107,7 +106,6 @@ export function useRibbon(props) {
   };
 
   const depositErc20 = async (value: number, decimals: number) => {
-    
     if (typeof contract !== "undefined") {
       try {
         const amount = convertNumberToBigInt(value, decimals);
@@ -118,7 +116,7 @@ export function useRibbon(props) {
           // amount
         };
         //TODO estimate right amount, current overrides throwing rpc errors
-        const tx = await contract.deposit(amount);//, overrides);
+        const tx = await contract.deposit(amount); //, overrides);
         const receipt = await tx.wait();
         return receipt;
       } catch (err) {
@@ -130,30 +128,30 @@ export function useRibbon(props) {
   };
 
   const withdraw = async (value: number, decimals: number) => {
-    if (typeof contract != "undefined"){
-      try{
+    if (typeof contract != "undefined") {
+      try {
         const amount = convertNumberToBigInt(value, decimals);
         const shareAmount = await contract.assetAmountToShares(amount);
         const tx = await contract.withdraw(shareAmount);
         const receipt = await tx.wait();
         return receipt;
-      }catch(error){
-        console.error("Error :", error)
+      } catch (error) {
+        console.error("Error :", error);
       }
     }
-  }
+  };
 
   const approve = async () => {
-  if (typeof contract != "undefined"){
-      try{
+    if (typeof contract != "undefined") {
+      try {
         const tx = await contract.approve(BigInt(-1));
         const receipt = await tx.wait();
         return receipt;
-      }catch(error){
-        console.error("Error :", error)
+      } catch (error) {
+        console.error("Error :", error);
       }
     }
-  }
+  };
   return {
     address,
     estimateGas,
@@ -162,6 +160,6 @@ export function useRibbon(props) {
     approve,
     depositETH,
     readValue,
-    withdraw
+    withdraw,
   };
 }

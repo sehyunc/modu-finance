@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 
 export interface WalletContextValues {
   account: string;
-  provider?: ethers.providers.Provider;
+  provider?: ethers.providers.Web3Provider;
   onConnect: () => void;
   onConnectToMetaMask: () => Promise<ethers.providers.Web3Provider | undefined>;
 }
