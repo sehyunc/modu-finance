@@ -12,37 +12,44 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+
 import AccessibleLink from "components/AccessibleLink";
-import { VaultForm } from "components/VaultForm";
-import VaultRow from "./components/VaultRow";
+import VaultForm from "components/VaultForm";
+
 import { Vault } from "models/Vault";
-import { ethers, providers } from "ethers";
+
+import { getVaultAddress } from "utils/helpers";
+
+import VaultRow from "./components/VaultRow";
 
 interface VaultDrawerProps {
   vault: Vault;
   isOpen: boolean;
-  provider: ethers.providers.WebSocketProvider;
   onClose: () => void;
 }
 
 const VaultDrawer: React.FC<VaultDrawerProps> = ({
   vault,
   isOpen,
-  provider,
   onClose,
 }) => {
+  const vaultAddress = getVaultAddress(vault.platform, vault.name);
+  console.log("🚀 ~ vaultAddress", vaultAddress);
   return (
-    <Box zIndex="99999">
+    <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
         <DrawerOverlay />
         <DrawerContent bg="#1c1a19">
           <DrawerCloseButton />
           <DrawerHeader>{vault.name}</DrawerHeader>
-
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
               {/* TODO:VaultAddress=vault.id */}
-              <VaultForm onClose={onClose} provider={provider} vaultAddress={"0x06ec862721C6A376B62D9718040e418ECedfDa1a"} tokenAddress={"0x50570256f0da172a1908207aaf0c80d4b279f303"}/>
+              <VaultForm
+                onClose={onClose}
+                vaultAddress={vaultAddress}
+                tokenSymbol={vault.underlyingSymbol}
+              />
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
 

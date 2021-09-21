@@ -16,14 +16,11 @@ import { ethers } from "ethers";
 import { roundOffBigInt } from "utils/helpers";
 import useWallet from "contexts/wallet/useWallet";
 import useAsyncEffect from "use-async-effect";
+import { getTokenAddress } from "utils/helpers";
 
-export const VaultForm = ({
-  onClose,
-  provider,
-  tokenAddress,
-  vaultAddress,
-}) => {
-  const { account, onConnectToMetaMask } = useWallet();
+const VaultForm = ({ onClose, tokenSymbol, vaultAddress }) => {
+  console.log("🚀 ~ VaultForm ~ vaultAddress", vaultAddress);
+  const { account, onConnectToMetaMask, provider } = useWallet();
   const [userBalance, setUserBalance] = useState("0");
   const [tokenName, setTokenName] = useState("");
   const [isApproved, setIsApproved] = useState(true);
@@ -32,21 +29,40 @@ export const VaultForm = ({
   const [inputText, setInputText] = useState("0");
   const [tokenDecimals, setTokenDecimals] = useState(0);
 
-  const { depositErc20, withdraw, approve } = useRibbon(provider);
+  const [tokenContract, setTokenContract] = useState<ethers.Contract>();
+  const [vaultContract, setVaultContract] = useState<ethers.Contract>();
 
-  const tokenContract = new ethers.Contract(tokenAddress, erc20abi, provider);
-  const vaultContract = new ethers.Contract(
-    vaultAddress,
-    thetaVaultAbi,
-    provider
-  );
+  const isConnected = Boolean(account);
 
+  const { depositErc20, withdraw, approve } = useRibbon();
+  const tokenAddress = getTokenAddress(tokenSymbol);
+  console.log("🚀 ~ VaultForm ~ tokenAddress", tokenAddress);
+
+  useEffect(() => {
+    console.log(Boolean(provider));
+    if (!provider) return;
+    const c = new ethers.Contract(tokenAddress, erc20abi, provider);
+    setTokenContract(c);
+  }, [provider, tokenAddress]);
+
+  useEffect(() => {
+    if (!provider) return;
+    const c = new ethers.Contract(vaultAddress, thetaVaultAbi, provider);
+    setVaultContract(c);
+  }, [provider, tokenAddress, vaultAddress]);
+
+  // TODO: Probably shouldn't return here
   useAsyncEffect(async () => {
+    if (!tokenContract || !vaultContract) {
+      return;
+    }
     setTokenDecimals(await tokenContract.decimals());
     const balance = await tokenContract.balanceOf(account);
-    const position = await vaultContract.balanceOf(account);
+    const position = await vaultContract
+      .balanceOf(account)
+      .then((res) => console.log(res))
+      .catch((err) => console.warn(err));
     const approved = await tokenContract.allowance(account, vaultAddress);
-    console.log("balance :", balance);
     // if(tokenDecimals!=0){
     setTokenName(await tokenContract.name());
     setUserBalance(roundOffBigInt(balance, tokenDecimals));
@@ -65,7 +81,6 @@ export const VaultForm = ({
     vaultContract,
   ]);
 
-  console.log("userBalance", userBalance);
   const buttonText = !isDeposit
     ? `Withdraw ${tokenName}`
     : isApproved
@@ -157,7 +172,7 @@ export const VaultForm = ({
             w="100%"
             mb="6"
             onClick={
-              !onConnectToMetaMask
+              !isConnected
                 ? closeAndConnect
                 : async () => {
                     if (!isApproved) {
@@ -170,7 +185,7 @@ export const VaultForm = ({
                   }
             }
           >
-            {onConnectToMetaMask ? buttonText : "Connect Wallet"}
+            {isConnected ? buttonText : "Connect Wallet"}
           </Button>
           <Text textAlign="center" color="white">
             {footerText}
@@ -180,3 +195,5 @@ export const VaultForm = ({
     </>
   );
 };
+
+export default VaultForm;

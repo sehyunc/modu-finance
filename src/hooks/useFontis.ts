@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import fontisabi from "constants/abi/fontisperpetualvault.json";
 import { utils, ethers, BigNumberish } from "ethers";
 
-export function useFontis(
-  providerOrSigner: ethers.providers.Web3Provider
-) {
+export function useFontis(providerOrSigner: ethers.providers.Web3Provider) {
   const [contract, setContract] = useState<ethers.Contract>();
   useEffect(() => {
     let active = true;
@@ -14,7 +12,6 @@ export function useFontis(
     async function loadContracts() {
       if (!providerOrSigner) return;
       const signer = providerOrSigner.getSigner();
-      console.log(`loading contracts`);
       try {
         const _address = "0x21Ed852c14e1858C5d3F7afD9f3bBE714269Dc31";
         const _contract = new ethers.Contract(_address, fontisabi, signer);

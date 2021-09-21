@@ -1,10 +1,5 @@
 import { FontisVaultConstructor, RibbonVaultConstructor } from "./types";
-
-const symbolToDecimalMap: { [symbol: string]: number } = {
-  WETH: 18,
-  WBTC: 8,
-  USDC: 6,
-};
+import { symbolToDecimalMap } from "utils/helpers";
 
 export type Platform = "ribbon" | "fontis";
 
@@ -18,7 +13,7 @@ export class Vault {
   public totalWithdrawalFee?: string;
   public depositors?: string[];
   public decimals: number;
-  public platform?: Platform;
+  public platform: Platform;
   public apy?: number;
 
   constructor(options: RibbonVaultConstructor) {

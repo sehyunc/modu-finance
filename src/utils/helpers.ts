@@ -1,20 +1,42 @@
-import { ethers } from "ethers";
+import { MATIC__USDC_ADDRESS, KOVAN__WETH_ADDRESS } from "constants/constants";
 import {
-  KOVAN_FONTIS_PERP_VAULT,
-  KOVAN_TWBTC_ADDRESS,
-  KOVAN_TUSDCP_ETH_ADDRESS,
-  KOVAN_TETHC_ADDRESS,
-  TETHC_ADDRESS,
-  TWBTC_ADDRESS,
-  TUSDCP_ETH_ADDRESS,
   FONTIS_PERP_VAULT,
+  KOVAN_FONTIS_PERP_VAULT,
+  KOVAN_TETHC_ADDRESS,
+  KOVAN_TUSDCP_ETH_ADDRESS,
+  KOVAN_TWBTC_ADDRESS,
+  KOVAN__OPENBTC_ADDRESS,
+  TETHC_ADDRESS,
+  TUSDCP_ETH_ADDRESS,
+  TWBTC_ADDRESS,
 } from "../constants/constants";
+
+export const symbolToDecimalMap: { [symbol: string]: number } = {
+  WETH: 18,
+  WBTC: 8,
+  USDC: 6,
+};
+
+export const getTokenAddress = (symbol: string): string => {
+  switch (symbol) {
+    case "USDC":
+      return MATIC__USDC_ADDRESS;
+    case "WETH":
+      return KOVAN__WETH_ADDRESS;
+    case "WBTC":
+      return KOVAN__OPENBTC_ADDRESS;
+    default:
+      return "";
+  }
+};
 
 export const getVaultAddress = (
   platform: string,
   vault: string,
   test: boolean = true
-): string | undefined => {
+): string => {
+  console.log("🚀 ~ vault", vault);
+  console.log("🚀 ~ platform", platform);
   if (test) {
     switch (platform) {
       case "ribbon":
@@ -22,21 +44,23 @@ export const getVaultAddress = (
           case "T-ETH-C":
             return KOVAN_TETHC_ADDRESS;
           case "T-WBTC-C":
+            console.log("good");
             return KOVAN_TWBTC_ADDRESS;
           case "T-USDC-P-ETH":
             return KOVAN_TUSDCP_ETH_ADDRESS;
           default:
-            return;
+            console.log("bad");
+            return "";
         }
       case "fontis":
         switch (vault) {
           case "PerpVault":
             return KOVAN_FONTIS_PERP_VAULT;
           default:
-            return;
+            return "";
         }
       default:
-        return;
+        return "";
     }
   }
 

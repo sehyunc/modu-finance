@@ -3,7 +3,6 @@ import Image from "next/image";
 import VaultCard from "components/VaultCard";
 import { PageContainer } from "components/PageContainer";
 import { Main } from "components/Main";
-import { useFontisData } from "hooks";
 
 import useVaults from "contexts/vaults/useVaults";
 
@@ -58,28 +57,9 @@ const Fontis = () => {
         <Main mb="6">
           <Heading>Available Vaults</Heading>
           <HStack align="center" spacing="12">
-            {vaults.map(
-              ({
-                symbol,
-                platform,
-                decimals,
-                underlyingSymbol,
-                cap,
-                lockedAmount,
-                id,
-              }) => (
-                <VaultCard
-                  key={id}
-                  symbol={symbol}
-                  underlyingSymbol={underlyingSymbol}
-                  cap={cap}
-                  lockedAmount={lockedAmount}
-                  id={id}
-                  decimals={decimals}
-                  platform={platform}
-                />
-              )
-            )}
+            {vaults.map((vault) => (
+              <VaultCard key={vault.id} vault={vault} />
+            ))}
           </HStack>
         </Main>
       </PageContainer>
