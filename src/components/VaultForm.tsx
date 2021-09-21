@@ -19,7 +19,6 @@ import useAsyncEffect from "use-async-effect";
 import { getTokenAddress } from "utils/helpers";
 
 const VaultForm = ({ onClose, tokenSymbol, vaultAddress }) => {
-  console.log("🚀 ~ VaultForm ~ vaultAddress", vaultAddress);
   const { account, onConnectToMetaMask, provider } = useWallet();
   const [userBalance, setUserBalance] = useState("0");
   const [tokenName, setTokenName] = useState("");
@@ -36,7 +35,6 @@ const VaultForm = ({ onClose, tokenSymbol, vaultAddress }) => {
 
   const { depositErc20, withdraw, approve } = useRibbon();
   const tokenAddress = getTokenAddress(tokenSymbol);
-  console.log("🚀 ~ VaultForm ~ tokenAddress", tokenAddress);
 
   useEffect(() => {
     console.log(Boolean(provider));
@@ -58,10 +56,7 @@ const VaultForm = ({ onClose, tokenSymbol, vaultAddress }) => {
     }
     setTokenDecimals(await tokenContract.decimals());
     const balance = await tokenContract.balanceOf(account);
-    const position = await vaultContract
-      .balanceOf(account)
-      .then((res) => console.log(res))
-      .catch((err) => console.warn(err));
+    const position = await vaultContract.balanceOf(account);
     const approved = await tokenContract.allowance(account, vaultAddress);
     // if(tokenDecimals!=0){
     setTokenName(await tokenContract.name());

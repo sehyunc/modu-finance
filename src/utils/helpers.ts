@@ -30,13 +30,19 @@ export const getTokenAddress = (symbol: string): string => {
   }
 };
 
+export const vaultNameToAddressMap: {
+  [platform: string]: { [vaultName: string]: string };
+} = {
+  ribbon: {
+    "T-WBTC-C": KOVAN_TWBTC_ADDRESS,
+  },
+};
+
 export const getVaultAddress = (
   platform: string,
   vault: string,
   test: boolean = true
 ): string => {
-  console.log("🚀 ~ vault", vault);
-  console.log("🚀 ~ platform", platform);
   if (test) {
     switch (platform) {
       case "ribbon":
@@ -44,13 +50,12 @@ export const getVaultAddress = (
           case "T-ETH-C":
             return KOVAN_TETHC_ADDRESS;
           case "T-WBTC-C":
-            console.log("good");
             return KOVAN_TWBTC_ADDRESS;
           case "T-USDC-P-ETH":
             return KOVAN_TUSDCP_ETH_ADDRESS;
           default:
             console.log("bad");
-            return "";
+            return KOVAN_TWBTC_ADDRESS;
         }
       case "fontis":
         switch (vault) {
