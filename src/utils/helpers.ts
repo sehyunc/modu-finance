@@ -1,15 +1,18 @@
-import { MATIC__USDC_ADDRESS, KOVAN__WETH_ADDRESS } from "constants/constants";
 import {
-  FONTIS_PERP_VAULT,
-  KOVAN_FONTIS_PERP_VAULT,
-  KOVAN_TETHC_ADDRESS,
-  KOVAN_TUSDCP_ETH_ADDRESS,
-  KOVAN_TWBTC_ADDRESS,
-  KOVAN__OPENBTC_ADDRESS,
-  TETHC_ADDRESS,
-  TUSDCP_ETH_ADDRESS,
-  TWBTC_ADDRESS,
-} from "../constants/constants";
+  KOVAN_OPYNBTC_ADDRESS,
+  KOVAN_PETHC,
+  KOVAN_TETHC,
+  KOVAN_TUSDCP,
+  KOVAN_TWBTC,
+  KOVAN_WETH_ADDRESS,
+} from "constants/addresses";
+
+export const symbolToAddressMap: {
+  [symbol: string]: string;
+} = {
+  WETH: KOVAN_WETH_ADDRESS,
+  WBTC: KOVAN_OPYNBTC_ADDRESS,
+};
 
 export const symbolToDecimalMap: { [symbol: string]: number } = {
   WETH: 18,
@@ -17,80 +20,17 @@ export const symbolToDecimalMap: { [symbol: string]: number } = {
   USDC: 6,
 };
 
-export const getTokenAddress = (symbol: string): string => {
-  switch (symbol) {
-    case "USDC":
-      return MATIC__USDC_ADDRESS;
-    case "WETH":
-      return KOVAN__WETH_ADDRESS;
-    case "WBTC":
-      return KOVAN__OPENBTC_ADDRESS;
-    default:
-      return "";
-  }
-};
-
 export const vaultNameToAddressMap: {
   [platform: string]: { [vaultName: string]: string };
 } = {
   ribbon: {
-    "T-WBTC-C": KOVAN_TWBTC_ADDRESS,
+    "T-WBTC-C": KOVAN_TWBTC,
+    "T-ETH-C": KOVAN_TETHC,
+    "T-USDC-P": KOVAN_TUSDCP,
   },
-};
-
-export const getVaultAddress = (
-  platform: string,
-  vault: string,
-  test: boolean = true
-): string => {
-  if (test) {
-    switch (platform) {
-      case "ribbon":
-        switch (vault) {
-          case "T-ETH-C":
-            return KOVAN_TETHC_ADDRESS;
-          case "T-WBTC-C":
-            return KOVAN_TWBTC_ADDRESS;
-          case "T-USDC-P-ETH":
-            return KOVAN_TUSDCP_ETH_ADDRESS;
-          default:
-            console.log("bad");
-            return KOVAN_TWBTC_ADDRESS;
-        }
-      case "fontis":
-        switch (vault) {
-          case "PerpVault":
-            return KOVAN_FONTIS_PERP_VAULT;
-          default:
-            return "";
-        }
-      default:
-        return "";
-    }
-  }
-
-  switch (platform) {
-    case "ribbon":
-      switch (vault) {
-        case "T-ETH-C":
-          return TETHC_ADDRESS;
-        case "T-WBTC-C":
-          return TWBTC_ADDRESS;
-        case "T-USDC-P-ETH":
-          return TUSDCP_ETH_ADDRESS;
-        default:
-          return;
-      }
-    case "fontis":
-      switch (vault) {
-        case "PerpVault":
-          return FONTIS_PERP_VAULT;
-        default:
-          return;
-      }
-    default:
-      return;
-  }
+  fontis: {
+    "P-ETH-C": KOVAN_PETHC,
+  },
 };
 
 export const roundOffBigInt = (num: bigint, decimals: number) => {
@@ -125,20 +65,4 @@ export const convertNumberToBigInt = (value: number, decimals: number) => {
     }
     return BigInt(stringValue.slice(0, decimalPoint) + postDecimal);
   }
-};
-
-export const querySubgraph = (
-  url: string,
-  query: string
-): Promise<Response> => {
-  const response = fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query,
-    }),
-  });
-  return response;
 };

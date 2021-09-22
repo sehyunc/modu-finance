@@ -19,7 +19,7 @@ import useBalance from "hooks/useBalance";
 import usePosition from "hooks/usePosition";
 import useRibbon from "hooks/useRibbon";
 
-import { getTokenAddress, symbolToDecimalMap } from "utils/helpers";
+import { symbolToDecimalMap, symbolToAddressMap } from "utils/helpers";
 
 import SubmitButton from "../SubmitButton";
 
@@ -42,7 +42,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const [tokenContract, setTokenContract] = useState<ethers.Contract>();
   const { account, provider } = useWallet();
 
-  const tokenAddress = getTokenAddress(tokenSymbol);
+  const tokenAddress = symbolToAddressMap[tokenSymbol];
+
   const balance = useBalance(tokenAddress);
 
   const tokenDecimals = symbolToDecimalMap[tokenSymbol];

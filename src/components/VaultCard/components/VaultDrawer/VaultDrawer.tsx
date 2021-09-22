@@ -18,7 +18,7 @@ import VaultForm from "./components/VaultForm";
 
 import { Vault } from "models/Vault";
 
-import { getVaultAddress, vaultNameToAddressMap } from "utils/helpers";
+import { vaultNameToAddressMap } from "utils/helpers";
 
 import VaultRow from "./components/VaultRow";
 
@@ -33,7 +33,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
-  const vaultAddress = getVaultAddress(vault.platform, vault.name);
+  const vaultAddress = vaultNameToAddressMap[vault.platform][vault.name];
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
