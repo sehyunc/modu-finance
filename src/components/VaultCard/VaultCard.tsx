@@ -28,6 +28,11 @@ const COLORS: ICOLORS = {
     end: "#ff9d85",
     tag: "yellow",
   },
+  USDC: {
+    start: "#729ff3",
+    end: "#009EF7",
+    tag: "blue",
+  },
 };
 
 interface ICOLORS {
@@ -64,6 +69,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     decimals,
     platform,
   } = vault;
+  console.log("🚀 ~ underlying", underlying);
   const parsedCap = utils.formatUnits(cap, decimals);
   const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals);
 
