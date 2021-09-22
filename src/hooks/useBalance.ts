@@ -20,7 +20,6 @@ const useBalance = (address: string | undefined, isNative?: boolean) => {
     } else {
       const tokenContract = new ethers.Contract(address, erc20Abi, provider);
       balance = await tokenContract.balanceOf(account);
-      console.log("🚀 ~ fetchBalance ~ balance", balance);
     }
     setBalance(balance);
   }, [account, address, isNative, provider]);

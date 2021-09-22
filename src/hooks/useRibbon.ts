@@ -6,7 +6,7 @@ import useWallet from "contexts/wallet/useWallet";
 
 // TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
 
-export function useRibbon() {
+const useRibbon = () => {
   const [contract, setContract] = useState<ethers.Contract>();
   const [address, setAddress] = useState<string>("");
   const { provider } = useWallet();
@@ -160,4 +160,6 @@ export function useRibbon() {
     readValue,
     withdraw,
   };
-}
+};
+
+export default useRibbon;

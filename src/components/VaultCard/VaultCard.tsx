@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Box,
   Flex,
@@ -12,6 +12,8 @@ import {
 import { ethers, utils } from "ethers";
 
 import VaultDrawer from "components/VaultCard/components/VaultDrawer";
+
+import useWallet from "contexts/wallet/useWallet";
 
 import { Vault } from "models/Vault";
 
@@ -42,6 +44,11 @@ interface VaultCardProps {
 
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { account } = useWallet();
+
+  const handleOpenDrawer = useCallback(() => {
+    setIsOpen(!!account);
+  }, [account]);
 
   // TODO: Probably shouldn't return null here
   if (!vault) {
@@ -63,7 +70,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   return (
     <>
       <Box
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpenDrawer}
         minW="30rem"
         borderRadius="lg"
         boxShadow="surface"

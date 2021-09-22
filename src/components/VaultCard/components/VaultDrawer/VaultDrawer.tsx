@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import AccessibleLink from "components/AccessibleLink";
-import VaultForm from "components/VaultForm";
+import VaultForm from "./components/VaultForm";
 
 import { Vault } from "models/Vault";
 
