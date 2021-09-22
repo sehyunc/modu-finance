@@ -9,7 +9,7 @@ import {
   Tag,
   Text,
 } from "@chakra-ui/react";
-import { ethers, utils } from "ethers";
+import { utils } from "ethers";
 
 import VaultDrawer from "components/VaultCard/components/VaultDrawer";
 
@@ -17,7 +17,13 @@ import useWallet from "contexts/wallet/useWallet";
 
 import { Vault } from "models/Vault";
 
-const COLORS: ICOLORS = {
+const COLORS: {
+  [key: string]: {
+    start: string;
+    end: string;
+    tag: string;
+  };
+} = {
   WETH: {
     start: "#c993ff",
     end: "#415dff",
@@ -34,14 +40,6 @@ const COLORS: ICOLORS = {
     tag: "blue",
   },
 };
-
-interface ICOLORS {
-  [key: string]: {
-    start: string;
-    end: string;
-    tag: string;
-  };
-}
 
 interface VaultCardProps {
   vault: Vault;

@@ -35,7 +35,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
   vaultAddress,
 }) => {
   const position = usePosition(vaultAddress);
-  const { depositErc20, withdraw, approve } = useRibbon();
+  const { depositErc20, withdraw, approve } = useRibbon(vaultAddress);
   const [isApproved, setIsApproved] = useState(true);
   const [isDeposit, setIsDeposit] = useState(true);
   const [inputText, setInputText] = useState<string>();

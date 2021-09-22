@@ -1,46 +1,30 @@
-import ribbonthetavault from "constants/abi/ribbonthetavault.json";
-import { convertNumberToBigInt, getVaultAddress } from "utils/helpers";
-import { BigNumberish, ethers } from "ethers";
 import { useEffect, useState } from "react";
+import { BigNumberish, ethers } from "ethers";
+
+import ribbonthetavault from "constants/abi/ribbonthetavault.json";
+
 import useWallet from "contexts/wallet/useWallet";
 
-// TODO: make vault model type with all necessary fields and pass that around for token, address, etc.
+import { convertNumberToBigInt } from "utils/helpers";
 
-const useRibbon = () => {
+const useRibbon = (vaultAddress: string) => {
   const [contract, setContract] = useState<ethers.Contract>();
-  const [address, setAddress] = useState<string>("");
   const { provider } = useWallet();
 
   useEffect(() => {
-    let active = true;
-
     async function loadContracts() {
-      const _address = getVaultAddress("ribbon", "T-WBTC-C"); //check wallet network here
-      // const _address = "0x06ec862721C6A376B62D9718040e418ECedfDa1a";
-      if (provider && _address) {
+      if (provider) {
         const signer = provider.getSigner();
-
         try {
-          const _contract = new ethers.Contract(
-            _address,
-            ribbonthetavault,
-            signer
-          );
-          if (active) {
-            setContract(_contract);
-            setAddress(_address);
-          }
-        } catch (e) {
-          console.log("ERROR LOADING CONTRACTS!!", e);
+          const c = new ethers.Contract(vaultAddress, ribbonthetavault, signer);
+          setContract(c);
+        } catch (err) {
+          console.log(err);
         }
       }
     }
     loadContracts();
-
-    return () => {
-      active = false;
-    };
-  }, [provider]);
+  }, [provider, vaultAddress]);
 
   const readValue = async (
     value: string,
@@ -52,11 +36,6 @@ const useRibbon = () => {
         if (formatter && typeof formatter === "function") {
           res = formatter(res);
         }
-        console.log(
-          "🚀 ~ file: useRibbon.ts ~ line 42 ~ fetchValue ~ res",
-          res
-        );
-
         return res;
       } catch (err) {
         console.log("Error: ", err);
@@ -74,7 +53,7 @@ const useRibbon = () => {
         });
         return gas;
       } catch (err) {
-        console.log("Error: ", err);
+        console.log(err);
       }
     } else {
       console.log("NO CONTRACT");
@@ -96,7 +75,7 @@ const useRibbon = () => {
         const receipt = await tx.wait();
         return receipt;
       } catch (err) {
-        console.log("Error: ", err);
+        console.log(err);
       }
     } else {
       console.log("NO CONTRACT");
@@ -118,7 +97,7 @@ const useRibbon = () => {
         const receipt = await tx.wait();
         return receipt;
       } catch (err) {
-        console.log("Error: ", err);
+        console.log(err);
       }
     } else {
       console.log("NO CONTRACT");
@@ -133,8 +112,8 @@ const useRibbon = () => {
         const tx = await contract.withdraw(shareAmount);
         const receipt = await tx.wait();
         return receipt;
-      } catch (error) {
-        console.error("Error :", error);
+      } catch (err) {
+        console.log(err);
       }
     }
   };
@@ -145,18 +124,17 @@ const useRibbon = () => {
         const tx = await contract.approve(BigInt(-1));
         const receipt = await tx.wait();
         return receipt;
-      } catch (error) {
-        console.error("Error :", error);
+      } catch (err) {
+        console.log(err);
       }
     }
   };
   return {
-    address,
-    estimateGas,
+    approve,
     contract,
     depositErc20,
-    approve,
     depositETH,
+    estimateGas,
     readValue,
     withdraw,
   };

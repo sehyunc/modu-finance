@@ -46,8 +46,8 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
               {/* TODO:VaultAddress=vault.id */}
               <VaultForm
                 onClose={onClose}
-                vaultAddress={vaultAddress}
                 tokenSymbol={vault.underlyingSymbol}
+                vaultAddress={vaultAddress}
               />
               <Heading size="md">Other ETH Vault Yields</Heading>
               <VaultRow />
