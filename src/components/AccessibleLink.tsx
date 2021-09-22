@@ -1,11 +1,11 @@
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
-} from "@chakra-ui/layout";
-import Link, { LinkProps } from "next/link";
+} from "@chakra-ui/layout"
+import Link, { LinkProps } from "next/link"
 
 type AccessibleLinkProps = LinkProps &
-  ChakraLinkProps & { decoration?: boolean };
+  ChakraLinkProps & { decoration?: boolean }
 
 const AccessibleLink = ({
   href,
@@ -30,7 +30,7 @@ const AccessibleLink = ({
         {children}
       </ChakraLink>
     </Link>
-  );
-};
+  )
+}
 
-export default AccessibleLink;
+export default AccessibleLink

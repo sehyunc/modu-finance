@@ -1,5 +1,5 @@
-import AccessibleLink from "components/AccessibleLink";
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import AccessibleLink from "components/AccessibleLink"
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
@@ -11,18 +11,18 @@ import {
   useColorModeValue,
   useDisclosure,
   Heading,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { ReactNode } from "react";
-import AccountModal from "components/AccountModal";
-import Image from "next/image";
+} from "@chakra-ui/react"
+import { useRouter } from "next/router"
+import { ReactNode } from "react"
+import AccountModal from "components/AccountModal"
+import Image from "next/image"
 
-import useWallet from "contexts/wallet/useWallet";
+import useWallet from "contexts/wallet/useWallet"
 
 interface PlatformHeaderProps {
-  imageUrl: string;
-  text: string;
-  title: string;
+  imageUrl: string
+  text: string
+  title: string
 }
 
 const PlatformHeader: React.FC<PlatformHeaderProps> = ({
@@ -61,7 +61,7 @@ const PlatformHeader: React.FC<PlatformHeaderProps> = ({
         />
       </Flex>
     </Flex>
-  );
-};
+  )
+}
 
-export default PlatformHeader;
+export default PlatformHeader

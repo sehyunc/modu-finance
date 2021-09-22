@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from "react"
 import {
   Box,
   Flex,
@@ -8,21 +8,21 @@ import {
   Progress,
   Tag,
   Text,
-} from "@chakra-ui/react";
-import { utils } from "ethers";
+} from "@chakra-ui/react"
+import { utils } from "ethers"
 
-import VaultDrawer from "components/VaultCard/components/VaultDrawer";
+import VaultDrawer from "components/VaultCard/components/VaultDrawer"
 
-import useWallet from "contexts/wallet/useWallet";
+import useWallet from "contexts/wallet/useWallet"
 
-import { Vault } from "models/Vault";
+import { Vault } from "models/Vault"
 
 const COLORS: {
   [key: string]: {
-    start: string;
-    end: string;
-    tag: string;
-  };
+    start: string
+    end: string
+    tag: string
+  }
 } = {
   WETH: {
     start: "#c993ff",
@@ -39,23 +39,23 @@ const COLORS: {
     end: "#009EF7",
     tag: "blue",
   },
-};
+}
 
 interface VaultCardProps {
-  vault: Vault;
+  vault: Vault
 }
 
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { account } = useWallet();
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { account } = useWallet()
 
   const handleOpenDrawer = useCallback(() => {
-    setIsOpen(!!account);
-  }, [account]);
+    setIsOpen(!!account)
+  }, [account])
 
   // TODO: Probably shouldn't return null here
   if (!vault) {
-    return null;
+    return null
   }
 
   const {
@@ -66,10 +66,10 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     lockedAmount,
     decimals,
     platform,
-  } = vault;
-  console.log("🚀 ~ underlying", underlying);
-  const parsedCap = utils.formatUnits(cap, decimals);
-  const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals);
+  } = vault
+  console.log("🚀 ~ underlying", underlying)
+  const parsedCap = utils.formatUnits(cap, decimals)
+  const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals)
 
   return (
     <>
@@ -160,7 +160,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
         onClose={() => setIsOpen(false)}
       />
     </>
-  );
-};
+  )
+}
 
-export default VaultCard;
+export default VaultCard

@@ -1,4 +1,4 @@
-import AccessibleLink from "components/AccessibleLink";
+import AccessibleLink from "components/AccessibleLink"
 import {
   Box,
   Button,
@@ -10,13 +10,13 @@ import {
   Stack,
   StackProps,
   useColorMode,
-} from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { AiFillGithub } from "react-icons/ai";
-import { CgDarkMode } from "react-icons/cg";
+} from "@chakra-ui/react"
+import { ReactNode } from "react"
+import { AiFillGithub } from "react-icons/ai"
+import { CgDarkMode } from "react-icons/cg"
 
 const DarkModeSwitch = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <IconButton
       aria-label={`Toggle ${colorMode} mode`}
@@ -25,8 +25,8 @@ const DarkModeSwitch = () => {
       onClick={toggleColorMode}
       icon={<CgDarkMode />}
     />
-  );
-};
+  )
+}
 
 export const Logo = () => {
   return (
@@ -35,11 +35,11 @@ export const Logo = () => {
         Opyn Vault Aggregator
       </Button>
     </AccessibleLink>
-  );
-};
+  )
+}
 
 interface NavbarContainerProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const NavbarContainer = ({ children, ...props }: NavbarContainerProps) => {
@@ -55,12 +55,12 @@ const NavbarContainer = ({ children, ...props }: NavbarContainerProps) => {
     >
       {children}
     </Flex>
-  );
-};
+  )
+}
 
 interface MenuItemProps {
-  children: ReactNode;
-  to: string;
+  children: ReactNode
+  to: string
 }
 
 export const MenuItem = ({
@@ -80,8 +80,8 @@ export const MenuItem = ({
         {children}
       </Button>
     </AccessibleLink>
-  );
-};
+  )
+}
 
 export const MenuStack = (props: StackProps) => (
   <Stack
@@ -105,7 +105,7 @@ export const MenuStack = (props: StackProps) => (
       </Link>
     </HStack>
   </Stack>
-);
+)
 
 const Navbar = () => {
   return (
@@ -120,7 +120,7 @@ const Navbar = () => {
         </Box>
       </NavbarContainer>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

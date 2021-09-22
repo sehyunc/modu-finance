@@ -1,11 +1,11 @@
-import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react";
-import Image from "next/image";
-import VaultCard from "components/VaultCard";
-import { PageContainer } from "components/PageContainer";
-import { Main } from "components/Main";
-import PlatformHeader from "components/PlatformHeader";
+import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react"
+import Image from "next/image"
+import VaultCard from "components/VaultCard"
+import { PageContainer } from "components/PageContainer"
+import { Main } from "components/Main"
+import PlatformHeader from "components/PlatformHeader"
 
-import useVaults from "contexts/vaults/useVaults";
+import useVaults from "contexts/vaults/useVaults"
 
 const headerText = `
                 Fontis finance enables users to earn a yield by depositing
@@ -15,10 +15,10 @@ const headerText = `
                 without active management. Vaults are capped in the total amount
                 that can be deposited to make sure strategies are fulfilled and
                 users can get the best yield.
-`;
+`
 
 const Fontis = () => {
-  const { fontisVaults: vaults } = useVaults();
+  const { fontisVaults: vaults } = useVaults()
 
   return (
     <>
@@ -42,7 +42,7 @@ const Fontis = () => {
         </Main>
       </PageContainer>
     </>
-  );
-};
+  )
+}
 
-export default Fontis;
+export default Fontis

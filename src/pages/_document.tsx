@@ -1,14 +1,14 @@
-import { ColorModeScript } from "@chakra-ui/react";
-import Document, { Head, Html, Main, NextScript } from "next/document";
-import theme from "styles/customTheme";
+import { ColorModeScript } from "@chakra-ui/react"
+import Document, { Head, Html, Main, NextScript } from "next/document"
+import theme from "styles/customTheme"
 
-const APP_NAME = "opyn-vault-aggregatort";
-const APP_DESCRIPTION = "Vault Aggregator Interface for Opyn";
+const APP_NAME = "opyn-vault-aggregatort"
+const APP_DESCRIPTION = "Vault Aggregator Interface for Opyn"
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
   }
 
   render() {
@@ -42,8 +42,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default MyDocument;
+export default MyDocument

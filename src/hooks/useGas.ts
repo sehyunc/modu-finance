@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"
 
 const useGas = () => {
   const [gas, setGas] = useState({
@@ -6,8 +6,8 @@ const useGas = () => {
     standard: 15,
     fast: 20,
     turbo: 25,
-  });
-  return gas;
-};
+  })
+  return gas
+}
 
-export default useGas;
+export default useGas

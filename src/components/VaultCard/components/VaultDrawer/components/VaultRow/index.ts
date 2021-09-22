@@ -1,1 +1,1 @@
-export { default } from "./VaultRow";
+export { default } from "./VaultRow"

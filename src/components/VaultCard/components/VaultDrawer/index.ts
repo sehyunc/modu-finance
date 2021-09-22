@@ -1,1 +1,1 @@
-export { default } from "./VaultDrawer";
+export { default } from "./VaultDrawer"

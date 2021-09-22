@@ -1,4 +1,4 @@
-import { CopyIcon } from "@chakra-ui/icons";
+import { CopyIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
@@ -14,15 +14,15 @@ import {
   useColorMode,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react";
-import useWallet from "contexts/wallet/useWallet";
+} from "@chakra-ui/react"
+import useWallet from "contexts/wallet/useWallet"
 
 export default function AccountModal() {
-  const { account: address } = useWallet();
+  const { account: address } = useWallet()
 
-  const { onCopy } = useClipboard(address);
-  const { colorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onCopy } = useClipboard(address)
+  const { colorMode } = useColorMode()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
@@ -65,5 +65,5 @@ export default function AccountModal() {
         </ModalContent>
       </Modal>
     </>
-  );
+  )
 }

@@ -1,33 +1,33 @@
-import { FontisVaultConstructor, RibbonVaultConstructor } from "./types";
-import { symbolToDecimalMap } from "utils/helpers";
+import { FontisVaultConstructor, RibbonVaultConstructor } from "./types"
+import { symbolToDecimalMap } from "utils/helpers"
 
-export type Platform = "ribbon" | "fontis";
+export type Platform = "ribbon" | "fontis"
 
 export class Vault {
-  public id: string;
-  public name: string;
-  public symbol: string;
-  public underlyingSymbol: string;
-  public lockedAmount: string;
-  public cap: string;
-  public totalWithdrawalFee?: string;
-  public depositors?: string[];
-  public decimals: number;
-  public platform: Platform;
-  public apy?: number;
+  public id: string
+  public name: string
+  public symbol: string
+  public underlyingSymbol: string
+  public lockedAmount: string
+  public cap: string
+  public totalWithdrawalFee?: string
+  public depositors?: string[]
+  public decimals: number
+  public platform: Platform
+  public apy?: number
 
   constructor(options: RibbonVaultConstructor) {
-    this.id = options.id;
-    this.name = options.name;
-    this.symbol = options.symbol;
-    this.underlyingSymbol = options.underlyingSymbol;
-    this.lockedAmount = options.lockedAmount;
-    this.cap = options.cap;
-    this.totalWithdrawalFee = options.totalWithdrawalFee;
-    this.depositors = options.depositors;
-    this.decimals = symbolToDecimalMap[options.underlyingSymbol];
-    this.platform = options.platform;
-    this.apy = options.apy;
+    this.id = options.id
+    this.name = options.name
+    this.symbol = options.symbol
+    this.underlyingSymbol = options.underlyingSymbol
+    this.lockedAmount = options.lockedAmount
+    this.cap = options.cap
+    this.totalWithdrawalFee = options.totalWithdrawalFee
+    this.depositors = options.depositors
+    this.decimals = symbolToDecimalMap[options.underlyingSymbol]
+    this.platform = options.platform
+    this.apy = options.apy
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
@@ -43,7 +43,7 @@ export class Vault {
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       platform: options.platform,
       apy: 0,
-    });
+    })
   }
 
   public static fromFontisSubgraph(options: FontisVaultConstructor): Vault {
@@ -58,6 +58,6 @@ export class Vault {
       decimals: symbolToDecimalMap["WETH"],
       platform: "fontis",
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
-    });
+    })
   }
 }

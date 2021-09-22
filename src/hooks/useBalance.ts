@@ -1,45 +1,45 @@
-import { useCallback, useEffect, useState } from "react";
-import { BigNumber, ethers } from "ethers";
+import { useCallback, useEffect, useState } from "react"
+import { BigNumber, ethers } from "ethers"
 
-import erc20Abi from "constants/abi/erc20.json";
+import erc20Abi from "constants/abi/erc20.json"
 
-import useWallet from "contexts/wallet/useWallet";
+import useWallet from "contexts/wallet/useWallet"
 
 const useBalance = (address: string | undefined, isNative?: boolean) => {
-  const [balance, setBalance] = useState<BigNumber>();
-  const { account, provider } = useWallet();
+  const [balance, setBalance] = useState<BigNumber>()
+  const { account, provider } = useWallet()
 
   const fetchBalance = useCallback(async () => {
     if (!account || !address || !provider) {
-      return;
+      return
     }
 
-    let balance: BigNumber | undefined = undefined;
+    let balance: BigNumber | undefined = undefined
     if (isNative) {
-      balance = await provider.getBalance(account);
+      balance = await provider.getBalance(account)
     } else {
-      const tokenContract = new ethers.Contract(address, erc20Abi, provider);
-      balance = await tokenContract.balanceOf(account);
+      const tokenContract = new ethers.Contract(address, erc20Abi, provider)
+      balance = await tokenContract.balanceOf(account)
     }
-    setBalance(balance);
-  }, [account, address, isNative, provider]);
+    setBalance(balance)
+  }, [account, address, isNative, provider])
 
   useEffect(() => {
-    fetchBalance();
-  }, [fetchBalance]);
+    fetchBalance()
+  }, [fetchBalance])
 
   useEffect(() => {
-    setBalance(undefined);
-  }, [account, address, setBalance]);
+    setBalance(undefined)
+  }, [account, address, setBalance])
 
   useEffect(() => {
-    const interval = setInterval(fetchBalance, 10000);
+    const interval = setInterval(fetchBalance, 10000)
     return () => {
-      clearInterval(interval);
-    };
-  }, [fetchBalance]);
+      clearInterval(interval)
+    }
+  }, [fetchBalance])
 
-  return balance;
-};
+  return balance
+}
 
-export default useBalance;
+export default useBalance

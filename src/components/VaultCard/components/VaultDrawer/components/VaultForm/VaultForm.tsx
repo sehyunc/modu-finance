@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react"
 import {
   Box,
   Button,
@@ -8,25 +8,25 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-} from "@chakra-ui/react";
-import { ethers } from "ethers";
+} from "@chakra-ui/react"
+import { ethers } from "ethers"
 
-import erc20abi from "constants/abi/erc20.json";
+import erc20abi from "constants/abi/erc20.json"
 
-import useWallet from "contexts/wallet/useWallet";
+import useWallet from "contexts/wallet/useWallet"
 
-import useBalance from "hooks/useBalance";
-import usePosition from "hooks/usePosition";
-import useRibbon from "hooks/useRibbon";
+import useBalance from "hooks/useBalance"
+import usePosition from "hooks/usePosition"
+import useRibbon from "hooks/useRibbon"
 
-import { symbolToDecimalMap, symbolToAddressMap } from "utils/helpers";
+import { symbolToDecimalMap, symbolToAddressMap } from "utils/helpers"
 
-import SubmitButton from "../SubmitButton";
+import SubmitButton from "../SubmitButton"
 
 interface VaultFormProps {
-  onClose: () => void;
-  tokenSymbol: string;
-  vaultAddress: string;
+  onClose: () => void
+  tokenSymbol: string
+  vaultAddress: string
 }
 
 const VaultForm: React.FC<VaultFormProps> = ({
@@ -34,84 +34,84 @@ const VaultForm: React.FC<VaultFormProps> = ({
   tokenSymbol,
   vaultAddress,
 }) => {
-  const position = usePosition(vaultAddress);
-  const { depositErc20, withdraw, approve } = useRibbon(vaultAddress);
-  const [isApproved, setIsApproved] = useState(true);
-  const [isDeposit, setIsDeposit] = useState(true);
-  const [inputText, setInputText] = useState<string>();
-  const [tokenContract, setTokenContract] = useState<ethers.Contract>();
-  const { account, provider } = useWallet();
+  const position = usePosition(vaultAddress)
+  const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
+  const [isApproved, setIsApproved] = useState(true)
+  const [isDeposit, setIsDeposit] = useState(true)
+  const [inputText, setInputText] = useState<string>()
+  const [tokenContract, setTokenContract] = useState<ethers.Contract>()
+  const { account, provider } = useWallet()
 
-  const tokenAddress = symbolToAddressMap[tokenSymbol];
+  const tokenAddress = symbolToAddressMap[tokenSymbol]
 
-  const balance = useBalance(tokenAddress);
+  const balance = useBalance(tokenAddress)
 
-  const tokenDecimals = symbolToDecimalMap[tokenSymbol];
+  const tokenDecimals = symbolToDecimalMap[tokenSymbol]
 
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
-      return;
+      return
     }
-    const approved = await tokenContract.allowance(account, vaultAddress);
-    const needsApproval = balance?.gt(approved);
-    setIsApproved(!!needsApproval);
-  }, [account, balance, tokenContract, vaultAddress]);
+    const approved = await tokenContract.allowance(account, vaultAddress)
+    const needsApproval = balance?.gt(approved)
+    setIsApproved(!!needsApproval)
+  }, [account, balance, tokenContract, vaultAddress])
 
   const handleSetMax = useCallback(async () => {
     if (isDeposit) {
-      setInputText(balance?.toString());
+      setInputText(balance?.toString())
     } else {
-      setInputText(position?.toString());
+      setInputText(position?.toString())
     }
-  }, [balance, isDeposit, position]);
+  }, [balance, isDeposit, position])
 
   useEffect(() => {
-    if (!provider) return;
-    const c = new ethers.Contract(tokenAddress, erc20abi, provider);
-    setTokenContract(c);
-  }, [provider, tokenAddress]);
+    if (!provider) return
+    const c = new ethers.Contract(tokenAddress, erc20abi, provider)
+    setTokenContract(c)
+  }, [provider, tokenAddress])
 
   useEffect(() => {
-    handleFetchApproval();
-  }, [handleFetchApproval]);
+    handleFetchApproval()
+  }, [handleFetchApproval])
 
   const footerText = isDeposit
     ? `Wallet Balance: ${balance} ${tokenSymbol}`
-    : `Your Position: ${position} ${tokenSymbol}`;
+    : `Your Position: ${position} ${tokenSymbol}`
 
   const handleApprove = useCallback(() => {
-    approve();
-  }, [approve]);
+    approve()
+  }, [approve])
 
   const handleDeposit = useCallback(() => {
-    depositErc20(Number(inputText), tokenDecimals);
-    onClose();
-  }, [depositErc20, inputText, onClose, tokenDecimals]);
+    depositErc20(Number(inputText), tokenDecimals)
+    onClose()
+  }, [depositErc20, inputText, onClose, tokenDecimals])
 
   const handleWithdraw = useCallback(() => {
-    withdraw(Number(inputText), tokenDecimals);
-    onClose();
-  }, [inputText, onClose, tokenDecimals, withdraw]);
+    withdraw(Number(inputText), tokenDecimals)
+    onClose()
+  }, [inputText, onClose, tokenDecimals, withdraw])
 
   const ApproveButton = (
     <SubmitButton handleClick={handleApprove} text={`Approve ${tokenSymbol}`} />
-  );
+  )
   const DepositButton = (
     <SubmitButton handleClick={handleDeposit} text={`Deposit ${tokenSymbol}`} />
-  );
+  )
 
   const WithdrawButton = (
     <SubmitButton
       handleClick={handleWithdraw}
       text={`Withdraw ${tokenSymbol}`}
     />
-  );
+  )
 
   const ActionButton = !isApproved
     ? ApproveButton
     : isDeposit
     ? DepositButton
-    : WithdrawButton;
+    : WithdrawButton
 
   const Tabs = (
     <>
@@ -123,7 +123,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         minWidth="50%"
         py="5"
         onClick={() => {
-          setIsDeposit(true);
+          setIsDeposit(true)
         }}
         _hover={{
           cursor: "pointer",
@@ -145,7 +145,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         Withdraw
       </Center>
     </>
-  );
+  )
 
   return (
     <Box width="100%">
@@ -176,7 +176,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         <Text textAlign="center">{footerText}</Text>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default VaultForm;
+export default VaultForm

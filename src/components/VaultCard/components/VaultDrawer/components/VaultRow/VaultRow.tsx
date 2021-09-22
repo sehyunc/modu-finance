@@ -1,5 +1,5 @@
-import { Flex, Spacer, Text } from "@chakra-ui/react";
-import Image from "next/image";
+import { Flex, Spacer, Text } from "@chakra-ui/react"
+import Image from "next/image"
 
 const VaultRow = () => (
   <Flex
@@ -17,6 +17,6 @@ const VaultRow = () => (
     <Spacer />
     <Text>10.08%</Text>
   </Flex>
-);
+)
 
-export default VaultRow;
+export default VaultRow

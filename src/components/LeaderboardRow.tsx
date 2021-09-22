@@ -1,22 +1,22 @@
-import { Center, Grid, Text, Tooltip } from "@chakra-ui/react";
-import Image from "next/image";
+import { Center, Grid, Text, Tooltip } from "@chakra-ui/react"
+import Image from "next/image"
 
 type LeaderboardRowProps = {
-  rank: number;
-  name: string;
-  platform: string;
-  strategy: string;
-  apy: string;
-};
+  rank: number
+  name: string
+  platform: string
+  strategy: string
+  apy: string
+}
 
 const getIcon = (platform: string) => {
   switch (platform) {
     case "Fontis":
-      return "fontis.png";
+      return "fontis.png"
     default:
-      return `${platform.toLowerCase()}.svg`;
+      return `${platform.toLowerCase()}.svg`
   }
-};
+}
 
 const LeaderboardRow = ({
   rank,
@@ -60,7 +60,7 @@ const LeaderboardRow = ({
         <Text>{`${apy}%`}</Text>
       </Center>
     </Grid>
-  );
-};
+  )
+}
 
-export default LeaderboardRow;
+export default LeaderboardRow

@@ -1,6 +1,6 @@
-import AccessibleLink from "components/AccessibleLink";
-import { Button, Flex, FlexProps, Link } from "@chakra-ui/react";
-import { AiFillGithub } from "react-icons/ai";
+import AccessibleLink from "components/AccessibleLink"
+import { Button, Flex, FlexProps, Link } from "@chakra-ui/react"
+import { AiFillGithub } from "react-icons/ai"
 
 const Footer = (props: FlexProps) => {
   return (
@@ -27,7 +27,7 @@ const Footer = (props: FlexProps) => {
         </Button>
       </Link>
     </Flex>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

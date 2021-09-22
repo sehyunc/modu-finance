@@ -1,5 +1,5 @@
-import AccessibleLink from "components/AccessibleLink";
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import AccessibleLink from "components/AccessibleLink"
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
@@ -10,12 +10,12 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { ReactNode } from "react";
-import AccountModal from "components/AccountModal";
+} from "@chakra-ui/react"
+import { useRouter } from "next/router"
+import { ReactNode } from "react"
+import AccountModal from "components/AccountModal"
 
-import useWallet from "contexts/wallet/useWallet";
+import useWallet from "contexts/wallet/useWallet"
 
 const Links = [
   {
@@ -38,11 +38,11 @@ const Links = [
     label: "Ribbon",
     href: "/ribbon",
   },
-];
+]
 
 interface NavLinkProps {
-  children: ReactNode;
-  href: string;
+  children: ReactNode
+  href: string
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ children, href }) => (
@@ -51,13 +51,13 @@ const NavLink: React.FC<NavLinkProps> = ({ children, href }) => (
       {children}
     </AccessibleLink>
   </Box>
-);
+)
 
 const TopBar: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
-  const { account, onConnectToMetaMask } = useWallet();
-  console.log("🚀 ~ Navbar ~ account", account);
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const router = useRouter()
+  const { account, onConnectToMetaMask } = useWallet()
+  console.log("🚀 ~ Navbar ~ account", account)
 
   return (
     <>
@@ -129,7 +129,7 @@ const TopBar: React.FC = () => {
         zIndex={10}
       />
     </>
-  );
-};
+  )
+}
 
-export default TopBar;
+export default TopBar

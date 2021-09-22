@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import { useContext } from "react"
 
-import VaultsContext from "./VaultsContext";
+import VaultsContext from "./VaultsContext"
 
 const useWallet = () => {
-  const vaults = useContext(VaultsContext);
-  return vaults;
-};
+  const vaults = useContext(VaultsContext)
+  return vaults
+}
 
-export default useWallet;
+export default useWallet

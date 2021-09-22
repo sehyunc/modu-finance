@@ -1,17 +1,17 @@
-import { createContext } from "react";
+import { createContext } from "react"
 
-import { Vault } from "models/Vault";
+import { Vault } from "models/Vault"
 
 export interface VaultsContextValues {
-  vaults: Vault[];
-  fontisVaults: Vault[];
-  ribbonVaults: Vault[];
+  vaults: Vault[]
+  fontisVaults: Vault[]
+  ribbonVaults: Vault[]
 }
 
 const VaultsContext = createContext<VaultsContextValues>({
   vaults: [],
   fontisVaults: [],
   ribbonVaults: [],
-});
+})
 
-export default VaultsContext;
+export default VaultsContext

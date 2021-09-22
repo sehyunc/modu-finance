@@ -1,30 +1,24 @@
-import { Main } from "components/Main";
-import { PageContainer } from "components/PageContainer";
-import VaultCard from "components/VaultCard";
-import { Heading, HStack } from "@chakra-ui/react";
-import useVaults from "contexts/vaults/useVaults";
+import { Main } from "components/Main"
+import { PageContainer } from "components/PageContainer"
+import VaultCard from "components/VaultCard"
+import { Heading, HStack } from "@chakra-ui/react"
+import useVaults from "contexts/vaults/useVaults"
+
+import VaultGrid from "components/VaultGrid"
 
 const Dashboard = () => {
-  const { vaults } = useVaults();
+  const { vaults } = useVaults()
 
   return (
     <PageContainer>
       <Main maxWidth="49rem">
         <Heading>My Vaults</Heading>
-        <HStack align="center" spacing="12">
-          {vaults.map((vault) => (
-            <VaultCard key={vault.id} vault={vault} />
-          ))}
-        </HStack>
+        <VaultGrid vaults={vaults} />
         <Heading>Watchlist</Heading>
-        <HStack align="center" spacing="12">
-          {vaults.map((vault) => (
-            <VaultCard key={vault.id} vault={vault} />
-          ))}
-        </HStack>
+        <VaultGrid vaults={vaults} />
       </Main>
     </PageContainer>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
