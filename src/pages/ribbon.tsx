@@ -1,11 +1,12 @@
-import { HStack, Container, Flex, Text, Box, Heading } from "@chakra-ui/react"
-import Image from "next/image"
-import VaultCard from "components/VaultCard"
-import { PageContainer } from "components/PageContainer"
+import { Box, Container, Heading } from "@chakra-ui/react"
+
 import { Main } from "components/Main"
+import { PageContainer } from "components/PageContainer"
 import PlatformHeader from "components/PlatformHeader"
+import VaultGrid from "components/VaultGrid"
 
 import useVaults from "contexts/vaults/useVaults"
+
 const headerText = `
                 Ribbon uses financial engineering to create structured products
                 that deliver sustainable yield. Ribbon&apos;s first product
@@ -30,9 +31,7 @@ const Ribbon = () => {
       <PageContainer position="relative" bgColor="gray.900" minH="">
         <Main maxWidth="49rem" mb="6">
           <Heading>Available Vaults</Heading>
-          {vaults.map((vault) => (
-            <VaultCard key={vault.id} vault={vault} />
-          ))}
+          <VaultGrid vaults={vaults} />
         </Main>
       </PageContainer>
     </>

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 import { utils } from "ethers"
 
-import VaultDrawer from "components/VaultCard/components/VaultDrawer"
+import VaultDrawer from "./components/VaultDrawer"
 
 import useWallet from "contexts/wallet/useWallet"
 
@@ -67,12 +67,11 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     decimals,
     platform,
   } = vault
-  console.log("🚀 ~ underlying", underlying)
   const parsedCap = utils.formatUnits(cap, decimals)
   const parsedLockedAmount = utils.formatUnits(lockedAmount, decimals)
 
   return (
-    <>
+    <div>
       <Box
         onClick={handleOpenDrawer}
         minW="30rem"
@@ -159,7 +158,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
-    </>
+    </div>
   )
 }
 
