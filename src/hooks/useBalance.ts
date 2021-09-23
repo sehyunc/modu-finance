@@ -15,11 +15,15 @@ const useBalance = (address: string | undefined, isNative?: boolean) => {
     }
 
     let balance: BigNumber | undefined = undefined
-    if (isNative) {
-      balance = await provider.getBalance(account)
-    } else {
-      const tokenContract = new ethers.Contract(address, erc20Abi, provider)
-      balance = await tokenContract.balanceOf(account)
+    try {
+      if (isNative) {
+        balance = await provider.getBalance(account)
+      } else {
+        const tokenContract = new ethers.Contract(address, erc20Abi, provider)
+        balance = await tokenContract.balanceOf(account)
+      }
+    } catch (e) {
+      console.error(e)
     }
     setBalance(balance)
   }, [account, address, isNative, provider])

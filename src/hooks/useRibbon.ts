@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { BigNumberish, ethers } from "ethers"
+import { BigNumber, BigNumberish, ethers } from "ethers"
 
 import ribbonthetavault from "constants/abi/ribbonthetavault.json"
 
 import useWallet from "contexts/wallet/useWallet"
 
-import { convertNumberToBigInt } from "utils/helpers"
+import { convertNumberToBigNumber } from "utils/helpers"
 
 const useRibbon = (vaultAddress: string) => {
   const [contract, setContract] = useState<ethers.Contract>()
@@ -17,6 +17,7 @@ const useRibbon = (vaultAddress: string) => {
         const signer = provider.getSigner()
         try {
           const c = new ethers.Contract(vaultAddress, ribbonthetavault, signer)
+          console.log("🚀 ~ file: useRibbon.ts ~ line 20 ~ loadContracts ~ c", c)
           setContract(c)
         } catch (err) {
           console.log(err)
@@ -85,7 +86,7 @@ const useRibbon = (vaultAddress: string) => {
   const depositErc20 = async (value: number, decimals: number) => {
     if (typeof contract !== "undefined") {
       try {
-        const amount = convertNumberToBigInt(value, decimals)
+        const amount = convertNumberToBigNumber(value, decimals)
         const gasPrice = await estimateGas("deposit", value)
         const overrides = {
           gasLimit: ethers.BigNumber.from(200000),
@@ -107,7 +108,7 @@ const useRibbon = (vaultAddress: string) => {
   const withdraw = async (value: number, decimals: number) => {
     if (typeof contract != "undefined") {
       try {
-        const amount = convertNumberToBigInt(value, decimals)
+        const amount = convertNumberToBigNumber(value, decimals)
         const shareAmount = await contract.assetAmountToShares(amount)
         const tx = await contract.withdraw(shareAmount)
         const receipt = await tx.wait()
@@ -118,10 +119,13 @@ const useRibbon = (vaultAddress: string) => {
     }
   }
 
-  const approve = async () => {
+  const approve = async (vaultAddress: string, tokenContract : ethers.Contract, balance: ethers.BigNumber) => {
     if (typeof contract != "undefined") {
+      if(!balance || !tokenContract || !vaultAddress){
+        return
+      }
       try {
-        const tx = await contract.approve(BigInt(-1))
+        const tx = await tokenContract.approve(vaultAddress, balance)
         const receipt = await tx.wait()
         return receipt
       } catch (err) {

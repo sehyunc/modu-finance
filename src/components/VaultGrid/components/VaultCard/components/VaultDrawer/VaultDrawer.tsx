@@ -33,7 +33,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
-  const vaultAddress = vaultNameToAddressMap[vault.platform][vault.name]
+  const vaultAddress = vaultNameToAddressMap[vault.platform][vault.symbol]
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
@@ -43,7 +43,6 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
           <DrawerHeader>{vault.name}</DrawerHeader>
           <DrawerBody>
             <VStack align="flex-start" spacing="6">
-              {/* TODO:VaultAddress=vault.id */}
               <VaultForm
                 onClose={onClose}
                 tokenSymbol={vault.underlyingSymbol}

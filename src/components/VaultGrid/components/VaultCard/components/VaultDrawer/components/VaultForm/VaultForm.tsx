@@ -9,7 +9,7 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react"
-import { ethers } from "ethers"
+import { ethers, providers } from "ethers"
 
 import erc20abi from "constants/abi/erc20.json"
 
@@ -19,7 +19,7 @@ import useBalance from "hooks/useBalance"
 import usePosition from "hooks/usePosition"
 import useRibbon from "hooks/useRibbon"
 
-import { symbolToDecimalMap, symbolToAddressMap } from "utils/helpers"
+import { symbolToDecimalMap, symbolToAddressMap, roundOffBigNumber } from "utils/helpers"
 
 import SubmitButton from "../SubmitButton"
 
@@ -34,6 +34,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   tokenSymbol,
   vaultAddress,
 }) => {
+  let balanceReadable = '0'
+  let positionReadable = '0'
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
@@ -48,26 +50,30 @@ const VaultForm: React.FC<VaultFormProps> = ({
 
   const tokenDecimals = symbolToDecimalMap[tokenSymbol]
 
+  balanceReadable = roundOffBigNumber(balance!, tokenDecimals)
+  positionReadable = roundOffBigNumber(position!, tokenDecimals)
+
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
       return
     }
     const approved = await tokenContract.allowance(account, vaultAddress)
     const needsApproval = balance?.gt(approved)
-    setIsApproved(!!needsApproval)
+    setIsApproved(!needsApproval)
   }, [account, balance, tokenContract, vaultAddress])
 
   const handleSetMax = useCallback(async () => {
     if (isDeposit) {
-      setInputText(balance?.toString())
+      setInputText(balanceReadable)
     } else {
-      setInputText(position?.toString())
+      setInputText(positionReadable)
     }
-  }, [balance, isDeposit, position])
+  }, [balanceReadable, isDeposit, positionReadable])
 
   useEffect(() => {
     if (!provider) return
-    const c = new ethers.Contract(tokenAddress, erc20abi, provider)
+    const signer = provider.getSigner()
+    const c = new ethers.Contract(tokenAddress, erc20abi, signer)
     setTokenContract(c)
   }, [provider, tokenAddress])
 
@@ -76,12 +82,12 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [handleFetchApproval])
 
   const footerText = isDeposit
-    ? `Wallet Balance: ${balance} ${tokenSymbol}`
-    : `Your Position: ${position} ${tokenSymbol}`
+    ? `Wallet Balance: ${balanceReadable} ${tokenSymbol}`
+    : `Your Position: ${positionReadable} ${tokenSymbol}`
 
   const handleApprove = useCallback(() => {
-    approve()
-  }, [approve])
+    approve(vaultAddress, tokenContract!, balance!)
+  }, [approve, balance, tokenContract, vaultAddress])
 
   const handleDeposit = useCallback(() => {
     depositErc20(Number(inputText), tokenDecimals)

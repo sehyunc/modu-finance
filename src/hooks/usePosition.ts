@@ -15,11 +15,15 @@ const usePosition = (address: string | undefined, isNative?: boolean) => {
     }
 
     let position: BigNumber | undefined = undefined
-    if (isNative) {
-      position = await provider.getBalance(account)
-    } else {
-      const vaultContract = new ethers.Contract(address, erc20Abi, provider)
-      position = await vaultContract.balanceOf(account)
+    try{
+        if (isNative) {
+        position = await provider.getBalance(account)
+      } else {
+        const vaultContract = new ethers.Contract(address, erc20Abi, provider)
+        position = await vaultContract.balanceOf(account)
+      }
+    } catch(e) {
+      console.error(e)
     }
     setPosition(position)
   }, [account, address, isNative, provider])

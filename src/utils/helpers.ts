@@ -1,5 +1,7 @@
+import { BigNumber } from "@ethersproject/bignumber"
 import {
   KOVAN_OPYNBTC_ADDRESS,
+  KOVAN_OPYNUSDC_ADDRESS,
   KOVAN_PETHC,
   KOVAN_TETHC,
   KOVAN_TUSDCP,
@@ -12,6 +14,7 @@ export const symbolToAddressMap: {
 } = {
   WETH: KOVAN_WETH_ADDRESS,
   WBTC: KOVAN_OPYNBTC_ADDRESS,
+  USDC: KOVAN_OPYNUSDC_ADDRESS
 }
 
 export const symbolToDecimalMap: { [symbol: string]: number } = {
@@ -24,24 +27,26 @@ export const vaultNameToAddressMap: {
   [platform: string]: { [vaultName: string]: string }
 } = {
   ribbon: {
-    "T-WBTC-C": KOVAN_TWBTC,
-    "T-ETH-C": KOVAN_TETHC,
-    "T-USDC-P": KOVAN_TUSDCP,
+    "rBTC-THETA": KOVAN_TWBTC,
+    "rETH-THETA": KOVAN_TETHC,
+    "rUSDC-ETH-P-THETA": KOVAN_TUSDCP,
+    "ryvUSDC-ETH-P-THETA": KOVAN_TUSDCP
   },
   fontis: {
-    "P-ETH-C": KOVAN_PETHC,
+    "fWETH-PERP": KOVAN_PETHC,
   },
 }
 
-export const roundOffBigInt = (num: bigint, decimals: number) => {
+export const roundOffBigNumber = (num: BigNumber, decimals: number) => {
+  if(!(num && decimals)){
+    return '0'
+  }
   var numString = num.toString()
-  console.log("numString : ", numString.length)
   if (decimals > numString.length) {
     while (numString.length <= decimals) numString = "0" + numString
   }
 
   const decimalPoint = numString.length - decimals
-  console.log(decimals, decimalPoint)
   numString =
     numString.slice(0, decimalPoint) +
     "." +
@@ -49,11 +54,11 @@ export const roundOffBigInt = (num: bigint, decimals: number) => {
   return numString.slice(0, decimalPoint + 4)
 }
 
-export const convertNumberToBigInt = (value: number, decimals: number) => {
+export const convertNumberToBigNumber = (value: number, decimals: number) => {
   var stringValue = String(value)
   if (!stringValue.includes(".")) {
     for (var i = 0; i < decimals; i++) stringValue = stringValue + "0"
-    return BigInt(stringValue)
+    return BigNumber.from(stringValue)
   } else {
     const decimalPoint = stringValue.indexOf(".")
     var postDecimal = stringValue.slice(decimalPoint + 1, stringValue.length)
@@ -63,6 +68,6 @@ export const convertNumberToBigInt = (value: number, decimals: number) => {
       //discard extra digits
       postDecimal = postDecimal.slice(0, decimals)
     }
-    return BigInt(stringValue.slice(0, decimalPoint) + postDecimal)
+    return BigNumber.from(stringValue.slice(0, decimalPoint) + postDecimal)
   }
 }
