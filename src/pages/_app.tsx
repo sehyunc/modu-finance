@@ -17,6 +17,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     if (
+      router.pathname === '/' ||
       router.pathname.indexOf('/dashboard') !== -1 ||
       router.pathname.indexOf('/leaderboard') !== -1 ||
       router.pathname.indexOf('/fontis') !== -1 ||

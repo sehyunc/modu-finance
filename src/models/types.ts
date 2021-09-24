@@ -4,7 +4,7 @@ export interface RibbonVaultConstructor {
   id: string
   name: string
   symbol: string
-  underlyingSymbol: string
+  underlyingSymbol: Symbol
   lockedAmount: string
   cap: string
   totalWithdrawalFee?: string
@@ -27,3 +27,5 @@ export interface FontisVaultConstructor {
   address?: string
   underlyingTokenAddress?: string
 }
+
+export type Symbol = 'WETH' | 'USDC' | 'WBTC'

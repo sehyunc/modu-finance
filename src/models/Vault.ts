@@ -1,4 +1,4 @@
-import { FontisVaultConstructor, RibbonVaultConstructor } from './types'
+import { FontisVaultConstructor, RibbonVaultConstructor, Symbol } from './types'
 import { symbolToDecimalMap } from 'utils/helpers'
 
 export type Platform = 'ribbon' | 'fontis'
@@ -7,7 +7,7 @@ export class Vault {
   public id: string
   public name: string
   public symbol: string
-  public underlyingSymbol: string
+  public underlyingSymbol: Symbol
   public lockedAmount: string
   public cap: string
   public totalWithdrawalFee?: string
