@@ -1,1 +1,1 @@
-export { default } from "./VaultGrid"
+export { default } from './VaultGrid'

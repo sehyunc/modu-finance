@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
-import { BigNumber, BigNumberish, ethers } from "ethers"
+import { useEffect, useState } from 'react'
+import { BigNumber, BigNumberish, ethers } from 'ethers'
 
-import ribbonthetavault from "constants/abi/ribbonthetavault.json"
+import ribbonthetavault from 'constants/abi/ribbonthetavault.json'
 
-import useWallet from "contexts/wallet/useWallet"
+import useWallet from 'contexts/wallet/useWallet'
 
-import { convertNumberToBigNumber } from "utils/helpers"
+import { convertNumberToBigNumber } from 'utils/helpers'
 
 const useRibbon = (vaultAddress: string) => {
   const [contract, setContract] = useState<ethers.Contract>()
@@ -17,7 +17,10 @@ const useRibbon = (vaultAddress: string) => {
         const signer = provider.getSigner()
         try {
           const c = new ethers.Contract(vaultAddress, ribbonthetavault, signer)
-          console.log("🚀 ~ file: useRibbon.ts ~ line 20 ~ loadContracts ~ c", c)
+          console.log(
+            '🚀 ~ file: useRibbon.ts ~ line 20 ~ loadContracts ~ c',
+            c
+          )
           setContract(c)
         } catch (err) {
           console.log(err)
@@ -31,23 +34,23 @@ const useRibbon = (vaultAddress: string) => {
     value: string,
     formatter?: (wei: BigNumberish) => string
   ) => {
-    if (typeof contract !== "undefined") {
+    if (typeof contract !== 'undefined') {
       try {
         let res = await contract[value]()
-        if (formatter && typeof formatter === "function") {
+        if (formatter && typeof formatter === 'function') {
           res = formatter(res)
         }
         return res
       } catch (err) {
-        console.log("Error: ", err)
+        console.log('Error: ', err)
       }
     } else {
-      console.log("NO CONTRACT")
+      console.log('NO CONTRACT')
     }
   }
 
   const estimateGas = async (fn: string, args: {}) => {
-    if (typeof contract !== "undefined") {
+    if (typeof contract !== 'undefined') {
       try {
         const gas = await contract.estimateGas[fn]({
           ...args,
@@ -57,14 +60,14 @@ const useRibbon = (vaultAddress: string) => {
         console.log(err)
       }
     } else {
-      console.log("NO CONTRACT")
+      console.log('NO CONTRACT')
     }
   }
 
   const depositETH = async (value: ethers.BigNumber) => {
-    if (typeof contract !== "undefined") {
+    if (typeof contract !== 'undefined') {
       try {
-        const gasPrice = await estimateGas("depositETH", {
+        const gasPrice = await estimateGas('depositETH', {
           value,
         })
         const overrides = {
@@ -79,15 +82,15 @@ const useRibbon = (vaultAddress: string) => {
         console.log(err)
       }
     } else {
-      console.log("NO CONTRACT")
+      console.log('NO CONTRACT')
     }
   }
 
   const depositErc20 = async (value: number, decimals: number) => {
-    if (typeof contract !== "undefined") {
+    if (typeof contract !== 'undefined') {
       try {
         const amount = convertNumberToBigNumber(value, decimals)
-        const gasPrice = await estimateGas("deposit", value)
+        const gasPrice = await estimateGas('deposit', value)
         const overrides = {
           gasLimit: ethers.BigNumber.from(200000),
           gasPrice,
@@ -101,12 +104,12 @@ const useRibbon = (vaultAddress: string) => {
         console.log(err)
       }
     } else {
-      console.log("NO CONTRACT")
+      console.log('NO CONTRACT')
     }
   }
 
   const withdraw = async (value: number, decimals: number) => {
-    if (typeof contract != "undefined") {
+    if (typeof contract != 'undefined') {
       try {
         const amount = convertNumberToBigNumber(value, decimals)
         const shareAmount = await contract.assetAmountToShares(amount)
@@ -119,9 +122,13 @@ const useRibbon = (vaultAddress: string) => {
     }
   }
 
-  const approve = async (vaultAddress: string, tokenContract : ethers.Contract, balance: ethers.BigNumber) => {
-    if (typeof contract != "undefined") {
-      if(!balance || !tokenContract || !vaultAddress){
+  const approve = async (
+    vaultAddress: string,
+    tokenContract: ethers.Contract,
+    balance: ethers.BigNumber
+  ) => {
+    if (typeof contract != 'undefined') {
+      if (!balance || !tokenContract || !vaultAddress) {
         return
       }
       try {

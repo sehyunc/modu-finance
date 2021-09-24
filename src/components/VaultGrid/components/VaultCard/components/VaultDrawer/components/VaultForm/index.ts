@@ -1,1 +1,1 @@
-export { default } from "./VaultForm"
+export { default } from './VaultForm'

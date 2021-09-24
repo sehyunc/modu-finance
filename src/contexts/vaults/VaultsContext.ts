@@ -1,6 +1,6 @@
-import { createContext } from "react"
+import { createContext } from 'react'
 
-import { Vault } from "models/Vault"
+import { Vault } from 'models/Vault'
 
 export interface VaultsContextValues {
   vaults: Vault[]

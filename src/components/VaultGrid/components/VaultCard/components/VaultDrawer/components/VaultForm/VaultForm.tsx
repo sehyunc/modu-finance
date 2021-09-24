@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -8,20 +8,24 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-} from "@chakra-ui/react"
-import { ethers, providers } from "ethers"
+} from '@chakra-ui/react'
+import { ethers, providers } from 'ethers'
 
-import erc20abi from "constants/abi/erc20.json"
+import erc20abi from 'constants/abi/erc20.json'
 
-import useWallet from "contexts/wallet/useWallet"
+import useWallet from 'contexts/wallet/useWallet'
 
-import useBalance from "hooks/useBalance"
-import usePosition from "hooks/usePosition"
-import useRibbon from "hooks/useRibbon"
+import useBalance from 'hooks/useBalance'
+import usePosition from 'hooks/usePosition'
+import useRibbon from 'hooks/useRibbon'
 
-import { symbolToDecimalMap, symbolToAddressMap, roundOffBigNumber } from "utils/helpers"
+import {
+  symbolToDecimalMap,
+  symbolToAddressMap,
+  roundOffBigNumber,
+} from 'utils/helpers'
 
-import SubmitButton from "../SubmitButton"
+import SubmitButton from '../SubmitButton'
 
 interface VaultFormProps {
   onClose: () => void
@@ -122,7 +126,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const Tabs = (
     <>
       <Center
-        bg={isDeposit ? "#1c1a19" : "#242322"}
+        bg={isDeposit ? '#1c1a19' : '#242322'}
         borderLeft="2px solid #242322"
         borderTop="2px solid #242322"
         borderTopLeftRadius="8px"
@@ -132,20 +136,20 @@ const VaultForm: React.FC<VaultFormProps> = ({
           setIsDeposit(true)
         }}
         _hover={{
-          cursor: "pointer",
+          cursor: 'pointer',
         }}
       >
         Deposit
       </Center>
       <Center
-        bg={isDeposit ? "#242322" : "#1c1a19"}
+        bg={isDeposit ? '#242322' : '#1c1a19'}
         borderRight="2px solid #242322"
         borderTopRightRadius="8px"
         borderTop="2px solid #242322"
         onClick={() => setIsDeposit(false)}
         minWidth="50%"
         _hover={{
-          cursor: "pointer",
+          cursor: 'pointer',
         }}
       >
         Withdraw

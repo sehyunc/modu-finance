@@ -1,8 +1,8 @@
-import { Box, Heading } from "@chakra-ui/react"
+import { Box, Heading } from '@chakra-ui/react'
 
-import VaultGrid from "components/VaultGrid"
+import VaultGrid from 'components/VaultGrid'
 
-import useVaults from "contexts/vaults/useVaults"
+import useVaults from 'contexts/vaults/useVaults'
 
 const Dashboard = () => {
   const { vaults } = useVaults()

@@ -1,6 +1,6 @@
-import { createContext } from "react"
+import { createContext } from 'react'
 
-import { ethers } from "ethers"
+import { ethers } from 'ethers'
 
 export interface WalletContextValues {
   account: string
@@ -10,7 +10,7 @@ export interface WalletContextValues {
 }
 
 const WalletContext = createContext<WalletContextValues>({
-  account: "",
+  account: '',
   onConnect: () => new Promise(() => {}).then(() => undefined),
   onConnectToMetaMask: () => new Promise(() => {}).then(() => undefined),
 })

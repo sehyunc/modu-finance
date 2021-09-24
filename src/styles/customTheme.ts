@@ -1,20 +1,20 @@
-import { theme, extendTheme } from "@chakra-ui/react"
-import { mode } from "@chakra-ui/theme-tools"
+import { theme, extendTheme } from '@chakra-ui/react'
+import { mode } from '@chakra-ui/theme-tools'
 
 const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
-    body: "Inter, sans-serif",
-    heading: "Manrope, serif",
+    body: 'Inter, sans-serif',
+    heading: 'Manrope, serif',
   },
   config: {
     useSystemColorMode: false,
-    initialColorMode: "dark",
+    initialColorMode: 'dark',
   },
   styles: {
     global: (props) => ({
       body: {
-        bg: mode("#ffffff", "gray.900")(props),
+        bg: mode('#ffffff', 'gray.900')(props),
       },
     }),
   },

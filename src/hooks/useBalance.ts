@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react"
-import { BigNumber, ethers } from "ethers"
+import { useCallback, useEffect, useState } from 'react'
+import { BigNumber, ethers } from 'ethers'
 
-import erc20Abi from "constants/abi/erc20.json"
+import erc20Abi from 'constants/abi/erc20.json'
 
-import useWallet from "contexts/wallet/useWallet"
+import useWallet from 'contexts/wallet/useWallet'
 
 const useBalance = (address: string | undefined, isNative?: boolean) => {
   const [balance, setBalance] = useState<BigNumber>()

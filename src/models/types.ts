@@ -1,4 +1,4 @@
-import { Platform } from "models/Vault"
+import { Platform } from 'models/Vault'
 
 export interface RibbonVaultConstructor {
   id: string

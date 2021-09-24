@@ -1,1 +1,1 @@
-export { default as VaultProvider } from "./VaultsProvider"
+export { default as VaultProvider } from './VaultsProvider'

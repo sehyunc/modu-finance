@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react"
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
 
-import { FontisVaultConstructor, RibbonVaultConstructor } from "models/types"
-import { Vault } from "models/Vault"
+import { FontisVaultConstructor, RibbonVaultConstructor } from 'models/types'
+import { Vault } from 'models/Vault'
 
-import { FONTIS_QUERY, FONTIS_URL, RIBBON_QUERY, RIBBON_URL } from "./constants"
-import VaultsContext from "./VaultsContext"
+import { FONTIS_QUERY, FONTIS_URL, RIBBON_QUERY, RIBBON_URL } from './constants'
+import VaultsContext from './VaultsContext'
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
@@ -16,9 +16,9 @@ const VaultsProvider: React.FC = ({ children }) => {
       body: JSON.stringify({
         query: FONTIS_QUERY,
       }),
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
 
@@ -35,14 +35,14 @@ const VaultsProvider: React.FC = ({ children }) => {
       body: JSON.stringify({
         query: RIBBON_QUERY,
       }),
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
-      const v = Vault.fromRibbonSubgraph({ ...vault, platform: "ribbon" })
+      const v = Vault.fromRibbonSubgraph({ ...vault, platform: 'ribbon' })
       newVaults.push(v)
     })
     setRibbonVaults(newVaults)

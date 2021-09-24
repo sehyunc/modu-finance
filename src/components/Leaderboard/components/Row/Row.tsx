@@ -1,6 +1,6 @@
-import React from "react"
-import { Box, Text } from "@chakra-ui/react"
-import { Vault } from "models/Vault"
+import React from 'react'
+import { Box, Text } from '@chakra-ui/react'
+import { Vault } from 'models/Vault'
 
 interface Props {
   vault: Vault

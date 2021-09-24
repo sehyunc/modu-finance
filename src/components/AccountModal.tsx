@@ -1,4 +1,4 @@
-import { CopyIcon } from "@chakra-ui/icons"
+import { CopyIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -14,8 +14,8 @@ import {
   useColorMode,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react"
-import useWallet from "contexts/wallet/useWallet"
+} from '@chakra-ui/react'
+import useWallet from 'contexts/wallet/useWallet'
 
 export default function AccountModal() {
   const { account: address } = useWallet()
@@ -28,7 +28,7 @@ export default function AccountModal() {
     <>
       <Button
         size="md"
-        colorScheme={useColorModeValue("blue", "gray")}
+        colorScheme={useColorModeValue('blue', 'gray')}
         variant="solid"
         onClick={onOpen}
       >
@@ -39,13 +39,13 @@ export default function AccountModal() {
         <ModalOverlay />
         <ModalContent
           borderRadius={20}
-          bg={useColorModeValue("#eee", "#333333")}
+          bg={useColorModeValue('#eee', '#333333')}
         >
           <ModalHeader fontWeight="700">Account Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box
-              borderColor={colorMode === "light" ? "#bbb" : "#444444"}
+              borderColor={colorMode === 'light' ? '#bbb' : '#444444'}
               borderWidth={1}
               borderRadius={20}
               padding={6}

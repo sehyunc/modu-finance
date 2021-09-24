@@ -1,14 +1,14 @@
-import { Button, Heading, Center, Text } from "@chakra-ui/react"
+import { Button, Heading, Center, Text } from '@chakra-ui/react'
 
-import AccessibleLink from "components/AccessibleLink"
-import { Main } from "components/Main"
-import { PageContainer } from "components/PageContainer"
+import AccessibleLink from 'components/AccessibleLink'
+import { Main } from 'components/Main'
+import { PageContainer } from 'components/PageContainer'
 
 const Home: React.FC = () => {
   return (
     <PageContainer>
       <Main mx="auto" textAlign="center">
-        <Heading fontSize={{ base: "10vw", md: "6vw", xl: "75px" }} mt="22vh">
+        <Heading fontSize={{ base: '10vw', md: '6vw', xl: '75px' }} mt="22vh">
           Vault Aggregator
         </Heading>
         <Text>Find and compare strategies across the Opyn ecosystem</Text>

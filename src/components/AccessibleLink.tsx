@@ -1,8 +1,8 @@
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
-} from "@chakra-ui/layout"
-import Link, { LinkProps } from "next/link"
+} from '@chakra-ui/layout'
+import Link, { LinkProps } from 'next/link'
 
 type AccessibleLinkProps = LinkProps &
   ChakraLinkProps & { decoration?: boolean }
@@ -18,12 +18,12 @@ const AccessibleLink = ({
     <Link href={href} as={as} passHref>
       <ChakraLink
         isExternal={isExternal}
-        style={decoration ? {} : { textDecoration: "none" }}
+        style={decoration ? {} : { textDecoration: 'none' }}
         _focus={
           decoration
             ? {}
             : {
-                outline: "none !important",
+                outline: 'none !important',
               }
         }
       >

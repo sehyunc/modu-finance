@@ -1,6 +1,6 @@
-import AccessibleLink from "components/AccessibleLink"
-import { Button, Flex, FlexProps, Link } from "@chakra-ui/react"
-import { AiFillGithub } from "react-icons/ai"
+import AccessibleLink from 'components/AccessibleLink'
+import { Button, Flex, FlexProps, Link } from '@chakra-ui/react'
+import { AiFillGithub } from 'react-icons/ai'
 
 const Footer = (props: FlexProps) => {
   return (
@@ -10,10 +10,10 @@ const Footer = (props: FlexProps) => {
       px={8}
       py={4}
       width="100%"
-      align={{ base: "center", sm: "inherit" }}
-      justify={{ sm: "space-between" }}
+      align={{ base: 'center', sm: 'inherit' }}
+      justify={{ sm: 'space-between' }}
       maxWidth="72rem"
-      direction={{ base: "column", sm: "row" }}
+      direction={{ base: 'column', sm: 'row' }}
       {...props}
     >
       <AccessibleLink href="https://www.opyn.co/" isExternal>

@@ -1,11 +1,11 @@
-import { Box, Container, Heading } from "@chakra-ui/react"
+import { Box, Container, Heading } from '@chakra-ui/react'
 
-import { Main } from "components/Main"
-import { PageContainer } from "components/PageContainer"
-import PlatformHeader from "components/PlatformHeader"
-import VaultGrid from "components/VaultGrid"
+import { Main } from 'components/Main'
+import { PageContainer } from 'components/PageContainer'
+import PlatformHeader from 'components/PlatformHeader'
+import VaultGrid from 'components/VaultGrid'
 
-import useVaults from "contexts/vaults/useVaults"
+import useVaults from 'contexts/vaults/useVaults'
 
 const headerText = `
                 Fontis finance enables users to earn a yield by depositing

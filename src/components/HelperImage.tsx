@@ -1,6 +1,6 @@
-import { Box } from "@chakra-ui/layout"
-import { Tooltip } from "@chakra-ui/tooltip"
-import Image from "next/image"
+import { Box } from '@chakra-ui/layout'
+import { Tooltip } from '@chakra-ui/tooltip'
+import Image from 'next/image'
 
 type HelperImageProps = {
   label?: string

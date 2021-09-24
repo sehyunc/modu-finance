@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react"
-import { ethers } from "ethers"
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import { ethers } from 'ethers'
 
-import WalletContext from "./WalletContext"
+import WalletContext from './WalletContext'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connectWalletIsOpen, setConnectWalletIsOpen] = useState(false)
-  const [account, setAccount] = useState<string>("")
+  const [account, setAccount] = useState<string>('')
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
   const [ethereum, setEthereum] = useState<ethers.providers.ExternalProvider>()
 
@@ -23,7 +23,7 @@ const WalletProvider: React.FC = ({ children }) => {
 
     try {
       const accounts: string[] = await ethereum.request({
-        method: "eth_requestAccounts",
+        method: 'eth_requestAccounts',
       })
       const provider = new ethers.providers.Web3Provider(ethereum)
       setConnectWalletIsOpen(false)
@@ -31,7 +31,7 @@ const WalletProvider: React.FC = ({ children }) => {
       setProvider(provider)
       return provider
     } catch (error) {
-      setAccount("")
+      setAccount('')
       setProvider(undefined)
       return undefined
     }

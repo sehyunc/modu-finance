@@ -1,7 +1,7 @@
-import { FontisVaultConstructor, RibbonVaultConstructor } from "./types"
-import { symbolToDecimalMap } from "utils/helpers"
+import { FontisVaultConstructor, RibbonVaultConstructor } from './types'
+import { symbolToDecimalMap } from 'utils/helpers'
 
-export type Platform = "ribbon" | "fontis"
+export type Platform = 'ribbon' | 'fontis'
 
 export class Vault {
   public id: string
@@ -49,14 +49,14 @@ export class Vault {
   public static fromFontisSubgraph(options: FontisVaultConstructor): Vault {
     return new Vault({
       id: options.id,
-      name: "P-WETH-C",
-      symbol: "fWETH-PERP",
-      underlyingSymbol: "WETH",
+      name: 'P-WETH-C',
+      symbol: 'fWETH-PERP',
+      underlyingSymbol: 'WETH',
       lockedAmount: options.collateralAmount,
-      cap: "1000000000000000000000",
+      cap: '1000000000000000000000',
       withdrawalFee: 0.04,
-      decimals: symbolToDecimalMap["WETH"],
-      platform: "fontis",
+      decimals: symbolToDecimalMap['WETH'],
+      platform: 'fontis',
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
     })
   }

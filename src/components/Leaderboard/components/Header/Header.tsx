@@ -1,15 +1,15 @@
-import React from "react"
-import { Box, Text } from "@chakra-ui/react"
+import React from 'react'
+import { Box, Text } from '@chakra-ui/react'
 
 interface Props {
-  align?: "left" | "right"
+  align?: 'left' | 'right'
   flex?: number
   onClick: () => void
   title: string
 }
 
-const Header = ({ align = "left", flex = 1, onClick, title }: Props) => {
-  const justifyContent = align === "left" ? "flex-start" : "flex-end"
+const Header = ({ align = 'left', flex = 1, onClick, title }: Props) => {
+  const justifyContent = align === 'left' ? 'flex-start' : 'flex-end'
 
   return (
     <Box

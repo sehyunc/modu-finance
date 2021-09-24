@@ -11,16 +11,16 @@ import {
   Heading,
   Text,
   VStack,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
-import AccessibleLink from "components/AccessibleLink"
-import VaultForm from "./components/VaultForm"
+import AccessibleLink from 'components/AccessibleLink'
+import VaultForm from './components/VaultForm'
 
-import { Vault } from "models/Vault"
+import { Vault } from 'models/Vault'
 
-import { vaultNameToAddressMap } from "utils/helpers"
+import { vaultNameToAddressMap } from 'utils/helpers'
 
-import VaultRow from "./components/VaultRow"
+import VaultRow from './components/VaultRow'
 
 interface VaultDrawerProps {
   vault: Vault

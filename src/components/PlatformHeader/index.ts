@@ -1,1 +1,1 @@
-export { default } from "./PlatformHeader"
+export { default } from './PlatformHeader'

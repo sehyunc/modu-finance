@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react"
-import { BigNumber, ethers } from "ethers"
+import { useCallback, useEffect, useState } from 'react'
+import { BigNumber, ethers } from 'ethers'
 
-import erc20Abi from "constants/abi/erc20.json"
+import erc20Abi from 'constants/abi/erc20.json'
 
-import useWallet from "contexts/wallet/useWallet"
+import useWallet from 'contexts/wallet/useWallet'
 
 const usePosition = (address: string | undefined, isNative?: boolean) => {
   const [position, setPosition] = useState<BigNumber>()
@@ -15,14 +15,14 @@ const usePosition = (address: string | undefined, isNative?: boolean) => {
     }
 
     let position: BigNumber | undefined = undefined
-    try{
-        if (isNative) {
+    try {
+      if (isNative) {
         position = await provider.getBalance(account)
       } else {
         const vaultContract = new ethers.Contract(address, erc20Abi, provider)
         position = await vaultContract.balanceOf(account)
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e)
     }
     setPosition(position)

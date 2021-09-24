@@ -1,5 +1,5 @@
-import AccessibleLink from "components/AccessibleLink"
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
+import AccessibleLink from 'components/AccessibleLink'
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -10,33 +10,33 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react"
-import { useRouter } from "next/router"
-import { ReactNode } from "react"
-import AccountModal from "components/AccountModal"
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { ReactNode } from 'react'
+import AccountModal from 'components/AccountModal'
 
-import useWallet from "contexts/wallet/useWallet"
+import useWallet from 'contexts/wallet/useWallet'
 
 const Links = [
   {
-    label: "Modu",
-    href: "/",
+    label: 'Modu',
+    href: '/',
   },
   {
-    label: "Dashboard",
-    href: "/dashboard",
+    label: 'Dashboard',
+    href: '/dashboard',
   },
   {
-    label: "Leaderboard",
-    href: "/leaderboard",
+    label: 'Leaderboard',
+    href: '/leaderboard',
   },
   {
-    label: "Fontis",
-    href: "/fontis",
+    label: 'Fontis',
+    href: '/fontis',
   },
   {
-    label: "Ribbon",
-    href: "/ribbon",
+    label: 'Ribbon',
+    href: '/ribbon',
   },
 ]
 
@@ -57,12 +57,12 @@ const TopBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
   const { account, onConnectToMetaMask } = useWallet()
-  console.log("🚀 ~ Navbar ~ account", account)
+  console.log('🚀 ~ Navbar ~ account', account)
 
   return (
     <>
       <Box
-        bg={useColorModeValue("gray.100", "#000000")}
+        bg={useColorModeValue('gray.100', '#000000')}
         px={4}
         position="sticky"
         top="0"
@@ -71,19 +71,19 @@ const TopBar: React.FC = () => {
         <Flex alignItems="center" h={16} justifyContent="space-between">
           <IconButton
             aria-label="Open Menu"
-            display={{ md: "none" }}
+            display={{ md: 'none' }}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             onClick={isOpen ? onClose : onOpen}
             size="md"
           />
           <Box alignItems="center" display="flex">
-            <HStack display={{ base: "none", md: "flex" }} spacing={4}>
+            <HStack display={{ base: 'none', md: 'flex' }} spacing={4}>
               {Links.map(({ label, href }) => (
                 <NavLink key={href} href={href}>
                   <Text
                     fontWeight="500"
                     opacity={router.pathname === href ? 1 : 0.6}
-                    _hover={{ opacity: "1" }}
+                    _hover={{ opacity: '1' }}
                   >
                     {label}
                   </Text>
@@ -97,9 +97,9 @@ const TopBar: React.FC = () => {
             ) : (
               <Button
                 onClick={onConnectToMetaMask}
-                variant={"solid"}
-                colorScheme={"teal"}
-                size={"sm"}
+                variant={'solid'}
+                colorScheme={'teal'}
+                size={'sm'}
                 mr={4}
               >
                 Connect Wallet
@@ -109,8 +109,8 @@ const TopBar: React.FC = () => {
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as={'nav'} spacing={4}>
               {Links.map(({ label, href }) => (
                 <NavLink key={href} href={href}>
                   {label}

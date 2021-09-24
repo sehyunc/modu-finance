@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState } from 'react'
 import {
   Box,
   Flex,
@@ -8,14 +8,14 @@ import {
   Progress,
   Tag,
   Text,
-} from "@chakra-ui/react"
-import { utils } from "ethers"
+} from '@chakra-ui/react'
+import { utils } from 'ethers'
 
-import VaultDrawer from "./components/VaultDrawer"
+import VaultDrawer from './components/VaultDrawer'
 
-import useWallet from "contexts/wallet/useWallet"
+import useWallet from 'contexts/wallet/useWallet'
 
-import { Vault } from "models/Vault"
+import { Vault } from 'models/Vault'
 
 const COLORS: {
   [key: string]: {
@@ -25,19 +25,19 @@ const COLORS: {
   }
 } = {
   WETH: {
-    start: "#c993ff",
-    end: "#415dff",
-    tag: "purple",
+    start: '#c993ff',
+    end: '#415dff',
+    tag: 'purple',
   },
   WBTC: {
-    start: "#F4B86B",
-    end: "#ff9d85",
-    tag: "yellow",
+    start: '#F4B86B',
+    end: '#ff9d85',
+    tag: 'yellow',
   },
   USDC: {
-    start: "#729ff3",
-    end: "#009EF7",
-    tag: "blue",
+    start: '#729ff3',
+    end: '#009EF7',
+    tag: 'blue',
   },
 }
 
@@ -84,9 +84,9 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
         box-shadow 0.5s cubic-bezier(0, 0.28, 0.45, 0.95)
         `}
         _hover={{
-          outline: "none",
-          transform: "scale(1.02)",
-          boxShadow: "surface_hovered",
+          outline: 'none',
+          transform: 'scale(1.02)',
+          boxShadow: 'surface_hovered',
         }}
       >
         <Grid
@@ -116,7 +116,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
               transform 0.5s cubic-bezier(0, 0.28, 0.45, 0.95),
               box-shadow 0.5s cubic-bezier(0, 0.28, 0.45, 0.95)
               `,
-              transform: "scale(1.2)",
+              transform: 'scale(1.2)',
             }}
           />
           <Box pointerEvents="none" zIndex="1">

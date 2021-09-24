@@ -1,6 +1,6 @@
-import { useContext } from "react"
+import { useContext } from 'react'
 
-import VaultsContext from "./VaultsContext"
+import VaultsContext from './VaultsContext'
 
 const useWallet = () => {
   const vaults = useContext(VaultsContext)

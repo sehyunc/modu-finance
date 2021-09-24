@@ -1,4 +1,4 @@
-import AccessibleLink from "components/AccessibleLink"
+import AccessibleLink from 'components/AccessibleLink'
 import {
   Box,
   Button,
@@ -10,10 +10,10 @@ import {
   Stack,
   StackProps,
   useColorMode,
-} from "@chakra-ui/react"
-import { ReactNode } from "react"
-import { AiFillGithub } from "react-icons/ai"
-import { CgDarkMode } from "react-icons/cg"
+} from '@chakra-ui/react'
+import { ReactNode } from 'react'
+import { AiFillGithub } from 'react-icons/ai'
+import { CgDarkMode } from 'react-icons/cg'
 
 const DarkModeSwitch = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -65,7 +65,7 @@ interface MenuItemProps {
 
 export const MenuItem = ({
   children,
-  to = "/",
+  to = '/',
   ...props
 }: MenuItemProps & ButtonProps) => {
   return (
@@ -113,8 +113,8 @@ const Navbar = () => {
       <NavbarContainer>
         <Logo />
         <Box
-          display={{ base: "none", md: "block" }}
-          flexBasis={{ base: "100%", md: "auto" }}
+          display={{ base: 'none', md: 'block' }}
+          flexBasis={{ base: '100%', md: 'auto' }}
         >
           <MenuStack direction="row" />
         </Box>
