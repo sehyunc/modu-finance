@@ -9,10 +9,8 @@ const Dashboard = () => {
 
   return (
     <Box p={8}>
-      <Heading pb={8}>My Vaults</Heading>
-      <VaultGrid vaults={vaults} />
-      <Heading py={8}>Watchlist</Heading>
-      <VaultGrid vaults={vaults} />
+      <VaultGrid title="My Vaults" vaults={vaults} />
+      <VaultGrid title="Watchlist" vaults={vaults} />
     </Box>
   )
 }

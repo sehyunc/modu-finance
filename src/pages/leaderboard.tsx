@@ -40,7 +40,7 @@ const Leaderboard = () => {
   }, [activeSortColumn, sortDirection, vaults])
 
   return (
-    <>
+    <Box p={8}>
       <Box
         alignItems="center"
         borderBottom="1px solid #000"
@@ -68,7 +68,7 @@ const Leaderboard = () => {
       {sortedRows.map((vault) => {
         return <Row key={vault.id} vault={vault} />
       })}
-    </>
+    </Box>
   )
 }
 

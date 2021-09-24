@@ -22,9 +22,8 @@ const Ribbon = () => {
         text={headerText}
         title="Ribbon"
       />
-      <Box position="relative" bgColor="gray.900">
-        <Heading>Available Vaults</Heading>
-        <VaultGrid vaults={vaults} />
+      <Box backgroundColor="gray.900" p={8} position="relative">
+        <VaultGrid title="Available Vaults" vaults={vaults} />
       </Box>
     </>
   )
