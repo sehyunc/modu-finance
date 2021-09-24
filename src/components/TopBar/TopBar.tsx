@@ -13,10 +13,10 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
-import AccountModal from 'components/AccountModal'
 
 import useWallet from 'contexts/wallet/useWallet'
 
+import AccountModal from './components/AccountModal/AccountModal'
 const Links = [
   {
     label: 'Modu',
@@ -57,7 +57,6 @@ const TopBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
   const { account, onConnectToMetaMask } = useWallet()
-  console.log('🚀 ~ Navbar ~ account', account)
 
   return (
     <>

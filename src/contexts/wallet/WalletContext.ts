@@ -3,15 +3,14 @@ import { createContext } from 'react'
 import { ethers } from 'ethers'
 
 export interface WalletContextValues {
-  account: string
-  provider?: ethers.providers.Web3Provider
-  onConnect: () => void
+  account?: string
+  isConnected: boolean
   onConnectToMetaMask: () => Promise<ethers.providers.Web3Provider | undefined>
+  provider?: ethers.providers.Web3Provider
 }
 
 const WalletContext = createContext<WalletContextValues>({
-  account: '',
-  onConnect: () => new Promise(() => {}).then(() => undefined),
+  isConnected: false,
   onConnectToMetaMask: () => new Promise(() => {}).then(() => undefined),
 })
 

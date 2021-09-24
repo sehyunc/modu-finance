@@ -1,49 +1,53 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react'
 import { ethers } from 'ethers'
 
+import useLocalStorage from 'hooks/useLocalStorage'
+
 import WalletContext from './WalletContext'
 
 const WalletProvider: React.FC = ({ children }) => {
-  const [connectWalletIsOpen, setConnectWalletIsOpen] = useState(false)
-  const [account, setAccount] = useState<string>('')
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
+  const [previousWalletConnection, setPreviousWalletConnection] =
+    useLocalStorage('previousWalletConnection', '')
+  const [account, setAccount] = useState<string>()
   const [ethereum, setEthereum] = useState<ethers.providers.ExternalProvider>()
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
+
+  const handleConnectToMetaMask = useCallback(async () => {
+    if (!ethereum) return
+    try {
+      const accounts: string[] = await ethereum.request({
+        method: 'eth_requestAccounts',
+      })
+      const provider = new ethers.providers.Web3Provider(ethereum)
+      setAccount(accounts[0])
+      setProvider(provider)
+      setPreviousWalletConnection('metamask')
+      return provider
+    } catch (error) {
+      setAccount(undefined)
+      setProvider(undefined)
+      return undefined
+    }
+  }, [ethereum, setPreviousWalletConnection])
 
   useEffect(() => {
     const ethereum = (window as any).ethereum
     setEthereum(ethereum as ethers.providers.ExternalProvider)
   }, [])
 
-  const handleConnect = useCallback(() => {
-    setConnectWalletIsOpen(true)
-  }, [])
-
-  const handleConnectToMetaMask = useCallback(async () => {
-    if (!ethereum) return
-
-    try {
-      const accounts: string[] = await ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-      const provider = new ethers.providers.Web3Provider(ethereum)
-      setConnectWalletIsOpen(false)
-      setAccount(accounts[0])
-      setProvider(provider)
-      return provider
-    } catch (error) {
-      setAccount('')
-      setProvider(undefined)
-      return undefined
+  useEffect(() => {
+    if (previousWalletConnection === 'metamask') {
+      handleConnectToMetaMask()
     }
-  }, [ethereum])
+  }, [handleConnectToMetaMask, previousWalletConnection])
 
   return (
     <WalletContext.Provider
       value={{
         account,
-        provider,
-        onConnect: handleConnect,
+        isConnected: Boolean(account),
         onConnectToMetaMask: handleConnectToMetaMask,
+        provider,
       }}
     >
       {children}

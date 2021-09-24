@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { ChakraProvider } from '@chakra-ui/react'
 import '@fontsource/epilogue/latin.css'
 import '@fontsource/inter/latin.css'
@@ -12,6 +13,8 @@ import customTheme from 'styles/customTheme'
 import 'styles/globals.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter()
+  console.log('🚀 ~ MyApp ~ router', router.pathname)
   return (
     <Providers>
       <ChakraProvider theme={customTheme}>
@@ -22,7 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           />
           <title>Modu</title>
         </Head>
-        <TopBar />
+        {router.pathname !== '/' ? <TopBar /> : null}
         <Component {...pageProps} />
       </ChakraProvider>
     </Providers>

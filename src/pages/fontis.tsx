@@ -1,7 +1,5 @@
-import { Box, Container, Heading } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 
-import { Main } from 'components/Main'
-import { PageContainer } from 'components/PageContainer'
 import PlatformHeader from 'components/PlatformHeader'
 import VaultGrid from 'components/VaultGrid'
 
@@ -22,21 +20,15 @@ const Fontis = () => {
 
   return (
     <>
-      <Box w="100%" bgColor="#000000">
-        <Container maxW="6xl">
-          <PlatformHeader
-            imageUrl="/static/fontis.png"
-            text={headerText}
-            title="Fontis"
-          />
-        </Container>
+      <PlatformHeader
+        imageUrl="/static/fontis.png"
+        text={headerText}
+        title="Fontis"
+      />
+      <Box bg="gray.900" position="relative">
+        <Heading>Available Vaults</Heading>
+        <VaultGrid vaults={vaults} />
       </Box>
-      <PageContainer position="relative" bg="gray.900" minH="">
-        <Main mb="6">
-          <Heading>Available Vaults</Heading>
-          <VaultGrid vaults={vaults} />
-        </Main>
-      </PageContainer>
     </>
   )
 }

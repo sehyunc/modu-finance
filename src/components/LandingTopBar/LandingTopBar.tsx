@@ -1,4 +1,4 @@
-import AccessibleLink from 'components/AccessibleLink'
+import { ReactNode } from 'react'
 import {
   Box,
   Button,
@@ -11,9 +11,10 @@ import {
   StackProps,
   useColorMode,
 } from '@chakra-ui/react'
-import { ReactNode } from 'react'
 import { AiFillGithub } from 'react-icons/ai'
 import { CgDarkMode } from 'react-icons/cg'
+
+import AccessibleLink from 'components/AccessibleLink'
 
 const DarkModeSwitch = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -25,36 +26,6 @@ const DarkModeSwitch = () => {
       onClick={toggleColorMode}
       icon={<CgDarkMode />}
     />
-  )
-}
-
-export const Logo = () => {
-  return (
-    <AccessibleLink href="/">
-      <Button size="md" width="100%" variant="ghost" colorScheme="gray">
-        Opyn Vault Aggregator
-      </Button>
-    </AccessibleLink>
-  )
-}
-
-interface NavbarContainerProps {
-  children: ReactNode
-}
-
-const NavbarContainer = ({ children, ...props }: NavbarContainerProps) => {
-  return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      w="100%"
-      p={8}
-      {...props}
-    >
-      {children}
-    </Flex>
   )
 }
 
@@ -107,20 +78,31 @@ export const MenuStack = (props: StackProps) => (
   </Stack>
 )
 
-const Navbar = () => {
+const TopBar = () => {
   return (
-    <>
-      <NavbarContainer>
-        <Logo />
-        <Box
-          display={{ base: 'none', md: 'block' }}
-          flexBasis={{ base: '100%', md: 'auto' }}
-        >
-          <MenuStack direction="row" />
-        </Box>
-      </NavbarContainer>
-    </>
+    <Flex
+      as="nav"
+      align="center"
+      justify="space-between"
+      wrap="wrap"
+      w="100%"
+      p={8}
+    >
+      <Box>
+        <AccessibleLink href="/">
+          <Button size="md" width="100%" variant="ghost" colorScheme="gray">
+            Modu
+          </Button>
+        </AccessibleLink>
+      </Box>
+      <Box
+        display={{ base: 'none', md: 'block' }}
+        flexBasis={{ base: '100%', md: 'auto' }}
+      >
+        <MenuStack direction="row" />
+      </Box>
+    </Flex>
   )
 }
 
-export default Navbar
+export default TopBar

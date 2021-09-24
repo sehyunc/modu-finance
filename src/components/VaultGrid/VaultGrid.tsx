@@ -10,7 +10,6 @@ interface VaultGridProps {
 }
 
 const VaultGrid: React.FC<VaultGridProps> = ({ vaults }) => {
-  console.log('🚀 ~ vaults', vaults)
   return (
     <Grid templateColumns="1fr 1fr" gap={10}>
       {vaults.map((vault) => (
