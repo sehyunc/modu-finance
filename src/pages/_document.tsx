@@ -2,8 +2,8 @@ import { ColorModeScript } from '@chakra-ui/react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import theme from 'styles/customTheme'
 
-const APP_NAME = 'opyn-vault-aggregatort'
-const APP_DESCRIPTION = 'Vault Aggregator Interface for Opyn'
+const APP_NAME = 'modu'
+const APP_DESCRIPTION = 'Opyn Vault Aggregator'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {

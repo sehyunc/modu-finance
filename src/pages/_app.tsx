@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -10,11 +11,22 @@ import Providers from 'components/Providers'
 import TopBar from 'components/TopBar'
 
 import customTheme from 'styles/customTheme'
-import 'styles/globals.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
-  console.log('🚀 ~ MyApp ~ router', router.pathname)
+
+  useEffect(() => {
+    if (
+      router.pathname.indexOf('/dashboard') !== -1 ||
+      router.pathname.indexOf('/leaderboard') !== -1 ||
+      router.pathname.indexOf('/fontis') !== -1 ||
+      router.pathname.indexOf('/ribbon') !== -1
+    ) {
+      return
+    }
+    router.push('/dashboard')
+  }, [router])
+
   return (
     <Providers>
       <ChakraProvider theme={customTheme}>
