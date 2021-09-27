@@ -14,7 +14,7 @@ export class Vault {
   public depositors?: string[]
   public decimals: number
   public platform: Platform
-  public apy?: number
+  public apy: number
 
   constructor(options: RibbonVaultConstructor) {
     this.id = options.id
