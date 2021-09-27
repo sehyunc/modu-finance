@@ -15,6 +15,7 @@ const WalletProvider: React.FC = ({ children }) => {
   const handleConnectToMetaMask = useCallback(async () => {
     if (!ethereum) return
     try {
+      //@ts-ignore
       const accounts: string[] = await ethereum.request({
         method: 'eth_requestAccounts',
       })
