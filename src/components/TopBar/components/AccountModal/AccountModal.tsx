@@ -15,14 +15,14 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
+
 import useWallet from 'contexts/wallet/useWallet'
 
 export default function AccountModal() {
-  const { account: address } = useWallet()
-
-  const { onCopy } = useClipboard(address)
   const { colorMode } = useColorMode()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { account } = useWallet()
+  const { onCopy } = useClipboard(account || '')
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function AccountModal() {
         variant="solid"
         onClick={onOpen}
       >
-        {address?.substr(0, 6)}...{address?.substr(address.length - 4)}
+        {account?.substr(0, 6)}...{account?.substr(account.length - 4)}
       </Button>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -51,10 +51,10 @@ export default function AccountModal() {
               padding={6}
             >
               <Text fontSize="sm" fontWeight="500">
-                Connected Wallet: {address}
+                Connected Wallet: {account}
               </Text>
               <Text fontSize="1.6em" fontWeight="500">
-                {address?.substr(0, 8)}...{address?.substr(address.length - 6)}
+                {account?.substr(0, 8)}...{account?.substr(account.length - 6)}
               </Text>
               <Button fontSize="sm" variant="link" onClick={onCopy}>
                 <CopyIcon mr={1} /> Copy Address
