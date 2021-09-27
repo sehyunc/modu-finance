@@ -49,8 +49,8 @@ export class Vault {
   public static fromFontisSubgraph(options: FontisVaultConstructor): Vault {
     return new Vault({
       id: options.id,
-      name: 'P-WETH-C',
-      symbol: 'fWETH-PERP',
+      name: 'Fontis WETH Perpetual Vault',
+      symbol: 'fETH-PERP',
       underlyingSymbol: 'WETH',
       lockedAmount: options.collateralAmount,
       cap: '1000000000000000000000',

@@ -6,7 +6,7 @@ import Row from 'components/Leaderboard/components/Row'
 
 import useVaults from 'contexts/vaults/useVaults'
 
-type SortColumnOption = 'name' | 'platform' | 'symbol' | 'apy'
+export type SortColumnOption = 'name' | 'platform' | 'symbol' | 'apy'
 type SortDirection = 'up' | 'down'
 
 const Leaderboard = () => {
@@ -40,34 +40,17 @@ const Leaderboard = () => {
   }, [activeSortColumn, sortDirection, vaults])
 
   return (
-    <Box p={8}>
-      <Box
-        alignItems="center"
-        borderBottom="1px solid #000"
-        display="flex"
-        height="44px"
-        width="100%"
-      >
-        <Header
-          flex={3}
-          onClick={() => setActiveSortColumn('name')}
-          title="Vault Name"
-        />
-        <Header
-          onClick={() => setActiveSortColumn('platform')}
-          title="Platform"
-        />
-        <Header onClick={() => setActiveSortColumn('symbol')} title="Symbol" />
-        <Header
-          onClick={() => setActiveSortColumn('apy')}
-          align="right"
-          title="Projected APY"
-        />
-      </Box>
-
+    <Box p={12}>
+      <Header handleSetActiveSortColumn={setActiveSortColumn} />
       {sortedRows.map((vault) => {
         return <Row key={vault.id} vault={vault} />
       })}
+      <Box
+        backgroundColor="gray.800"
+        borderBottomEndRadius="10px"
+        borderBottomStartRadius="10px"
+        height="30px"
+      ></Box>
     </Box>
   )
 }

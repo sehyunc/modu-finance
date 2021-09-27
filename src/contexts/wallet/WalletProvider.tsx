@@ -31,6 +31,7 @@ const WalletProvider: React.FC = ({ children }) => {
   }, [ethereum, setPreviousWalletConnection])
 
   useEffect(() => {
+    if (!window) return
     const ethereum = (window as any).ethereum
     setEthereum(ethereum as ethers.providers.ExternalProvider)
   }, [])
