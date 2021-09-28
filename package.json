@@ -1,8 +1,8 @@
 {
-  "name": "opyn-vault-aggregator",
+  "name": "modu-finance",
   "version": "0.1.0",
   "private": true,
-  "author": "sozonome",
+  "author": "syun",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,6 @@
     "prettify": "prettier --write src/"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.21",
     "@chakra-ui/icons": "^1.0.13",
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11.1.5",
@@ -19,11 +18,8 @@
     "@fontsource/epilogue": "^4.4.5",
     "@fontsource/inter": "^4.4.5",
     "@fontsource/manrope": "^4.4.5",
-    "bnc-onboard": "^1.29.0",
     "ethers": "^5.4.1",
     "framer-motion": "^4.1.17",
-    "graphql": "^15.5.1",
-    "js-cookie": "^2.2.1",
     "next": "^11.0.0",
     "next-pwa": "^5.2.21",
     "numeral": "^2.0.6",
