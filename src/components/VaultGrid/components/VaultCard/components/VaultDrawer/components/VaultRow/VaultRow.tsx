@@ -13,7 +13,7 @@ const VaultRow = () => (
     fontWeight="semibold"
   >
     <Image src={`/static/ribbon.svg`} alt="eth" width="30px" height="30px" />
-    <Text ml="3">T-ETH-C</Text>
+    <Text ml="3">Placeholder</Text>
     <Spacer />
     <Text>10.08%</Text>
   </Flex>

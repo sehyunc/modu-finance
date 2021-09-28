@@ -15,6 +15,7 @@ export interface RibbonVaultConstructor {
   apy: number
   address?: string
   underlyingTokenAddress?: string
+  externalLink: string
 }
 
 export interface FontisVaultConstructor {

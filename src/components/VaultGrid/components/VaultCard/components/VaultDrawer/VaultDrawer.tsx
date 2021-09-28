@@ -14,12 +14,12 @@ import {
 } from '@chakra-ui/react'
 
 import AccessibleLink from 'components/AccessibleLink'
-import VaultForm from './components/VaultForm'
 
 import { Vault } from 'models/Vault'
 
-import { vaultNameToAddressMap } from 'utils/helpers'
+import { vaultSymbolToAddressMap } from 'utils/helpers'
 
+import VaultForm from './components/VaultForm'
 import VaultRow from './components/VaultRow'
 
 interface VaultDrawerProps {
@@ -33,7 +33,8 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
-  const vaultAddress = vaultNameToAddressMap[vault.platform][vault.symbol]
+  console.log('🚀 ~ vault', vault.symbol)
+  const vaultAddress = vaultSymbolToAddressMap[vault.platform][vault.symbol]
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
@@ -48,16 +49,13 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
                 tokenSymbol={vault.underlyingSymbol}
                 vaultAddress={vaultAddress}
               />
-              <Heading size="md">Other ETH Vault Yields</Heading>
+              <Heading size="md">{`Other ${vault.underlyingSymbol} Vaults`}</Heading>
               <VaultRow />
             </VStack>
           </DrawerBody>
 
           <DrawerFooter>
-            <AccessibleLink
-              href="https://app.ribbon.finance/theta-vault/T-ETH-C"
-              isExternal
-            >
+            <AccessibleLink href={vault.externalLink} isExternal>
               <Button
                 colorScheme="gray"
                 style={{ textTransform: 'capitalize' }}

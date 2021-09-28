@@ -26,7 +26,7 @@ export const symbolToDecimalMap: { [symbol: string]: number } = {
   USDC: 6,
 }
 
-export const vaultNameToAddressMap: {
+export const vaultSymbolToAddressMap: {
   [platform: string]: { [vaultName in VaultSymbol]?: string }
 } = {
   ribbon: {

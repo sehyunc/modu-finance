@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
+import Image from 'next/image'
 
 import { Vault } from 'models/Vault'
 
@@ -8,6 +9,8 @@ interface RowProps {
 }
 
 const Row: React.FC<RowProps> = ({ vault }) => {
+  const imageUrl =
+    vault.platform === 'ribbon' ? '/static/ribbon.svg' : '/static/fontis.png'
   return (
     <Box
       alignItems="center"
@@ -20,6 +23,9 @@ const Row: React.FC<RowProps> = ({ vault }) => {
       height="72px"
       _hover={{ backgroundColor: 'gray.700' }}
     >
+      <Box alignItems="center" display="flex" flex={0.5} justifyContent="left">
+        <Image src={imageUrl} alt="platform" width="30px" height="30px" />
+      </Box>
       <Box alignItems="center" display="flex" flex={3} justifyContent="left">
         <Text>{vault.name}</Text>
       </Box>

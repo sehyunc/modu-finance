@@ -7,13 +7,14 @@ import Row from 'components/Leaderboard/components/Row'
 import useVaults from 'contexts/vaults/useVaults'
 
 export type SortColumnOption = 'name' | 'platform' | 'symbol' | 'apy'
-type SortDirection = 'up' | 'down'
+export type SortDirection = 'up' | 'down'
 
 const Leaderboard = () => {
   const { vaults } = useVaults()
   const [activeSortColumn, setActiveSortColumn] =
     useState<SortColumnOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('down')
+  console.log('🚀 ~ Leaderboard ~ sortDirection', sortDirection)
 
   const sortedRows = useMemo(() => {
     return vaults.sort((vaultA, vaultB) => {
@@ -23,9 +24,9 @@ const Leaderboard = () => {
         valA = vaultA.apy
         valB = vaultB.apy
         if (sortDirection === 'down') {
-          return (valA || 0) < (valB || 0) ? -1 : 1
-        } else {
           return (valA || 0) > (valB || 0) ? -1 : 1
+        } else {
+          return (valA || 0) < (valB || 0) ? -1 : 1
         }
       } else {
         valA = vaultA[activeSortColumn]?.trim()
@@ -41,7 +42,11 @@ const Leaderboard = () => {
 
   return (
     <Box p={12}>
-      <Header handleSetActiveSortColumn={setActiveSortColumn} />
+      <Header
+        handleSetActiveSortColumn={setActiveSortColumn}
+        handleSetSortDirection={setSortDirection}
+        sortDirection={sortDirection}
+      />
       {sortedRows.map((vault) => {
         return <Row key={vault.id} vault={vault} />
       })}
