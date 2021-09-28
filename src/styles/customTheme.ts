@@ -12,7 +12,7 @@ const customTheme = extendTheme({
     initialColorMode: 'dark',
   },
   styles: {
-    global: (props) => ({
+    global: (props: any) => ({
       body: {
         bg: mode('#ffffff', 'gray.900')(props),
       },
