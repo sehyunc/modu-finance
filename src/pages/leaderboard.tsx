@@ -14,7 +14,6 @@ const Leaderboard = () => {
   const [activeSortColumn, setActiveSortColumn] =
     useState<SortColumnOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('down')
-  console.log('🚀 ~ Leaderboard ~ sortDirection', sortDirection)
 
   const sortedRows = useMemo(() => {
     return vaults.sort((vaultA, vaultB) => {
