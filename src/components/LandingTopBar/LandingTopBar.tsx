@@ -66,14 +66,6 @@ export const MenuStack = (props: StackProps) => (
     </HStack>
     <HStack>
       <DarkModeSwitch />
-      <Link href="https://github.com/sehyunc/opyn-vault-aggregator" isExternal>
-        <IconButton
-          aria-label="Link to GitHub"
-          variant="ghost"
-          fontSize="xl"
-          icon={<AiFillGithub />}
-        />
-      </Link>
     </HStack>
   </Stack>
 )

@@ -9,6 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { utils } from 'ethers'
+import numeral from 'numeral'
 
 import Background from './components/Background'
 import TagSection from './components/TagSection'
@@ -49,8 +50,12 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     platform,
   } = vault
 
-  const formattedCap = utils.formatUnits(cap, decimals)
-  const formattedLockedAmount = utils.formatUnits(lockedAmount, decimals)
+  const formattedCap = numeral(utils.formatUnits(cap, decimals)).format('0a')
+  const formattedLockedAmount = numeral(
+    utils.formatUnits(lockedAmount, decimals)
+  ).format('0.00a')
+  // const formattedCap = utils.formatUnits(cap, decimals)
+  // const formattedLockedAmount = utils.formatUnits(lockedAmount, decimals)
 
   return (
     <div>
@@ -99,11 +104,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
                 <Text>{`${formattedLockedAmount} ${underlyingSymbol}`}</Text>
               </Flex>
               <Progress
-                value={
-                  (parseFloat(formattedLockedAmount) /
-                    parseFloat(formattedCap)) *
-                  100
-                }
+                value={(parseFloat(lockedAmount) / parseFloat(cap)) * 100}
                 width="50%"
               />
               <Flex align="center" justify="space-between" maxWidth="75%">

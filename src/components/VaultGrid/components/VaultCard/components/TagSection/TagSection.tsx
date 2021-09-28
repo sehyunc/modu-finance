@@ -14,7 +14,7 @@ const TagSection: React.FC<TagSectionProps> = ({ tags, underlyingSymbol }) => {
       {tags.map((tag) => (
         <Tag
           colorScheme={color}
-          key="tag"
+          key={tag}
           style={{ textTransform: 'capitalize' }}
           variant="solid"
         >

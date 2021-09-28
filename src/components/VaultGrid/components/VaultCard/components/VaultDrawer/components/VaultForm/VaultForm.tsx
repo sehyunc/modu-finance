@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Stack,
   Text,
 } from '@chakra-ui/react'
 import { ethers, providers } from 'ethers'
@@ -124,7 +125,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
     : WithdrawButton
 
   const Tabs = (
-    <>
+    <Flex>
       <Center
         bg={isDeposit ? '#1c1a19' : '#242322'}
         borderLeft="2px solid #242322"
@@ -154,37 +155,41 @@ const VaultForm: React.FC<VaultFormProps> = ({
       >
         Withdraw
       </Center>
-    </>
+    </Flex>
   )
 
   return (
     <Box width="100%">
-      <Flex>{Tabs}</Flex>
-      <Box
+      {Tabs}
+      <Stack
         bgColor="#1c1a19"
         border="2px solid #242322"
         borderBottomLeftRadius="8px"
         borderBottomRightRadius="8px"
         borderTopStyle="none"
+        direction="column"
         p="6"
+        spacing={6}
       >
-        <Text>{`Amount (${tokenSymbol})`}</Text>
-        <InputGroup>
-          <Input
-            onChange={(event) => setInputText(event.target.value)}
-            placeholder="0"
-            value={inputText}
-            variant="filled"
-          />
-          <InputRightElement>
-            <Button height="100%" onClick={handleSetMax} size="sm">
-              Max
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        <div>
+          <Text mb="1">{`Amount (${tokenSymbol})`}</Text>
+          <InputGroup>
+            <Input
+              onChange={(event) => setInputText(event.target.value)}
+              placeholder="0"
+              value={inputText}
+              variant="filled"
+            />
+            <InputRightElement>
+              <Button height="100%" onClick={handleSetMax} size="sm">
+                Max
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </div>
         {ActionButton}
         <Text textAlign="center">{footerText}</Text>
-      </Box>
+      </Stack>
     </Box>
   )
 }

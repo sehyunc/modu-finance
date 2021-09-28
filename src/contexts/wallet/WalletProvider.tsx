@@ -38,10 +38,10 @@ const WalletProvider: React.FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (previousWalletConnection === 'metamask') {
+    if (!account && previousWalletConnection === 'metamask') {
       handleConnectToMetaMask()
     }
-  }, [handleConnectToMetaMask, previousWalletConnection])
+  }, [account, handleConnectToMetaMask, previousWalletConnection])
 
   return (
     <WalletContext.Provider
