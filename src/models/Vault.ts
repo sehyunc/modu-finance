@@ -2,11 +2,17 @@ import { FontisVaultConstructor, RibbonVaultConstructor, Symbol } from './types'
 import { symbolToDecimalMap } from 'utils/helpers'
 
 export type Platform = 'ribbon' | 'fontis'
+export type VaultSymbol =
+  | 'rBTC-THETA'
+  | 'rETH-THETA'
+  | 'rUSDC-ETH-P-THETA'
+  | 'ryvUSDC-ETH-P-THETA'
+  | 'fETH-PERP'
 
 export class Vault {
   public id: string
   public name: string
-  public symbol: string
+  public symbol: VaultSymbol
   public underlyingSymbol: Symbol
   public lockedAmount: string
   public cap: string

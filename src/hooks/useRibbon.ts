@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { BigNumber, BigNumberish, ethers } from 'ethers'
+import { useCallback, useEffect, useState } from 'react'
+import { BigNumberish, ethers } from 'ethers'
 
 import ribbonthetavault from 'constants/abi/ribbonthetavault.json'
 
@@ -11,24 +11,24 @@ const useRibbon = (vaultAddress: string) => {
   const [contract, setContract] = useState<ethers.Contract>()
   const { provider } = useWallet()
 
-  useEffect(() => {
-    async function loadContracts() {
-      if (provider) {
-        const signer = provider.getSigner()
-        try {
-          const c = new ethers.Contract(vaultAddress, ribbonthetavault, signer)
-          console.log(
-            '🚀 ~ file: useRibbon.ts ~ line 20 ~ loadContracts ~ c',
-            c
-          )
-          setContract(c)
-        } catch (err) {
-          console.log(err)
-        }
-      }
+  const handleLoadContract = useCallback(async () => {
+    if (!provider || !vaultAddress) return
+    const signer = provider.getSigner()
+    try {
+      const contract = new ethers.Contract(
+        vaultAddress,
+        ribbonthetavault,
+        signer
+      )
+      setContract(contract)
+    } catch (err) {
+      console.log(err)
     }
-    loadContracts()
   }, [provider, vaultAddress])
+
+  useEffect(() => {
+    handleLoadContract()
+  }, [handleLoadContract, provider, vaultAddress])
 
   const readValue = async (
     value: string,

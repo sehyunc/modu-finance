@@ -58,7 +58,10 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
               href="https://app.ribbon.finance/theta-vault/T-ETH-C"
               isExternal
             >
-              <Button colorScheme="gray">View on Ribbon</Button>
+              <Button
+                colorScheme="gray"
+                style={{ textTransform: 'capitalize' }}
+              >{`View on ${vault.platform}`}</Button>
             </AccessibleLink>
           </DrawerFooter>
         </DrawerContent>

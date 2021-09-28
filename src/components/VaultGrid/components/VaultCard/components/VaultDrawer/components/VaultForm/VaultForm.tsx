@@ -31,13 +31,13 @@ import SubmitButton from '../SubmitButton'
 interface VaultFormProps {
   onClose: () => void
   tokenSymbol: string
-  vaultAddress: string
+  vaultAddress?: string
 }
 
 const VaultForm: React.FC<VaultFormProps> = ({
   onClose,
   tokenSymbol,
-  vaultAddress,
+  vaultAddress = '',
 }) => {
   let balanceReadable = '0'
   let positionReadable = '0'

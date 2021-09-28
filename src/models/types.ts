@@ -1,9 +1,9 @@
-import { Platform } from 'models/Vault'
+import { Platform, VaultSymbol } from 'models/Vault'
 
 export interface RibbonVaultConstructor {
   id: string
   name: string
-  symbol: string
+  symbol: VaultSymbol
   underlyingSymbol: Symbol
   lockedAmount: string
   cap: string

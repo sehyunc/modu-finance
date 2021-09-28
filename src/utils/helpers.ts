@@ -1,4 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
+
 import {
   KOVAN_OPYNBTC_ADDRESS,
   KOVAN_OPYNUSDC_ADDRESS,
@@ -8,6 +9,8 @@ import {
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
 } from 'constants/addresses'
+
+import { VaultSymbol } from 'models/Vault'
 
 export const symbolToAddressMap: {
   [symbol: string]: string
@@ -24,7 +27,7 @@ export const symbolToDecimalMap: { [symbol: string]: number } = {
 }
 
 export const vaultNameToAddressMap: {
-  [platform: string]: { [vaultName: string]: string }
+  [platform: string]: { [vaultName in VaultSymbol]?: string }
 } = {
   ribbon: {
     'rBTC-THETA': KOVAN_TWBTC,
@@ -33,7 +36,7 @@ export const vaultNameToAddressMap: {
     'ryvUSDC-ETH-P-THETA': KOVAN_TUSDCP,
   },
   fontis: {
-    'fWETH-PERP': KOVAN_PETHC,
+    'fETH-PERP': KOVAN_PETHC,
   },
 }
 
