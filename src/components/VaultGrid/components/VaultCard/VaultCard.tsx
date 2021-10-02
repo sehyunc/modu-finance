@@ -7,18 +7,19 @@ import {
   Progress,
   Stack,
   Text,
+  Tag,
 } from '@chakra-ui/react'
 import { utils } from 'ethers'
 import numeral from 'numeral'
+
+import useWallet from 'contexts/wallet/useWallet'
+
+import { Vault } from 'models/Vault'
 
 import Background from './components/Background'
 import TagSection from './components/TagSection'
 import VaultDrawer from './components/VaultDrawer'
 import { SymbolToColorMap } from './constants'
-
-import useWallet from 'contexts/wallet/useWallet'
-
-import { Vault } from 'models/Vault'
 
 interface VaultCardProps {
   vault: Vault
@@ -54,8 +55,6 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const formattedLockedAmount = numeral(
     utils.formatUnits(lockedAmount, decimals)
   ).format('0.00a')
-  // const formattedCap = utils.formatUnits(cap, decimals)
-  // const formattedLockedAmount = utils.formatUnits(lockedAmount, decimals)
 
   return (
     <div>
@@ -101,7 +100,10 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
             <div>
               <Flex align="center" justify="space-between" maxWidth="75%">
                 <Text>Current Deposits</Text>
-                <Text>{`${formattedLockedAmount} ${underlyingSymbol}`}</Text>
+                <Tag
+                  colorScheme="blue"
+                  variant="solid"
+                >{`${formattedLockedAmount} ${underlyingSymbol}`}</Tag>
               </Flex>
               <Progress
                 value={(parseFloat(lockedAmount) / parseFloat(cap)) * 100}
@@ -109,7 +111,10 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
               />
               <Flex align="center" justify="space-between" maxWidth="75%">
                 <Text>Max Capacity</Text>
-                <Text>{`${formattedCap} ${underlyingSymbol}`}</Text>
+                <Tag
+                  colorScheme="blue"
+                  variant="solid"
+                >{`${formattedCap} ${underlyingSymbol}`}</Tag>
               </Flex>
             </div>
           </Stack>
