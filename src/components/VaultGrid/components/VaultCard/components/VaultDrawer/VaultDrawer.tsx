@@ -34,8 +34,30 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { onAddToWatchlist } = useWatchlist()
+  const { onAddToWatchlist, onRemoveFromWatchlist, watchlist } = useWatchlist()
   const vaultAddress = vaultSymbolToAddressMap[vault.platform][vault.symbol]
+  const inWatchlist = watchlist.includes(vault.id)
+
+  const WatchlistButton = inWatchlist ? (
+    <Button
+      colorScheme="gray"
+      mr={3}
+      onClick={() => onRemoveFromWatchlist(vault.id)}
+      style={{ textTransform: 'capitalize' }}
+    >
+      Remove from Watchlist
+    </Button>
+  ) : (
+    <Button
+      colorScheme="gray"
+      mr={3}
+      onClick={() => onAddToWatchlist(vault.id)}
+      style={{ textTransform: 'capitalize' }}
+    >
+      Add To Watchlist
+    </Button>
+  )
+
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
@@ -56,13 +78,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
           </DrawerBody>
 
           <DrawerFooter>
-            <Button
-              colorScheme="gray"
-              onClick={() => onAddToWatchlist(vault.id)}
-              style={{ textTransform: 'capitalize' }}
-            >
-              Add To Watchlist
-            </Button>
+            {WatchlistButton}
             <AccessibleLink href={vault.externalLink} isExternal>
               <Button
                 colorScheme="gray"

@@ -15,11 +15,20 @@ const WatchlistProvider: React.FC = ({ children }) => {
     [setWatchlist, watchlist]
   )
 
+  const handleRemoveFromWatchlist = useCallback(
+    (vaultId: string) => {
+      if (!(watchlist as string[]).includes(vaultId)) return
+      setWatchlist((watchlist as string[]).filter((e) => e !== vaultId))
+    },
+    [setWatchlist, watchlist]
+  )
+
   return (
     <WatchlistContext.Provider
       value={{
-        watchlist,
         onAddToWatchlist: handleAddToWatchlist,
+        onRemoveFromWatchlist: handleRemoveFromWatchlist,
+        watchlist,
       }}
     >
       {children}

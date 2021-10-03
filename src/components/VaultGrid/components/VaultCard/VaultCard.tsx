@@ -27,15 +27,22 @@ interface VaultCardProps {
 
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { account, onConnectToMetaMask } = useWallet()
+  const {
+    account,
+    needsSwitchNetwork,
+    onConnectToMetaMask,
+    onRequestSwitchNetwork,
+  } = useWallet()
 
   const handleOpenDrawer = useCallback(() => {
     if (!account) {
       onConnectToMetaMask()
+    } else if (needsSwitchNetwork) {
+      onRequestSwitchNetwork()
     } else {
       setIsOpen(true)
     }
-  }, [account, onConnectToMetaMask])
+  }, [account, needsSwitchNetwork, onConnectToMetaMask, onRequestSwitchNetwork])
 
   if (!vault) {
     return null

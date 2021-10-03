@@ -23,7 +23,6 @@ const useBalance = (address: string | undefined, isNative?: boolean) => {
         balance = await tokenContract.balanceOf(account)
       }
     } catch (e) {
-      console.log('Address: ', account)
       console.error(e)
     }
     setBalance(balance)
