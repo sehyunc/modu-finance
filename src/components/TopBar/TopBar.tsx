@@ -17,6 +17,7 @@ import { ReactNode } from 'react'
 import useWallet from 'contexts/wallet/useWallet'
 
 import AccountModal from './components/AccountModal/AccountModal'
+import WrongNetworkModal from './components/WrongNetworkModal'
 const Links = [
   {
     label: 'Modu',
@@ -56,7 +57,7 @@ const NavLink: React.FC<NavLinkProps> = ({ children, href }) => (
 const TopBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
-  const { account, onConnectToMetaMask } = useWallet()
+  const { account, needsSwitchNetwork, onConnectToMetaMask } = useWallet()
 
   return (
     <>
@@ -90,21 +91,22 @@ const TopBar: React.FC = () => {
               ))}
             </HStack>
           </Box>
-          <Flex alignItems="center">
+          <Stack alignItems="center" direction="row" spacing={3}>
+            {needsSwitchNetwork ? <WrongNetworkModal /> : null}
             {account ? (
               <AccountModal />
             ) : (
               <Button
                 onClick={onConnectToMetaMask}
-                variant={'solid'}
-                colorScheme={'teal'}
-                size={'sm'}
+                variant="solid"
+                colorScheme="teal"
+                size="sm"
                 mr={4}
               >
                 Connect Wallet
               </Button>
             )}
-          </Flex>
+          </Stack>
         </Flex>
 
         {isOpen ? (

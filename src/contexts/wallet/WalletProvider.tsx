@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 
 import useLocalStorage from 'hooks/useLocalStorage'
@@ -10,7 +10,23 @@ const WalletProvider: React.FC = ({ children }) => {
     useLocalStorage('previousWalletConnection', '')
   const [account, setAccount] = useState<string>()
   const [ethereum, setEthereum] = useState<ethers.providers.ExternalProvider>()
+  const [needsSwitchNetwork, setNeedsSwitchNetwork] = useState(false)
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
+
+  const handleSetNeedsNetworkChange = useCallback((chainId: number) => {
+    setNeedsSwitchNetwork(chainId.toString() !== '0x2a')
+  }, [])
+
+  useEffect(() => {
+    if (!ethereum) return
+    //@ts-ignore
+    ethereum.on('chainChanged', handleSetNeedsNetworkChange)
+
+    return () => {
+      //@ts-ignore
+      ethereum.off('chainChanged', handleSetNeedsNetworkChange)
+    }
+  }, [ethereum, handleSetNeedsNetworkChange])
 
   const handleConnectToMetaMask = useCallback(async () => {
     if (!ethereum) return
@@ -20,6 +36,12 @@ const WalletProvider: React.FC = ({ children }) => {
         method: 'eth_requestAccounts',
       })
       const provider = new ethers.providers.Web3Provider(ethereum)
+      //@ts-ignore
+      const chainId: number = await ethereum
+        .request({
+          method: 'eth_chainId',
+        })
+        .then(handleSetNeedsNetworkChange)
       setAccount(accounts[0])
       setProvider(provider)
       setPreviousWalletConnection('metamask')
@@ -29,7 +51,21 @@ const WalletProvider: React.FC = ({ children }) => {
       setProvider(undefined)
       return undefined
     }
-  }, [ethereum, setPreviousWalletConnection])
+  }, [ethereum, handleSetNeedsNetworkChange, setPreviousWalletConnection])
+
+  const handleRequestSwitchNetwork = useCallback(async () => {
+    if (!ethereum) return
+    try {
+      //@ts-ignore
+      const request = await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${(42).toString(16)}` }],
+      })
+      return request
+    } catch (err) {
+      console.warn(err)
+    }
+  }, [ethereum])
 
   useEffect(() => {
     if (!window) return
@@ -48,7 +84,9 @@ const WalletProvider: React.FC = ({ children }) => {
       value={{
         account,
         isConnected: Boolean(account),
+        needsSwitchNetwork,
         onConnectToMetaMask: handleConnectToMetaMask,
+        onRequestSwitchNetwork: handleRequestSwitchNetwork,
         provider,
       }}
     >

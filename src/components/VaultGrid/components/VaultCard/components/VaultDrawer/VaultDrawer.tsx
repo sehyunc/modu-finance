@@ -33,7 +33,6 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
-  console.log('🚀 ~ vault', vault.symbol)
   const vaultAddress = vaultSymbolToAddressMap[vault.platform][vault.symbol]
   return (
     <Box>
