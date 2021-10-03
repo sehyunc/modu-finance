@@ -2,11 +2,14 @@ import React from 'react'
 
 import VaultsProvider from 'contexts/vaults/VaultsProvider'
 import WalletProvider from 'contexts/wallet/WalletProvider'
+import WatchlistProvider from 'contexts/watchlist/WatchlistProvider'
 
 const Providers: React.FC = ({ children }) => {
   return (
     <WalletProvider>
-      <VaultsProvider>{children}</VaultsProvider>
+      <VaultsProvider>
+        <WatchlistProvider>{children}</WatchlistProvider>
+      </VaultsProvider>
     </WalletProvider>
   )
 }

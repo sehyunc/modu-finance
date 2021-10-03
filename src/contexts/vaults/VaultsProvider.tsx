@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { FontisVaultConstructor, RibbonVaultConstructor } from 'models/types'
 import { Vault } from 'models/Vault'
 
 import { FONTIS_QUERY, FONTIS_URL, RIBBON_QUERY, RIBBON_URL } from './constants'
+
 import VaultsContext from './VaultsContext'
 
 const VaultsProvider: React.FC = ({ children }) => {
@@ -48,6 +49,19 @@ const VaultsProvider: React.FC = ({ children }) => {
     setRibbonVaults(newVaults)
   }, [])
 
+  const handleIdToVault = useCallback(
+    (vaultIds: string[]) => {
+      const vaults: Vault[] = []
+      vaultIds.forEach((id) => {
+        const v = allVaults.find((e) => e.id === id)
+        if (!v) return
+        vaults.push(v)
+      })
+      return vaults
+    },
+    [allVaults]
+  )
+
   useEffect(() => {
     setAllVaults([...fontisVaults, ...ribbonVaults])
   }, [fontisVaults, ribbonVaults])
@@ -63,9 +77,10 @@ const VaultsProvider: React.FC = ({ children }) => {
   return (
     <VaultsContext.Provider
       value={{
-        vaults: allVaults,
         fontisVaults,
         ribbonVaults,
+        onIdToVault: handleIdToVault,
+        vaults: allVaults,
       }}
     >
       {children}

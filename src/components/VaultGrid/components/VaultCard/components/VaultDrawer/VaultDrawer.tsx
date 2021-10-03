@@ -9,11 +9,12 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Heading,
-  Text,
   VStack,
 } from '@chakra-ui/react'
 
 import AccessibleLink from 'components/AccessibleLink'
+
+import useWatchlist from 'contexts/watchlist/useWatchlist'
 
 import { Vault } from 'models/Vault'
 
@@ -33,6 +34,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
+  const { onAddToWatchlist } = useWatchlist()
   const vaultAddress = vaultSymbolToAddressMap[vault.platform][vault.symbol]
   return (
     <Box>
@@ -54,6 +56,13 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
           </DrawerBody>
 
           <DrawerFooter>
+            <Button
+              colorScheme="gray"
+              onClick={() => onAddToWatchlist(vault.id)}
+              style={{ textTransform: 'capitalize' }}
+            >
+              Add To Watchlist
+            </Button>
             <AccessibleLink href={vault.externalLink} isExternal>
               <Button
                 colorScheme="gray"
