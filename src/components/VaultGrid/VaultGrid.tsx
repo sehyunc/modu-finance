@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Heading } from '@chakra-ui/react'
+import { Container, Grid, Heading, Text } from '@chakra-ui/react'
 
 import VaultCard from './components/VaultCard'
 
@@ -11,15 +11,21 @@ interface VaultGridProps {
 }
 
 const VaultGrid: React.FC<VaultGridProps> = ({ title, vaults }) => {
-  return (
-    <>
-      <Heading pb={8}>{title}</Heading>
+  const Content =
+    vaults.length === 0 ? (
+      <Text>See your vaults here after depositing!</Text>
+    ) : (
       <Grid templateColumns="1fr 1fr" gap={10}>
         {vaults.map((vault) => (
           <VaultCard key={vault.id} vault={vault} />
         ))}
       </Grid>
-    </>
+    )
+  return (
+    <Container maxWidth="6xl">
+      <Heading pb={8}>{title}</Heading>
+      {Content}
+    </Container>
   )
 }
 

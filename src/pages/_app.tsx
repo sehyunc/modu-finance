@@ -21,7 +21,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       router.pathname.indexOf('/dashboard') !== -1 ||
       router.pathname.indexOf('/leaderboard') !== -1 ||
       router.pathname.indexOf('/fontis') !== -1 ||
-      router.pathname.indexOf('/ribbon') !== -1
+      router.pathname.indexOf('/ribbon') !== -1 ||
+      router.pathname.indexOf('/stakedao') !== -1
     ) {
       return
     }

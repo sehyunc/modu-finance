@@ -39,6 +39,10 @@ const Links = [
     label: 'Ribbon',
     href: '/ribbon',
   },
+  {
+    label: 'StakeDAO',
+    href: '/stakedao',
+  },
 ]
 
 interface NavLinkProps {
