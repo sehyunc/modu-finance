@@ -14,7 +14,8 @@ export interface RibbonVaultConstructor {
   platform: Platform
   apy: number
   address?: string
-  underlyingTokenAddress?: string
+  underlyingTokenAddress?: string,
+  yieldFromPremium? : string
 }
 
 export interface FontisVaultConstructor {

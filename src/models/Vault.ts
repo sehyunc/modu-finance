@@ -31,6 +31,7 @@ export class Vault {
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
+    console.log("options :", options)
     return new Vault({
       id: options.id,
       name: options.name,
@@ -42,7 +43,7 @@ export class Vault {
       depositors: options.depositors,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       platform: options.platform,
-      apy: 0,
+      apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
     })
   }
 

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { BigNumber } from "@ethersproject/bignumber"
 import {
   KOVAN_OPYNBTC_ADDRESS,
@@ -14,7 +15,7 @@ export const symbolToAddressMap: {
 } = {
   WETH: KOVAN_WETH_ADDRESS,
   WBTC: KOVAN_OPYNBTC_ADDRESS,
-  USDC: KOVAN_OPYNUSDC_ADDRESS
+  USDC: KOVAN_OPYNUSDC_ADDRESS,
 }
 
 export const symbolToDecimalMap: { [symbol: string]: number } = {
@@ -30,7 +31,7 @@ export const vaultNameToAddressMap: {
     "rBTC-THETA": KOVAN_TWBTC,
     "rETH-THETA": KOVAN_TETHC,
     "rUSDC-ETH-P-THETA": KOVAN_TUSDCP,
-    "ryvUSDC-ETH-P-THETA": KOVAN_TUSDCP
+    "ryvUSDC-ETH-P-THETA": KOVAN_TUSDCP,
   },
   fontis: {
     "fWETH-PERP": KOVAN_PETHC,
@@ -38,8 +39,8 @@ export const vaultNameToAddressMap: {
 }
 
 export const roundOffBigNumber = (num: BigNumber, decimals: number) => {
-  if(!(num && decimals)){
-    return '0'
+  if (!(num && decimals)) {
+    return "0"
   }
   var numString = num.toString()
   if (decimals > numString.length) {
@@ -70,4 +71,32 @@ export const convertNumberToBigNumber = (value: number, decimals: number) => {
     }
     return BigNumber.from(stringValue.slice(0, decimalPoint) + postDecimal)
   }
+}
+
+export const ribbonAPYCalculation = (apyData: any[]) => {
+  const cleanData = {}
+  apyData.vaultOptionTrades.forEach((query) => {
+    if (!cleanData[query.vault.name]) {
+      cleanData[query.vault.name] = []
+    }
+    cleanData[query.vault.name].push({
+      timestamp: query.timestamp,
+      premium: query.premium,
+      yieldFromPremium: BigNumber.from(query.premium) /BigNumber.from(query.vault.totalBalance),
+    })
+  })
+
+  var sortedData = {}
+  var results = {}
+  console.log(sortedData)
+  Object.keys(cleanData).forEach((key) => {
+    var sortedArray = cleanData[key].sort(function (a, b) {
+      return a.timestamp - b.timestamp
+    })
+    sortedData[key] = sortedArray.reverse()
+  })
+  Object.keys(sortedData).forEach((key, index) => {
+      results[key] = sortedData[key][0]["yieldFromPremium"]
+  })
+  return results
 }

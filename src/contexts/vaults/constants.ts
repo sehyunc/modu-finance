@@ -28,3 +28,16 @@ query Vaults {
   }
 }
 `
+export const RIBBON_APY_QUERY = `
+query Vaults {
+ vaultOptionTrades{
+   timestamp
+   premium
+   vault {
+     totalBalance
+     underlyingName
+     name
+   }
+ }
+}
+`
