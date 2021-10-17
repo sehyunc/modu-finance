@@ -54,11 +54,10 @@ const VaultsProvider: React.FC = ({ children }) => {
     }).then((res) => res.json())
     
 
-    apyData = ribbonAPYCalculation(apyData)
+    apyData = ribbonAPYCalculation(apyData.vaultOptionTrades)
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
       const v = Vault.fromRibbonSubgraph({ ...vault, platform: "ribbon", yieldFromPremium: apyData[vault.name] })
-      console.log("vaultttt", v)
       newVaults.push(v)
     })
     setRibbonVaults(newVaults)

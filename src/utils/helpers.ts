@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { BigNumber } from "@ethersproject/bignumber"
 import {
   KOVAN_OPYNBTC_ADDRESS,
@@ -9,6 +8,7 @@ import {
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
 } from "constants/addresses"
+import { VaultOptionTrade } from "./types"
 
 export const symbolToAddressMap: {
   [symbol: string]: string
@@ -73,30 +73,36 @@ export const convertNumberToBigNumber = (value: number, decimals: number) => {
   }
 }
 
-export const ribbonAPYCalculation = (apyData: any[]) => {
-  const cleanData = {}
-  apyData.vaultOptionTrades.forEach((query) => {
+export const ribbonAPYCalculation = (
+  apyData: VaultOptionTrade[]
+): { [id: string]: string } => {
+  const cleanData: { [id: string]: VaultOptionTrade[] } = {}
+  var sortedData: { [id: string]: VaultOptionTrade[] } = {}
+  var results: { [id: string]: string } = {} 
+  console.log(apyData)
+  apyData.forEach((query) => {
     if (!cleanData[query.vault.name]) {
       cleanData[query.vault.name] = []
     }
     cleanData[query.vault.name].push({
       timestamp: query.timestamp,
       premium: query.premium,
-      yieldFromPremium: BigNumber.from(query.premium) /BigNumber.from(query.vault.totalBalance),
+      //@ts-ignore
+      yieldFromPremium: query.premium / query.vault.totalBalance,
     })
   })
 
-  var sortedData = {}
-  var results = {}
-  console.log(sortedData)
   Object.keys(cleanData).forEach((key) => {
-    var sortedArray = cleanData[key].sort(function (a, b) {
-      return a.timestamp - b.timestamp
+    var sortedArray = cleanData[key].sort(function (
+      a: VaultOptionTrade,
+      b: VaultOptionTrade
+    ) {
+      return Number(a.timestamp) - Number(b.timestamp)
     })
     sortedData[key] = sortedArray.reverse()
   })
-  Object.keys(sortedData).forEach((key, index) => {
-      results[key] = sortedData[key][0]["yieldFromPremium"]
+  Object.keys(sortedData).forEach((key) => {
+    results[key] = sortedData[key][0]["yieldFromPremium"]!
   })
   return results
 }
