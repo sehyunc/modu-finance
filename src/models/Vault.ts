@@ -39,7 +39,6 @@ export class Vault {
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
-    console.log("options :", options)
     return new Vault({
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       cap: options.cap,

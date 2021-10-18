@@ -7,8 +7,6 @@ import { FONTIS_QUERY, FONTIS_URL, RIBBON_APY_QUERY, RIBBON_QUERY, RIBBON_URL } 
 import VaultsContext from "./VaultsContext"
 import { ribbonAPYCalculation } from "utils/helpers"
 
-import VaultsContext from './VaultsContext'
-
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])

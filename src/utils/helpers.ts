@@ -82,7 +82,7 @@ export const ribbonAPYCalculation = (
   const cleanData: { [id: string]: VaultOptionTrade[] } = {}
   var sortedData: { [id: string]: VaultOptionTrade[] } = {}
   var results: { [id: string]: string } = {} 
-  console.log(apyData)
+
   apyData.forEach((query) => {
     if (!cleanData[query.vault.name]) {
       cleanData[query.vault.name] = []
