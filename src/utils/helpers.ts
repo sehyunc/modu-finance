@@ -8,7 +8,8 @@ import {
   KOVAN_TUSDCP,
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
-} from 'constants/addresses'
+} from "constants/addresses"
+import { VaultOptionTrade } from "./types"
 
 import { VaultSymbol } from 'models/Vault'
 
@@ -73,4 +74,38 @@ export const convertNumberToBigNumber = (value: number, decimals: number) => {
     }
     return BigNumber.from(stringValue.slice(0, decimalPoint) + postDecimal)
   }
+}
+
+export const ribbonAPYCalculation = (
+  apyData: VaultOptionTrade[]
+): { [id: string]: string } => {
+  const cleanData: { [id: string]: VaultOptionTrade[] } = {}
+  var sortedData: { [id: string]: VaultOptionTrade[] } = {}
+  var results: { [id: string]: string } = {} 
+  console.log(apyData)
+  apyData.forEach((query) => {
+    if (!cleanData[query.vault.name]) {
+      cleanData[query.vault.name] = []
+    }
+    cleanData[query.vault.name].push({
+      timestamp: query.timestamp,
+      premium: query.premium,
+      //@ts-ignore
+      yieldFromPremium: query.premium / query.vault.totalBalance,
+    })
+  })
+
+  Object.keys(cleanData).forEach((key) => {
+    var sortedArray = cleanData[key].sort(function (
+      a: VaultOptionTrade,
+      b: VaultOptionTrade
+    ) {
+      return Number(a.timestamp) - Number(b.timestamp)
+    })
+    sortedData[key] = sortedArray.reverse()
+  })
+  Object.keys(sortedData).forEach((key) => {
+    results[key] = sortedData[key][0]["yieldFromPremium"]!
+  })
+  return results
 }
