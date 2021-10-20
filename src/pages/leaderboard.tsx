@@ -42,6 +42,7 @@ const Leaderboard = () => {
   return (
     <Box p={12}>
       <Header
+        activeSortColumn={activeSortColumn}
         handleSetActiveSortColumn={setActiveSortColumn}
         handleSetSortDirection={setSortDirection}
         sortDirection={sortDirection}

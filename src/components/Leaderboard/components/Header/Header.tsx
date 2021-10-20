@@ -6,12 +6,14 @@ import { SortDirection, SortColumnOption } from 'pages/leaderboard'
 import HeaderItem from './components/HeaderItem'
 
 interface HeaderProps {
+  activeSortColumn: SortColumnOption
   handleSetActiveSortColumn: (column: SortColumnOption) => void
   handleSetSortDirection: (direction: SortDirection) => void
   sortDirection: SortDirection
 }
 
 const Header: React.FC<HeaderProps> = ({
+  activeSortColumn,
   handleSetActiveSortColumn,
   handleSetSortDirection,
   sortDirection,
@@ -38,15 +40,21 @@ const Header: React.FC<HeaderProps> = ({
     >
       <HeaderItem flex={0.5} onClick={() => {}} title="" />
       <HeaderItem
+        direction={activeSortColumn === 'name' ? sortDirection : undefined}
         flex={3}
         onClick={() => handleColumnClick('name')}
         title="Vault Name"
       />
       <HeaderItem
+        direction={activeSortColumn === 'platform' ? sortDirection : undefined}
         onClick={() => handleColumnClick('platform')}
         title="Platform"
       />
-      <HeaderItem onClick={() => handleColumnClick('symbol')} title="Symbol" />
+      <HeaderItem
+        direction={activeSortColumn === 'symbol' ? sortDirection : undefined}
+        onClick={() => handleColumnClick('symbol')}
+        title="Symbol"
+      />
       <HeaderItem
         onClick={() => handleColumnClick('apy')}
         align="right"
