@@ -3,9 +3,15 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { FontisVaultConstructor, RibbonVaultConstructor } from 'models/types'
 import { Vault } from 'models/Vault'
 
-import { FONTIS_QUERY, FONTIS_URL, RIBBON_APY_QUERY, RIBBON_QUERY, RIBBON_URL } from "./constants"
-import VaultsContext from "./VaultsContext"
-import { ribbonAPYCalculation } from "utils/helpers"
+import {
+  FONTIS_QUERY,
+  FONTIS_URL,
+  RIBBON_APY_QUERY,
+  RIBBON_QUERY,
+  RIBBON_URL,
+} from './constants'
+import VaultsContext from './VaultsContext'
+import { ribbonAPYCalculation } from 'utils/helpers'
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
@@ -42,22 +48,14 @@ const VaultsProvider: React.FC = ({ children }) => {
       },
     }).then((res) => res.json())
 
-    // We need to query APY data seperately
-    let {data : apyData } = await fetch(RIBBON_URL, {
-      body: JSON.stringify({
-        query: RIBBON_APY_QUERY
-      }),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json())
-    
-
-    apyData = ribbonAPYCalculation(apyData.vaultOptionTrades)
+    const apyData = ribbonAPYCalculation(data.vaultOptionTrades)
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
-      const v = Vault.fromRibbonSubgraph({ ...vault, platform: "ribbon", yieldFromPremium: apyData[vault.name] })
+      const v = Vault.fromRibbonSubgraph({
+        ...vault,
+        platform: 'ribbon',
+        yieldFromPremium: apyData[vault.name],
+      })
       newVaults.push(v)
     })
     setRibbonVaults(newVaults)

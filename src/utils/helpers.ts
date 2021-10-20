@@ -8,8 +8,8 @@ import {
   KOVAN_TUSDCP,
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
-} from "constants/addresses"
-import { VaultOptionTrade } from "./types"
+} from 'constants/addresses'
+import { VaultOptionTrade } from './types'
 
 import { VaultSymbol } from 'models/Vault'
 
@@ -81,7 +81,7 @@ export const ribbonAPYCalculation = (
 ): { [id: string]: string } => {
   const cleanData: { [id: string]: VaultOptionTrade[] } = {}
   var sortedData: { [id: string]: VaultOptionTrade[] } = {}
-  var results: { [id: string]: string } = {} 
+  var results: { [id: string]: string } = {}
 
   apyData.forEach((query) => {
     if (!cleanData[query.vault.name]) {
@@ -105,7 +105,7 @@ export const ribbonAPYCalculation = (
     sortedData[key] = sortedArray.reverse()
   })
   Object.keys(sortedData).forEach((key) => {
-    results[key] = sortedData[key][0]["yieldFromPremium"]!
+    results[key] = sortedData[key][0]['yieldFromPremium']!
   })
   return results
 }

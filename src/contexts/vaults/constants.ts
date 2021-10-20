@@ -26,10 +26,6 @@ query Vaults {
     totalWithdrawalFee
     depositors
   }
-}
-`
-export const RIBBON_APY_QUERY = `
-query Vaults {
  vaultOptionTrades{
    timestamp
    premium
