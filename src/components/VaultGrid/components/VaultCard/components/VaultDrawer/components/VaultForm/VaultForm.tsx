@@ -48,7 +48,6 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const [inputText, setInputText] = useState<string>()
   const [tokenContract, setTokenContract] = useState<ethers.Contract>()
   const { account, provider } = useWallet()
-
   const tokenAddress = symbolToAddressMap[tokenSymbol]
 
   const balance = useBalance(tokenAddress)

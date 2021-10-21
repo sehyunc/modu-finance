@@ -6,7 +6,6 @@ import { Vault } from 'models/Vault'
 import {
   FONTIS_QUERY,
   FONTIS_URL,
-  RIBBON_APY_QUERY,
   RIBBON_QUERY,
   RIBBON_URL,
 } from './constants'
@@ -16,7 +15,27 @@ import { ribbonAPYCalculation } from 'utils/helpers'
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])
+  const [stakeDAOVaults, setStakeDAOVaults] = useState<Vault[]>([])
   const [allVaults, setAllVaults] = useState<Vault[]>([])
+
+  const handleFetchStakeDAOVaults = useCallback(async () => {
+    const stakeDAO : Vault = {
+      name: "stake",
+      apy: 0,
+      cap: '1000000000',
+      decimals: 0,
+      externalLink: '',
+      id: '0xaoeoiagjioejg',
+      lockedAmount: '1000000000000',
+      platform: 'stakeDAO',
+      symbol: 'stakeTest',
+      underlyingSymbol: 'WETH'
+    };
+    const newVaults : Vault[] = [];
+    newVaults.push(stakeDAO);
+    setStakeDAOVaults(newVaults);
+
+  },[]);
 
   const handleFetchFontisVaults = useCallback(async () => {
     const { data } = await fetch(FONTIS_URL, {
@@ -75,8 +94,8 @@ const VaultsProvider: React.FC = ({ children }) => {
   )
 
   useEffect(() => {
-    setAllVaults([...fontisVaults, ...ribbonVaults])
-  }, [fontisVaults, ribbonVaults])
+    setAllVaults([...fontisVaults, ...ribbonVaults, ...stakeDAOVaults])
+  }, [fontisVaults, ribbonVaults, stakeDAOVaults])
 
   useEffect(() => {
     handleFetchFontisVaults()
@@ -85,12 +104,17 @@ const VaultsProvider: React.FC = ({ children }) => {
   useEffect(() => {
     handleFetchRibbonVaults()
   }, [handleFetchRibbonVaults])
+  
+  useEffect(() => {
+    handleFetchStakeDAOVaults()
+  }, [handleFetchStakeDAOVaults])
 
   return (
     <VaultsContext.Provider
       value={{
         fontisVaults,
         ribbonVaults,
+        stakeDAOVaults,
         onIdToVault: handleIdToVault,
         vaults: allVaults,
       }}

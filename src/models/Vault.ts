@@ -1,13 +1,14 @@
 import { FontisVaultConstructor, RibbonVaultConstructor, Symbol } from './types'
 import { symbolToDecimalMap } from 'utils/helpers'
 
-export type Platform = 'ribbon' | 'fontis'
+export type Platform = 'ribbon' | 'fontis' | 'stakeDAO'
 export type VaultSymbol =
   | 'rBTC-THETA'
   | 'rETH-THETA'
   | 'rUSDC-ETH-P-THETA'
   | 'ryvUSDC-ETH-P-THETA'
   | 'fETH-PERP'
+  | 'stakeTest'
 
 export class Vault {
   public apy: number

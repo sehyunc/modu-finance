@@ -3,18 +3,20 @@
 import { useEffect, useState } from 'react'
 import fontisabi from 'constants/abi/fontisperpetualvault.json'
 import { utils, ethers, BigNumberish } from 'ethers'
+import useWallet from 'contexts/wallet/useWallet'
 
-export function useFontis(providerOrSigner: ethers.providers.Web3Provider) {
+export function useFontis(vaultAddress: string) {
   const [contract, setContract] = useState<ethers.Contract>()
+  const { provider } = useWallet()
+
   useEffect(() => {
     let active = true
 
     async function loadContracts() {
-      if (!providerOrSigner) return
-      const signer = providerOrSigner.getSigner()
+    if (!provider || !vaultAddress) return
+    const signer = provider.getSigner()
       try {
-        const _address = '0x21Ed852c14e1858C5d3F7afD9f3bBE714269Dc31'
-        const _contract = new ethers.Contract(_address, fontisabi, signer)
+        const _contract = new ethers.Contract(vaultAddress, fontisabi, signer)
         if (active) setContract(_contract)
       } catch (e) {
         console.log('ERROR LOADING CONTRACTS!!', e)
@@ -25,7 +27,7 @@ export function useFontis(providerOrSigner: ethers.providers.Web3Provider) {
     return () => {
       active = false
     }
-  }, [providerOrSigner])
+  }, [provider, vaultAddress])
 
   const readValue = async (
     value: string,

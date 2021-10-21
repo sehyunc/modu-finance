@@ -39,6 +39,9 @@ export const vaultSymbolToAddressMap: {
   fontis: {
     'fETH-PERP': KOVAN_PETHC,
   },
+  stakeDAO: {
+    'stakeTest' : KOVAN_WETH_ADDRESS
+  }
 }
 
 export const roundOffBigNumber = (num: BigNumber, decimals: number) => {
