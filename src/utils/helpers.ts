@@ -9,7 +9,7 @@ import {
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
 } from 'constants/addresses'
-import { VaultOptionTrade } from './types'
+import { OptWeek, SD_Option, SD_OptWeek, VaultOptionTrade } from './types'
 
 import { VaultSymbol } from 'models/Vault'
 
@@ -111,4 +111,35 @@ export const ribbonAPYCalculation = (
     results[key] = sortedData[key][0]['yieldFromPremium']!
   })
   return results
+}
+
+export const stakeDAODataPrep = (data:any) => {
+  const options = data.options
+  const optWeeks = data.optWeeks
+
+  const options_with_ids: { [id: string]: SD_Option } = {}
+
+  options.forEach((option : SD_Option) => {
+    options_with_ids[option.id] = option
+  })
+
+  const usefulOptWeeks : {[id :string]: SD_OptWeek}= {}
+  optWeeks.forEach((optWeek : OptWeek) => {
+    if (
+      !usefulOptWeeks[optWeek.id[0]] ||
+      (usefulOptWeeks[optWeek.id[0]].id.split('-').slice(-1) <
+        optWeek.id.split('-').slice(-1) &&
+        optWeek.apy != null)
+    ) {
+      usefulOptWeeks[optWeek.id[0]] = optWeek
+    }
+  })
+
+  const results : SD_OptWeek[]= []
+
+  Object(usefulOptWeeks).keys((key : string) => {
+    results.push(usefulOptWeeks[key])
+  })
+
+  return results;
 }

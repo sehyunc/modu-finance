@@ -29,5 +29,15 @@ export interface FontisVaultConstructor {
   address?: string
   underlyingTokenAddress?: string
 }
-
+export interface StakeDAOVaultConstructor {
+  id: string
+  name: string
+  apy: number
+  symbol: Symbol
+  underlyingSymbol: Symbol
+  amount: string
+  shares: string
+  vault: string
+  platform: Platform
+}
 export type Symbol = 'WETH' | 'USDC' | 'WBTC'

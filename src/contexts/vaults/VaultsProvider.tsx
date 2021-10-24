@@ -8,9 +8,11 @@ import {
   FONTIS_URL,
   RIBBON_QUERY,
   RIBBON_URL,
+  STAKEDAO_QUERY,
+  STAKEDAO_URL,
 } from './constants'
 import VaultsContext from './VaultsContext'
-import { ribbonAPYCalculation } from 'utils/helpers'
+import { ribbonAPYCalculation, stakeDAODataPrep } from 'utils/helpers'
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
@@ -19,6 +21,18 @@ const VaultsProvider: React.FC = ({ children }) => {
   const [allVaults, setAllVaults] = useState<Vault[]>([])
 
   const handleFetchStakeDAOVaults = useCallback(async () => {
+    const { data } = await fetch(STAKEDAO_URL, {
+      body: JSON.stringify({
+        query: STAKEDAO_QUERY,
+      }),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json())
+
+    const usefulVaults = stakeDAODataPrep(data);
+    console.log(usefulVaults)
     const stakeDAO : Vault = {
       name: "stake",
       apy: 0,
