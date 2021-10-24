@@ -32,21 +32,9 @@ const VaultsProvider: React.FC = ({ children }) => {
     }).then((res) => res.json())
 
     const usefulVaults = stakeDAODataPrep(data);
-    console.log(usefulVaults)
-    const stakeDAO : Vault = {
-      name: "stake",
-      apy: 0,
-      cap: '1000000000',
-      decimals: 0,
-      externalLink: '',
-      id: '0xaoeoiagjioejg',
-      lockedAmount: '1000000000000',
-      platform: 'stakeDAO',
-      symbol: 'stakeTest',
-      underlyingSymbol: 'WETH'
-    };
-    const newVaults : Vault[] = [];
-    newVaults.push(stakeDAO);
+
+    const newVaults : Vault[] = Vault.fromStakeDAOSubgraph(usefulVaults);
+    
     setStakeDAOVaults(newVaults);
 
   },[]);

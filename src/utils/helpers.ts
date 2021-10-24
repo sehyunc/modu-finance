@@ -9,7 +9,7 @@ import {
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
 } from 'constants/addresses'
-import { OptWeek, SD_Option, SD_OptWeek, VaultOptionTrade } from './types'
+import { SD_Option, SD_OptWeek, VaultOptionTrade } from './types'
 
 import { VaultSymbol } from 'models/Vault'
 
@@ -124,7 +124,7 @@ export const stakeDAODataPrep = (data:any) => {
   })
 
   const usefulOptWeeks : {[id :string]: SD_OptWeek}= {}
-  optWeeks.forEach((optWeek : OptWeek) => {
+  optWeeks.forEach((optWeek : SD_OptWeek) => {
     if (
       !usefulOptWeeks[optWeek.id[0]] ||
       (usefulOptWeeks[optWeek.id[0]].id.split('-').slice(-1) <
