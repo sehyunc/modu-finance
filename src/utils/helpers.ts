@@ -40,8 +40,8 @@ export const vaultSymbolToAddressMap: {
     'fETH-PERP': KOVAN_PETHC,
   },
   stakeDAO: {
-    'stakeTest' : KOVAN_WETH_ADDRESS
-  }
+    stakeTest: KOVAN_WETH_ADDRESS,
+  },
 }
 
 export const roundOffBigNumber = (num: BigNumber, decimals: number) => {
@@ -113,18 +113,18 @@ export const ribbonAPYCalculation = (
   return results
 }
 
-export const stakeDAODataPrep = (data:any) => {
+export const stakeDAODataPrep = (data: any) => {
   const options = data.options
   const optWeeks = data.optWeeks
 
   const options_with_ids: { [id: string]: SD_Option } = {}
 
-  options.forEach((option : SD_Option) => {
+  options.forEach((option: SD_Option) => {
     options_with_ids[option.id] = option
   })
 
-  const usefulOptWeeks : {[id :string]: SD_OptWeek}= {}
-  optWeeks.forEach((optWeek : SD_OptWeek) => {
+  const usefulOptWeeks: { [id: string]: SD_OptWeek } = {}
+  optWeeks.forEach((optWeek: SD_OptWeek) => {
     if (
       !usefulOptWeeks[optWeek.id[0]] ||
       (usefulOptWeeks[optWeek.id[0]].id.split('-').slice(-1) <
@@ -135,11 +135,11 @@ export const stakeDAODataPrep = (data:any) => {
     }
   })
 
-  const results : SD_OptWeek[]= []
+  const results: SD_OptWeek[] = []
 
-  Object(usefulOptWeeks).keys((key : string) => {
+  Object(usefulOptWeeks).keys((key: string) => {
     results.push(usefulOptWeeks[key])
   })
 
-  return results;
+  return results
 }

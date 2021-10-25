@@ -1,4 +1,9 @@
-import { FontisVaultConstructor, RibbonVaultConstructor, StakeDAOVaultConstructor, Symbol } from './types'
+import {
+  FontisVaultConstructor,
+  RibbonVaultConstructor,
+  StakeDAOVaultConstructor,
+  Symbol,
+} from './types'
 import { symbolToDecimalMap } from 'utils/helpers'
 
 export type Platform = 'ribbon' | 'fontis' | 'stakeDAO'
@@ -72,17 +77,17 @@ export class Vault {
     })
   }
 
-  public static fromStakeDAOSubgraph(options: StakeDAOVaultConstructor) : Vault {
+  public static fromStakeDAOSubgraph(options: StakeDAOVaultConstructor): Vault {
     return new Vault({
       id: options.id,
       name: options.name,
       apy: options.apy,
       symbol: options.symbol,
-      underlyingSymbol : options.underlyingSymbol, 
+      underlyingSymbol: options.underlyingSymbol,
       amount: options.amount,
       shares: options.shares,
       vault: options.vault,
-      platform : options.platform, 
+      platform: options.platform,
     })
   }
 }

@@ -12,16 +12,16 @@ export type Vault = {
 }
 
 export type SD_OptWeek = {
-  id : string
-  earned : string
-  lockedAmount : string
-  apy : string
+  id: string
+  earned: string
+  lockedAmount: string
+  apy: string
 }
 
 export type SD_Option = {
-  id : string
-  name : string
-  vault : string
-  amount : string
-  shares : string
+  id: string
+  name: string
+  vault: string
+  amount: string
+  shares: string
 }

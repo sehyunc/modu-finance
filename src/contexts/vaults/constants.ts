@@ -53,4 +53,4 @@ query Vaults {
     apy
   }
 }
-` 
+`

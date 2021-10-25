@@ -31,13 +31,12 @@ const VaultsProvider: React.FC = ({ children }) => {
       },
     }).then((res) => res.json())
 
-    const usefulVaults = stakeDAODataPrep(data);
+    const usefulVaults = stakeDAODataPrep(data)
 
-    const newVaults : Vault[] = Vault.fromStakeDAOSubgraph(usefulVaults);
-    
-    setStakeDAOVaults(newVaults);
+    const newVaults: Vault[] = Vault.fromStakeDAOSubgraph(usefulVaults)
 
-  },[]);
+    setStakeDAOVaults(newVaults)
+  }, [])
 
   const handleFetchFontisVaults = useCallback(async () => {
     const { data } = await fetch(FONTIS_URL, {
@@ -106,7 +105,7 @@ const VaultsProvider: React.FC = ({ children }) => {
   useEffect(() => {
     handleFetchRibbonVaults()
   }, [handleFetchRibbonVaults])
-  
+
   useEffect(() => {
     handleFetchStakeDAOVaults()
   }, [handleFetchStakeDAOVaults])

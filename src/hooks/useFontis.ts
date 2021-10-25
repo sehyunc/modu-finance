@@ -13,8 +13,8 @@ export function useFontis(vaultAddress: string) {
     let active = true
 
     async function loadContracts() {
-    if (!provider || !vaultAddress) return
-    const signer = provider.getSigner()
+      if (!provider || !vaultAddress) return
+      const signer = provider.getSigner()
       try {
         const _contract = new ethers.Contract(vaultAddress, fontisabi, signer)
         if (active) setContract(_contract)
