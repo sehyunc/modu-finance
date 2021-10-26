@@ -6,7 +6,7 @@ import {
 } from './types'
 import { symbolToDecimalMap } from 'utils/helpers'
 
-export type Platform = 'ribbon' | 'fontis' | 'stakeDAO'
+export type Platform = 'ribbon' | 'fontis' | 'stakedao'
 export type VaultSymbol =
   | 'rBTC-THETA'
   | 'rETH-THETA'
@@ -79,15 +79,16 @@ export class Vault {
 
   public static fromStakeDAOSubgraph(options: StakeDAOVaultConstructor): Vault {
     return new Vault({
-      id: options.id,
-      name: options.name,
       apy: options.apy,
-      symbol: options.symbol,
-      underlyingSymbol: options.underlyingSymbol,
-      amount: options.amount,
-      shares: options.shares,
-      vault: options.vault,
+      cap: '',
+      decimals: 0,
+      externalLink: 'https://stakedao.org/ox/options',
+      id: options.id,
+      lockedAmount: options.amount,
+      name: options.name,
       platform: options.platform,
+      symbol: 'stakeTest',
+      underlyingSymbol: options.underlyingSymbol,
     })
   }
 }

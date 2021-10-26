@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { FontisVaultConstructor, RibbonVaultConstructor } from 'models/types'
+import {
+  FontisVaultConstructor,
+  RibbonVaultConstructor,
+  StakeDAOVaultConstructor,
+} from 'models/types'
 import { Vault } from 'models/Vault'
 
 import {
@@ -12,12 +16,12 @@ import {
   STAKEDAO_URL,
 } from './constants'
 import VaultsContext from './VaultsContext'
-import { ribbonAPYCalculation, stakeDAODataPrep } from 'utils/helpers'
+import { ribbonAPYCalculation, stakedaoDataPrep } from 'utils/helpers'
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])
-  const [stakeDAOVaults, setStakeDAOVaults] = useState<Vault[]>([])
+  const [stakedaoVaults, setStakeDAOVaults] = useState<Vault[]>([])
   const [allVaults, setAllVaults] = useState<Vault[]>([])
 
   const handleFetchStakeDAOVaults = useCallback(async () => {
@@ -30,10 +34,18 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
+    console.log('🚀 ~ handleFetchStakeDAOVaults ~ data', data)
 
-    const usefulVaults = stakeDAODataPrep(data)
-
-    const newVaults: Vault[] = Vault.fromStakeDAOSubgraph(usefulVaults)
+    // const apyData = getStakeDaoApy(data.optweek)
+    const newVaults: Vault[] = []
+    data.options.forEach((vault: StakeDAOVaultConstructor) => {
+      const v = Vault.fromStakeDAOSubgraph({
+        ...vault,
+        platform: 'stakedao',
+        // yieldFromPremium: apyData[vault.id]
+      })
+      newVaults.push(v)
+    })
 
     setStakeDAOVaults(newVaults)
   }, [])
@@ -95,8 +107,9 @@ const VaultsProvider: React.FC = ({ children }) => {
   )
 
   useEffect(() => {
-    setAllVaults([...fontisVaults, ...ribbonVaults, ...stakeDAOVaults])
-  }, [fontisVaults, ribbonVaults, stakeDAOVaults])
+    // setAllVaults([...fontisVaults, ...ribbonVaults, ...stakedaoVaults])
+    setAllVaults([...fontisVaults, ...ribbonVaults])
+  }, [fontisVaults, ribbonVaults, stakedaoVaults])
 
   useEffect(() => {
     handleFetchFontisVaults()
@@ -115,7 +128,7 @@ const VaultsProvider: React.FC = ({ children }) => {
       value={{
         fontisVaults,
         ribbonVaults,
-        stakeDAOVaults,
+        stakedaoVaults,
         onIdToVault: handleIdToVault,
         vaults: allVaults,
       }}

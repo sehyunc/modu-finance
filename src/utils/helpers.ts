@@ -39,7 +39,7 @@ export const vaultSymbolToAddressMap: {
   fontis: {
     'fETH-PERP': KOVAN_PETHC,
   },
-  stakeDAO: {
+  stakedao: {
     stakeTest: KOVAN_WETH_ADDRESS,
   },
 }
@@ -113,9 +113,8 @@ export const ribbonAPYCalculation = (
   return results
 }
 
-export const stakeDAODataPrep = (data: any) => {
-  const options = data.options
-  const optWeeks = data.optWeeks
+export const stakedaoDataPrep = (data: any) => {
+  const { options, optWeeks } = data
 
   const options_with_ids: { [id: string]: SD_Option } = {}
 

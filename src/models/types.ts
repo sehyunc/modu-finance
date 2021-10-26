@@ -29,6 +29,7 @@ export interface FontisVaultConstructor {
   address?: string
   underlyingTokenAddress?: string
 }
+
 export interface StakeDAOVaultConstructor {
   id: string
   name: string
