@@ -14,8 +14,9 @@ export interface RibbonVaultConstructor {
   platform: Platform
   apy: number
   address?: string
-  underlyingTokenAddress?: string
   externalLink: string
+  underlyingTokenAddress?: string
+  yieldFromPremium?: string
 }
 
 export interface FontisVaultConstructor {
@@ -29,4 +30,15 @@ export interface FontisVaultConstructor {
   underlyingTokenAddress?: string
 }
 
+export interface StakeDAOVaultConstructor {
+  id: string
+  name: string
+  apy: number
+  symbol: Symbol
+  underlyingSymbol: Symbol
+  amount: string
+  shares: string
+  vault: string
+  platform: Platform
+}
 export type Symbol = 'WETH' | 'USDC' | 'WBTC'

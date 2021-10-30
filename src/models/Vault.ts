@@ -1,13 +1,20 @@
-import { FontisVaultConstructor, RibbonVaultConstructor, Symbol } from './types'
+import {
+  FontisVaultConstructor,
+  RibbonVaultConstructor,
+  StakeDAOVaultConstructor,
+  Symbol,
+} from './types'
 import { symbolToDecimalMap } from 'utils/helpers'
 
-export type Platform = 'ribbon' | 'fontis'
+export type Platform = 'ribbon' | 'fontis' | 'stakedao'
 export type VaultSymbol =
   | 'rBTC-THETA'
   | 'rETH-THETA'
   | 'rUSDC-ETH-P-THETA'
   | 'ryvUSDC-ETH-P-THETA'
   | 'fETH-PERP'
+  | 'stakeTest'
+// remove symbols
 
 export class Vault {
   public apy: number
@@ -40,7 +47,7 @@ export class Vault {
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
     return new Vault({
-      apy: 0,
+      apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       cap: options.cap,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       depositors: options.depositors,
@@ -68,6 +75,21 @@ export class Vault {
       symbol: 'fETH-PERP',
       underlyingSymbol: 'WETH',
       withdrawalFee: 0.04,
+    })
+  }
+
+  public static fromStakeDAOSubgraph(options: StakeDAOVaultConstructor): Vault {
+    return new Vault({
+      apy: options.apy,
+      cap: '',
+      decimals: 0,
+      externalLink: 'https://stakedao.org/ox/options',
+      id: options.id,
+      lockedAmount: options.amount,
+      name: options.name,
+      platform: 'stakedao',
+      symbol: 'stakeTest',
+      underlyingSymbol: options.underlyingSymbol,
     })
   }
 }

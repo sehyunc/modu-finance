@@ -9,6 +9,7 @@ import {
   KOVAN_TWBTC,
   KOVAN_WETH_ADDRESS,
 } from 'constants/addresses'
+import { SD_Option, SD_OptWeek, VaultOptionTrade } from './types'
 
 import { VaultSymbol } from 'models/Vault'
 
@@ -37,6 +38,9 @@ export const vaultSymbolToAddressMap: {
   },
   fontis: {
     'fETH-PERP': KOVAN_PETHC,
+  },
+  stakedao: {
+    stakeTest: KOVAN_WETH_ADDRESS,
   },
 }
 
@@ -73,4 +77,63 @@ export const convertNumberToBigNumber = (value: number, decimals: number) => {
     }
     return BigNumber.from(stringValue.slice(0, decimalPoint) + postDecimal)
   }
+}
+
+export const ribbonAPYCalculation = (
+  apyData: VaultOptionTrade[]
+): { [id: string]: string } => {
+  const cleanData: { [id: string]: VaultOptionTrade[] } = {}
+  var sortedData: { [id: string]: VaultOptionTrade[] } = {}
+  var results: { [id: string]: string } = {}
+
+  apyData.forEach((query) => {
+    if (!cleanData[query.vault.name]) {
+      cleanData[query.vault.name] = []
+    }
+    cleanData[query.vault.name].push({
+      timestamp: query.timestamp,
+      premium: query.premium,
+      //@ts-ignore
+      yieldFromPremium: query.premium / query.vault.totalBalance,
+    })
+  })
+
+  Object.keys(cleanData).forEach((key) => {
+    var sortedArray = cleanData[key].sort(function (
+      a: VaultOptionTrade,
+      b: VaultOptionTrade
+    ) {
+      return Number(a.timestamp) - Number(b.timestamp)
+    })
+    sortedData[key] = sortedArray.reverse()
+  })
+  Object.keys(sortedData).forEach((key) => {
+    results[key] = sortedData[key][0]['yieldFromPremium']!
+  })
+  return results
+}
+
+export const getStakeDaoApy = (data: any) => {
+  const options = data.options
+  const optWeeks = data.optWeeks
+
+  const options_with_ids: { [id: string]: SD_Option } = {}
+
+  options.forEach((option: SD_Option) => {
+    options_with_ids[option.id] = option
+  })
+
+  const usefulOptWeeks: { [id: string]: SD_OptWeek } = {}
+  optWeeks.forEach((optWeek: SD_OptWeek) => {
+    if (
+      !usefulOptWeeks[optWeek.id[0]] ||
+      (usefulOptWeeks[optWeek.id[0]].id.split('-').slice(-1) <
+        optWeek.id.split('-').slice(-1) &&
+        optWeek.apy != null)
+    ) {
+      usefulOptWeeks[optWeek.id[0]] = optWeek
+    }
+  })
+  console.log('🚀 ~ getStakeDaoApy ~ usefulOptWeeks', usefulOptWeeks)
+  return usefulOptWeeks
 }

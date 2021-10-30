@@ -2,9 +2,9 @@ import { useContext } from 'react'
 
 import VaultsContext from './VaultsContext'
 
-const useWallet = () => {
+const useVaults = () => {
   const vaults = useContext(VaultsContext)
   return vaults
 }
 
-export default useWallet
+export default useVaults
