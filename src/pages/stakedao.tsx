@@ -12,7 +12,7 @@ Brand new concepts such as Social tokens will also be condensed into unique inde
 `
 
 const StakeDAO = () => {
-  const {} = useVaults()
+  const { stakedaoVaults: vaults } = useVaults()
   return (
     <>
       <PlatformHeader
@@ -21,10 +21,7 @@ const StakeDAO = () => {
         title="StakeDAO"
       />
       <Box backgroundColor="gray.900" p={8} position="relative">
-        <Container maxWidth="6xl">
-          <Heading pb={8}>Vaults</Heading>
-          <Text>Soon™️</Text>
-        </Container>
+        <VaultGrid title="Available Vaults" vaults={vaults} />
       </Box>
     </>
   )

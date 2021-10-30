@@ -16,14 +16,14 @@ import {
   STAKEDAO_URL,
 } from './constants'
 import VaultsContext from './VaultsContext'
-import { ribbonAPYCalculation, getStakeDaoApy } from 'utils/helpers'
+import { getRibbonApy, getStakeDaoApy } from 'utils/helpers'
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])
   const [stakedaoVaults, setStakeDAOVaults] = useState<Vault[]>([])
-  console.log('🚀 ~ stakedaoVaults', stakedaoVaults)
   const [allVaults, setAllVaults] = useState<Vault[]>([])
+  console.log('🚀 ~ allVaults', allVaults)
 
   const handleFetchStakeDAOVaults = useCallback(async () => {
     const { data } = await fetch(STAKEDAO_URL, {
@@ -35,13 +35,13 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
+    console.log('🚀 ~ handleFetchStakeDAOVaults ~ data', data)
 
     const apyData = getStakeDaoApy(data)
     const newVaults: Vault[] = []
     data.options.forEach((vault: StakeDAOVaultConstructor) => {
       const v = Vault.fromStakeDAOSubgraph({
         ...vault,
-        platform: 'stakedao',
         apy: apyData[vault.id as any].apy as unknown as number,
       })
       newVaults.push(v)
@@ -79,12 +79,11 @@ const VaultsProvider: React.FC = ({ children }) => {
       },
     }).then((res) => res.json())
 
-    const apyData = ribbonAPYCalculation(data.vaultOptionTrades)
+    const apyData = getRibbonApy(data.vaultOptionTrades)
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
       const v = Vault.fromRibbonSubgraph({
         ...vault,
-        platform: 'ribbon',
         yieldFromPremium: apyData[vault.name],
       })
       newVaults.push(v)
@@ -106,8 +105,7 @@ const VaultsProvider: React.FC = ({ children }) => {
   )
 
   useEffect(() => {
-    // setAllVaults([...fontisVaults, ...ribbonVaults, ...stakedaoVaults])
-    setAllVaults([...fontisVaults, ...ribbonVaults])
+    setAllVaults([...fontisVaults, ...ribbonVaults, ...stakedaoVaults])
   }, [fontisVaults, ribbonVaults, stakedaoVaults])
 
   useEffect(() => {

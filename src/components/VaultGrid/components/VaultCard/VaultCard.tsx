@@ -99,7 +99,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
                 underlyingSymbol={underlyingSymbol}
               />
             </div>
-            <Heading color="white">{symbol}</Heading>
+            <Heading color="white">{name}</Heading>
             <div>
               <Text>Projected APY</Text>
               <Heading fontFamily="Epilogue">{`20%`}</Heading>

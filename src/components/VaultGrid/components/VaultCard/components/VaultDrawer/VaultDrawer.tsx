@@ -18,7 +18,7 @@ import useWatchlist from 'contexts/watchlist/useWatchlist'
 
 import { Vault } from 'models/Vault'
 
-import { vaultSymbolToAddressMap } from 'utils/helpers'
+import { vaultSymbolToAddressMap, uuidToAddressMap } from 'utils/helpers'
 
 import VaultForm from './components/VaultForm'
 import VaultRow from './components/VaultRow'
@@ -35,7 +35,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   onClose,
 }) => {
   const { onAddToWatchlist, onRemoveFromWatchlist, watchlist } = useWatchlist()
-  const vaultAddress = vaultSymbolToAddressMap[vault.platform][vault.symbol]
+  const vaultAddress = uuidToAddressMap[vault.uuid]
   const inWatchlist = watchlist.includes(vault.id)
 
   const WatchlistButton = inWatchlist ? (

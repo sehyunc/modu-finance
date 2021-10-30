@@ -27,6 +27,20 @@ export const symbolToDecimalMap: { [symbol: string]: number } = {
   USDC: 6,
 }
 
+// TESTNET ADDRESSES
+export const uuidToAddressMap: { [uuid: string]: string } = {
+  fontis_0x20e05f8b445c5c9ad8eabab7d4d32e0d3c8f09a0fd772d82003b3f7e8b96ed1f:
+    KOVAN_PETHC,
+  ribbon_0x0fabaf48bbf864a3947bdd0ba9d764791a60467a: KOVAN_TETHC,
+  ribbon_0x16772a7f4a3ca291c21b8ace76f9332ddffbb5ef: KOVAN_TUSDCP,
+  ribbon_0x8b5876f5b0bf64056a89aa7e97511644758c3e8c: KOVAN_TWBTC,
+  ribbon_0x8fe74471f198e426e96be65f40eed1f8ba96e54f: KOVAN_TUSDCP,
+  stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a: KOVAN_WETH_ADDRESS,
+  stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9: KOVAN_WETH_ADDRESS,
+  stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7: KOVAN_WETH_ADDRESS,
+}
+
+// LEGACY IF IT BREAKS ON TESTNET
 export const vaultSymbolToAddressMap: {
   [platform: string]: { [vaultName in VaultSymbol]?: string }
 } = {
@@ -79,7 +93,7 @@ export const convertNumberToBigNumber = (value: number, decimals: number) => {
   }
 }
 
-export const ribbonAPYCalculation = (
+export const getRibbonApy = (
   apyData: VaultOptionTrade[]
 ): { [id: string]: string } => {
   const cleanData: { [id: string]: VaultOptionTrade[] } = {}
@@ -134,6 +148,5 @@ export const getStakeDaoApy = (data: any) => {
       usefulOptWeeks[optWeek.id[0]] = optWeek
     }
   })
-  console.log('🚀 ~ getStakeDaoApy ~ usefulOptWeeks', usefulOptWeeks)
   return usefulOptWeeks
 }

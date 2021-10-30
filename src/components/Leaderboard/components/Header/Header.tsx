@@ -51,11 +51,6 @@ const Header: React.FC<HeaderProps> = ({
         title="Platform"
       />
       <HeaderItem
-        direction={activeSortColumn === 'symbol' ? sortDirection : undefined}
-        onClick={() => handleColumnClick('symbol')}
-        title="Symbol"
-      />
-      <HeaderItem
         onClick={() => handleColumnClick('apy')}
         align="right"
         title="Projected APY"
