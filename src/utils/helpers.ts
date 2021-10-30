@@ -113,8 +113,9 @@ export const ribbonAPYCalculation = (
   return results
 }
 
-export const stakedaoDataPrep = (data: any) => {
-  const { options, optWeeks } = data
+export const getStakeDaoApy = (data: any) => {
+  const options = data.options
+  const optWeeks = data.optWeeks
 
   const options_with_ids: { [id: string]: SD_Option } = {}
 
@@ -133,12 +134,6 @@ export const stakedaoDataPrep = (data: any) => {
       usefulOptWeeks[optWeek.id[0]] = optWeek
     }
   })
-
-  const results: SD_OptWeek[] = []
-
-  Object(usefulOptWeeks).keys((key: string) => {
-    results.push(usefulOptWeeks[key])
-  })
-
-  return results
+  console.log('🚀 ~ getStakeDaoApy ~ usefulOptWeeks', usefulOptWeeks)
+  return usefulOptWeeks
 }

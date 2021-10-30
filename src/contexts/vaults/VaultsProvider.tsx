@@ -16,12 +16,13 @@ import {
   STAKEDAO_URL,
 } from './constants'
 import VaultsContext from './VaultsContext'
-import { ribbonAPYCalculation, stakedaoDataPrep } from 'utils/helpers'
+import { ribbonAPYCalculation, getStakeDaoApy } from 'utils/helpers'
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])
   const [stakedaoVaults, setStakeDAOVaults] = useState<Vault[]>([])
+  console.log('🚀 ~ stakedaoVaults', stakedaoVaults)
   const [allVaults, setAllVaults] = useState<Vault[]>([])
 
   const handleFetchStakeDAOVaults = useCallback(async () => {
@@ -34,19 +35,17 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
-    console.log('🚀 ~ handleFetchStakeDAOVaults ~ data', data)
 
-    // const apyData = getStakeDaoApy(data.optweek)
+    const apyData = getStakeDaoApy(data)
     const newVaults: Vault[] = []
     data.options.forEach((vault: StakeDAOVaultConstructor) => {
       const v = Vault.fromStakeDAOSubgraph({
         ...vault,
         platform: 'stakedao',
-        // yieldFromPremium: apyData[vault.id]
+        apy: apyData[vault.id as any].apy as unknown as number,
       })
       newVaults.push(v)
     })
-
     setStakeDAOVaults(newVaults)
   }, [])
 

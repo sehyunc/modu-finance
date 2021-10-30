@@ -14,6 +14,7 @@ export type VaultSymbol =
   | 'ryvUSDC-ETH-P-THETA'
   | 'fETH-PERP'
   | 'stakeTest'
+// remove symbols
 
 export class Vault {
   public apy: number
@@ -86,7 +87,7 @@ export class Vault {
       id: options.id,
       lockedAmount: options.amount,
       name: options.name,
-      platform: options.platform,
+      platform: 'stakedao',
       symbol: 'stakeTest',
       underlyingSymbol: options.underlyingSymbol,
     })
