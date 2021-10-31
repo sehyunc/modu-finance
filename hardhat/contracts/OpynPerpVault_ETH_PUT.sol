@@ -49,7 +49,7 @@ import "hardhat/console.sol";
  * and use the sdToken tokens as collateral to sell wantedAsset call options on Opyn. 
  */
 
-contract OpynPerpVault is ERC20, ReentrancyGuard, Ownable {
+contract OpynPerpVault_ETH_PUT is ERC20, ReentrancyGuard, Ownable {
   using SafeERC20 for IERC20;
   using SafeMath for uint256;
 
