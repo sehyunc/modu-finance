@@ -1,0 +1,108 @@
+{
+  "id": "6a742c482ebb5ce8a0215fe9e5dda018",
+  "_format": "hh-sol-build-info-1",
+  "solcVersion": "0.8.4",
+  "solcLongVersion": "0.8.4+commit.c7e474f2",
+  "input": {
+    "language": "Solidity",
+    "sources": {
+      "contracts/DummyContract.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.4;\ncontract DummyContract {\n\n}"
+      }
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": false,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers"
+          ],
+          "": [
+            "ast"
+          ]
+        }
+      }
+    }
+  },
+  "output": {
+    "contracts": {
+      "contracts/DummyContract.sol": {
+        "DummyContract": {
+          "abi": [],
+          "evm": {
+            "bytecode": {
+              "generatedSources": [],
+              "linkReferences": {},
+              "object": "6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122080283f6e6a4f76812faecbfacb6218a2214a2781676c492dc4be28e40de7727c64736f6c63430008040033",
+              "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x3F DUP1 PUSH1 0x1D PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 DUP1 0x28 EXTCODEHASH PUSH15 0x6A4F76812FAECBFACB6218A2214A27 DUP2 PUSH8 0x6C492DC4BE28E40D 0xE7 PUSH19 0x7C64736F6C6343000804003300000000000000 ",
+              "sourceMap": "57:27:0:-:0;;;;;;;;;;;;;;;;;;;"
+            },
+            "deployedBytecode": {
+              "generatedSources": [],
+              "immutableReferences": {},
+              "linkReferences": {},
+              "object": "6080604052600080fdfea264697066735822122080283f6e6a4f76812faecbfacb6218a2214a2781676c492dc4be28e40de7727c64736f6c63430008040033",
+              "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 DUP1 0x28 EXTCODEHASH PUSH15 0x6A4F76812FAECBFACB6218A2214A27 DUP2 PUSH8 0x6C492DC4BE28E40D 0xE7 PUSH19 0x7C64736F6C6343000804003300000000000000 ",
+              "sourceMap": "57:27:0:-:0;;;;;"
+            },
+            "methodIdentifiers": {}
+          }
+        }
+      }
+    },
+    "sources": {
+      "contracts/DummyContract.sol": {
+        "ast": {
+          "absolutePath": "contracts/DummyContract.sol",
+          "exportedSymbols": {
+            "DummyContract": [
+              2
+            ]
+          },
+          "id": 3,
+          "license": "MIT",
+          "nodeType": "SourceUnit",
+          "nodes": [
+            {
+              "id": 1,
+              "literals": [
+                "solidity",
+                ">=",
+                "0.8",
+                ".4"
+              ],
+              "nodeType": "PragmaDirective",
+              "src": "32:24:0"
+            },
+            {
+              "abstract": false,
+              "baseContracts": [],
+              "contractDependencies": [],
+              "contractKind": "contract",
+              "fullyImplemented": true,
+              "id": 2,
+              "linearizedBaseContracts": [
+                2
+              ],
+              "name": "DummyContract",
+              "nameLocation": "66:13:0",
+              "nodeType": "ContractDefinition",
+              "nodes": [],
+              "scope": 3,
+              "src": "57:27:0",
+              "usedErrors": []
+            }
+          ],
+          "src": "32:52:0"
+        },
+        "id": 0
+      }
+    }
+  }
+}

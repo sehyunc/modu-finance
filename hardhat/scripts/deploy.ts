@@ -4,27 +4,42 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
+import hre from 'hardhat'
+import { ETH_ADDRESS } from "../utils/constants";
+import SDETHCALL_ABI from "../utils/abi/stakeDAO_eth_call.json";
+import {impersonateTransferFrom} from "../utils/testUtils";
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+  const Greeter = await hre.ethers.getContractFactory('Greeter')
+  const greeter = await Greeter.deploy('Hello, Hardhat!')
 
-  // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  await greeter.deployed()
 
-  await greeter.deployed();
+  console.log('Greeter deployed to:', greeter.address)
+  const [signer] = await ethers.getSigners()
 
-  console.log("Greeter deployed to:", greeter.address);
+  await impersonateTransferFrom(
+    ETH_ADDRESS,
+    '0xBE0eB53F46cd790Cd13851d5EFf43D12404d33E8',
+    signer.address,
+    1e18
+  )
+
+  // console.log(signer)
+  const sdEthCall = new ethers.Contract(
+    '0x839A989bE40f2D60f00beEB648903732c041CBd7',
+    SDETHCALL_ABI,
+    signer
+  )
+  const response = await sdEthCall.name()
+  console.log(response, SDETHCALL_ABI)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })

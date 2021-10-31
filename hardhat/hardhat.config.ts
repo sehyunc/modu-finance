@@ -23,21 +23,18 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
+  solidity: '0.8.4',
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+  rinkeby: {
+    url: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
   },
-  gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD",
+  kovan: {
+    url: 'https://kovan.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
   },
-  etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+  mainnet: {
+    url: 'https://speedy-nodes-nyc.moralis.io/8d4672da1ad48c865fd49fde/eth/mainnet', // <---- YOUR INFURA ID! (or it won't work)
   },
-};
+}
+}
 
 export default config;

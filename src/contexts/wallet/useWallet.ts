@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 
-import VaultsContext from './WalletContext'
+import WalletContext from './WalletContext'
 
 const useWallet = () => {
-  const wallet = useContext(VaultsContext)
+  const wallet = useContext(WalletContext)
   return wallet
 }
 
