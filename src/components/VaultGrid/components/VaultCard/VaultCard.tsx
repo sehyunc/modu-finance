@@ -48,84 +48,51 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     return null
   }
 
-  const {
-    symbol,
-    name,
-    underlyingSymbol,
-    cap,
-    lockedAmount,
-    decimals,
-    platform,
-  } = vault
+  const { apy, name, underlyingSymbol, cap, lockedAmount, decimals, platform } =
+    vault
 
   const formattedCap = numeral(utils.formatUnits(cap, decimals)).format('0a')
   const formattedLockedAmount = numeral(
     utils.formatUnits(lockedAmount, decimals)
   ).format('0.00a')
+  const formattedApy = numeral(apy).format('0%')
 
   return (
     <div>
       <Box
-        onClick={handleOpenDrawer}
-        minW="30rem"
-        borderRadius="lg"
-        boxShadow="surface"
-        overflow="hidden"
+        bgGradient={`linear(to-r, ${SymbolToColorMap[underlyingSymbol].start}, ${SymbolToColorMap[underlyingSymbol].end})`}
+        borderRadius="20px"
+        padding={2}
         cursor="pointer"
+        onClick={handleOpenDrawer}
         transition={`
-        transform 0.5s cubic-bezier(0, 0.28, 0.45, 0.95),
-        box-shadow 0.5s cubic-bezier(0, 0.28, 0.45, 0.95)
-        `}
-        _hover={{
-          outline: 'none',
-          transform: 'scale(1.02)',
-          boxShadow: 'surface_hovered',
-        }}
+      transform 0.5s cubic-bezier(0, 0.28, 0.45, 0.95),
+      box-shadow 0.5s cubic-bezier(0, 0.28, 0.45, 0.95)
+      `}
+        _hover={{ boxShadow: 'surface_hovered', transform: 'scale(1.02)' }}
       >
-        <Grid
-          gap={0}
-          p="6"
-          templateColumns="1fr"
-          flex="1"
-          color="white"
-          position="relative"
-          bgGradient={`linear(to-r, ${SymbolToColorMap[underlyingSymbol].start}, ${SymbolToColorMap[underlyingSymbol].end})`}
+        <Box
+          bgGradient="linear-gradient(162.92deg, rgb(43, 43, 43) 12.36%, rgb(0, 0, 0) 94.75%)"
+          borderRadius="14px"
+          overflow="hidden"
         >
-          <Background underlyingSymbol={underlyingSymbol} />
-          <Stack pointerEvents="none" spacing={1} zIndex="1">
-            <div>
-              <TagSection
-                tags={[platform, underlyingSymbol]}
-                underlyingSymbol={underlyingSymbol}
-              />
-            </div>
-            <Heading color="white">{name}</Heading>
-            <div>
-              <Text>Projected APY</Text>
-              <Heading fontFamily="Epilogue">{`20%`}</Heading>
-            </div>
-            <div>
-              <Flex align="center" justify="space-between" maxWidth="75%">
-                <Text>Current Deposits</Text>
-                <Tag
-                  colorScheme="blue"
-                  variant="solid"
-                >{`${formattedLockedAmount} ${underlyingSymbol}`}</Tag>
-              </Flex>
-              <Progress
-                value={(parseFloat(lockedAmount) / parseFloat(cap)) * 100}
-                width="50%"
-              />
-              <Flex align="center" justify="space-between" maxWidth="75%">
-                <Text>Max Capacity</Text>
-                <Tag
-                  colorScheme="blue"
-                  variant="solid"
-                >{`${formattedCap} ${underlyingSymbol}`}</Tag>
-              </Flex>
-            </div>
-          </Stack>
-        </Grid>
+          <Grid gap={0} padding={6} templateColumns="1fr" position="relative">
+            <Background underlyingSymbol={underlyingSymbol} />
+            <Stack spacing={6} zIndex="1">
+              <div>
+                <TagSection
+                  tags={[platform, underlyingSymbol]}
+                  underlyingSymbol={underlyingSymbol}
+                />
+              </div>
+              <Heading color="white">{name}</Heading>
+              <div>
+                <Text>Projected APY</Text>
+                <Heading fontFamily="Epilogue">{formattedApy}</Heading>
+              </div>
+            </Stack>
+          </Grid>
+        </Box>
       </Box>
       <VaultDrawer
         vault={vault}

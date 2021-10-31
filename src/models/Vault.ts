@@ -1,21 +1,13 @@
+import { utils } from 'ethers'
+import { symbolToDecimalMap } from 'utils/helpers'
 import {
   FontisVaultConstructor,
   RibbonVaultConstructor,
   StakeDAOVaultConstructor,
   Symbol,
 } from './types'
-import { symbolToDecimalMap } from 'utils/helpers'
-import { utils } from 'ethers'
 
 export type Platform = 'ribbon' | 'fontis' | 'stakedao'
-export type VaultSymbol =
-  | 'rBTC-THETA'
-  | 'rETH-THETA'
-  | 'rUSDC-ETH-P-THETA'
-  | 'ryvUSDC-ETH-P-THETA'
-  | 'fETH-PERP'
-  | 'stakeTest'
-// remove symbols
 
 export class Vault {
   public apy: number
@@ -45,7 +37,11 @@ export class Vault {
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
-    const formattedName = options.name.split(' ').slice(1).join(' ')
+    // const formattedName = options.name.split(' ').slice(1).join(' ')
+    console.log(options.name)
+    console.log(this.isCall(options.name))
+    const strategy = this.isCall(options.name) ? 'Call' : 'Put'
+    const formattedName = `${options.underlyingSymbol} ${strategy} Strategy`
     return new Vault({
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       cap: options.cap,
@@ -70,7 +66,7 @@ export class Vault {
       externalLink: 'https://fontis.finance/vaults/thetagang',
       id: options.id,
       lockedAmount: options.collateralAmount,
-      name: 'ETH Perpetual Vault',
+      name: 'ETH Perpetual Strategy',
       platform: 'fontis',
       underlyingSymbol: 'WETH',
       withdrawalFee: 0.04,
@@ -84,18 +80,20 @@ export class Vault {
       ETH: 'WETH',
       BTC: 'WBTC',
     }
-    const underlying = wrappedUnderlyingMap[underlyingFromName] as Symbol
+    const underlyingSymbol = wrappedUnderlyingMap[underlyingFromName] as Symbol
+    const strategy = this.isCall(options.name) ? 'Call' : 'Put'
+    const formattedName = `${underlyingSymbol} ${strategy} Strategy`
 
     return new Vault({
       apy: options.apy,
       cap: utils.parseUnits('1', 18).toString(),
-      decimals: 0,
+      decimals: symbolToDecimalMap[underlyingSymbol],
       externalLink: 'https://stakedao.org/ox/options',
       id: options.id,
       lockedAmount: options.amount,
-      name: options.name,
+      name: formattedName,
       platform: 'stakedao',
-      underlyingSymbol: underlying,
+      underlyingSymbol,
       uuid: this.createUUID('stakedao', options.vault),
     })
   }
@@ -107,7 +105,12 @@ export class Vault {
   public static getAddressFromUuid = (uuid: string) => {
     return uuid.split('_')[1]
   }
+
   public static getPlatformFromUuid = (uuid: string) => {
     return uuid.split('_')[0]
+  }
+
+  public static isCall = (name: string) => {
+    return name.toLowerCase().indexOf('put') === -1
   }
 }

@@ -11,8 +11,6 @@ import {
 } from 'constants/addresses'
 import { SD_Option, SD_OptWeek, VaultOptionTrade } from './types'
 
-import { VaultSymbol } from 'models/Vault'
-
 export const symbolToAddressMap: {
   [symbol: string]: string
 } = {
@@ -41,22 +39,22 @@ export const uuidToAddressMap: { [uuid: string]: string } = {
 }
 
 // LEGACY IF IT BREAKS ON TESTNET
-export const vaultSymbolToAddressMap: {
-  [platform: string]: { [vaultName in VaultSymbol]?: string }
-} = {
-  ribbon: {
-    'rBTC-THETA': KOVAN_TWBTC,
-    'rETH-THETA': KOVAN_TETHC,
-    'rUSDC-ETH-P-THETA': KOVAN_TUSDCP,
-    'ryvUSDC-ETH-P-THETA': KOVAN_TUSDCP,
-  },
-  fontis: {
-    'fETH-PERP': KOVAN_PETHC,
-  },
-  stakedao: {
-    stakeTest: KOVAN_WETH_ADDRESS,
-  },
-}
+// export const vaultSymbolToAddressMap: {
+//   [platform: string]: { [vaultName in VaultSymbol]?: string }
+// } = {
+//   ribbon: {
+//     'rBTC-THETA': KOVAN_TWBTC,
+//     'rETH-THETA': KOVAN_TETHC,
+//     'rUSDC-ETH-P-THETA': KOVAN_TUSDCP,
+//     'ryvUSDC-ETH-P-THETA': KOVAN_TUSDCP,
+//   },
+//   fontis: {
+//     'fETH-PERP': KOVAN_PETHC,
+//   },
+//   stakedao: {
+//     stakeTest: KOVAN_WETH_ADDRESS,
+//   },
+// }
 
 export const roundOffBigNumber = (num: BigNumber, decimals: number) => {
   if (!(num && decimals)) {

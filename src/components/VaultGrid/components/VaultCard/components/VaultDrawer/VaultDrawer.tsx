@@ -8,9 +8,15 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   Heading,
+  Progress,
+  Tag,
+  Text,
   VStack,
 } from '@chakra-ui/react'
+import { utils } from 'ethers'
+import numeral from 'numeral'
 
 import AccessibleLink from 'components/AccessibleLink'
 
@@ -18,7 +24,7 @@ import useWatchlist from 'contexts/watchlist/useWatchlist'
 
 import { Vault } from 'models/Vault'
 
-import { vaultSymbolToAddressMap, uuidToAddressMap } from 'utils/helpers'
+import { uuidToAddressMap } from 'utils/helpers'
 
 import VaultForm from './components/VaultForm'
 import VaultRow from './components/VaultRow'
@@ -57,7 +63,13 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
       Add To Watchlist
     </Button>
   )
+  const { name, underlyingSymbol, cap, lockedAmount, decimals, platform } =
+    vault
 
+  const formattedCap = numeral(utils.formatUnits(cap, decimals)).format('0a')
+  const formattedLockedAmount = numeral(
+    utils.formatUnits(lockedAmount, decimals)
+  ).format('0.00a')
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
@@ -72,6 +84,25 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
                 tokenSymbol={vault.underlyingSymbol}
                 vaultAddress={vaultAddress}
               />
+              <div>
+                <Flex align="center" justify="space-between">
+                  <Text>Current Deposits</Text>
+                  <Tag
+                    colorScheme="blue"
+                    variant="solid"
+                  >{`${formattedLockedAmount} ${underlyingSymbol}`}</Tag>
+                </Flex>
+                <Progress
+                  value={(parseFloat(lockedAmount) / parseFloat(cap)) * 100}
+                />
+                <Flex align="center" justify="space-between">
+                  <Text>Max Capacity</Text>
+                  <Tag
+                    colorScheme="blue"
+                    variant="solid"
+                  >{`${formattedCap} ${underlyingSymbol}`}</Tag>
+                </Flex>
+              </div>
               <Heading size="md">{`Other ${vault.underlyingSymbol} Vaults`}</Heading>
               <VaultRow />
             </VStack>
