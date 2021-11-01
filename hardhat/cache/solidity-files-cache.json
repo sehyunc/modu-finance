@@ -6,10 +6,10 @@
       "contentHash": "ac0a634a727ec142466a9cbafb33efb9",
       "sourceName": "contracts/DummyContract.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
-            "enabled": false,
+            "enabled": true,
             "runs": 200
           },
           "outputSelection": {
@@ -18,12 +18,20 @@
                 "abi",
                 "evm.bytecode",
                 "evm.deployedBytecode",
-                "evm.methodIdentifiers"
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
