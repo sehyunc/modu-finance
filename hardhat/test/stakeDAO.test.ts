@@ -14,7 +14,6 @@ describe('stakedao', async function () {
   let accounts: Signer[]
   let signer: SignerWithAddress;
   beforeEach(async function () {
-    console.log("before each")
     signer = (await ethers.getSigners())[0]
   })
 
@@ -35,7 +34,7 @@ describe('stakedao', async function () {
     })
     // console.log(sdEthCallResponse)
 
-    console.log((await sdEthCall.balanceOf(signer.address)).toString())
+    console.log("poolShares :",(await sdEthCall.balanceOf(signer.address)).toString())
     const signerVaultBalance = await sdEthCall.balanceOf(signer.address)
     const signerTokenBalance =   await balanceOf(
           '0x9b8f14554f40705de7908879e2228d2ac94fde1a',
@@ -75,9 +74,9 @@ describe('stakedao', async function () {
         '10000000',
         1
       )
-      // console.log(response)
+      console.log("gasUsed:",response.gasUsed)
 
-      console.log((await vaultContract.balanceOf(signer.address)).toString())
+      console.log("poolShares : ",(await vaultContract.balanceOf(signer.address)).toString())
       const signerVaultBalance = await vaultContract.balanceOf(signer.address)
       const signerTokenBalance = await balanceOf(
         vaultAddress,
@@ -125,7 +124,7 @@ describe('stakedao', async function () {
       const response = await vaultContract.depositUnderlying('1000000000', 1, 2)
       // console.log(response)
 
-      console.log((await vaultContract.balanceOf(signer.address)).toString())
+      console.log("poolShares : ",(await vaultContract.balanceOf(signer.address)).toString())
       const signerVaultBalance = await vaultContract.balanceOf(signer.address)
       const signerTokenBalance = await balanceOf(
         vaultAddress,
