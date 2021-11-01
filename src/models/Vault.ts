@@ -37,9 +37,6 @@ export class Vault {
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
-    // const formattedName = options.name.split(' ').slice(1).join(' ')
-    console.log(options.name)
-    console.log(this.isCall(options.name))
     const strategy = this.isCall(options.name) ? 'Call' : 'Put'
     const formattedName = `${options.underlyingSymbol} ${strategy} Strategy`
     return new Vault({

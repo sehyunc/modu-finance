@@ -1,16 +1,15 @@
 import { useCallback, useState } from 'react'
 import {
   Box,
-  Flex,
   Grid,
   Heading,
-  Progress,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
   Stack,
   Text,
-  Tag,
 } from '@chakra-ui/react'
-import { utils } from 'ethers'
-import numeral from 'numeral'
 
 import useWallet from 'contexts/wallet/useWallet'
 
@@ -48,51 +47,59 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     return null
   }
 
-  const { apy, name, underlyingSymbol, cap, lockedAmount, decimals, platform } =
-    vault
-
-  const formattedCap = numeral(utils.formatUnits(cap, decimals)).format('0a')
-  const formattedLockedAmount = numeral(
-    utils.formatUnits(lockedAmount, decimals)
-  ).format('0.00a')
-  const formattedApy = numeral(apy).format('0%')
+  const { name, underlyingSymbol, platform } = vault
 
   return (
     <div>
       <Box
         bgGradient={`linear(to-r, ${SymbolToColorMap[underlyingSymbol].start}, ${SymbolToColorMap[underlyingSymbol].end})`}
         borderRadius="20px"
-        padding={2}
-        cursor="pointer"
+        boxShadow="surface"
         onClick={handleOpenDrawer}
+        padding={1}
+        cursor="pointer"
         transition={`
       transform 0.5s cubic-bezier(0, 0.28, 0.45, 0.95),
       box-shadow 0.5s cubic-bezier(0, 0.28, 0.45, 0.95)
       `}
-        _hover={{ boxShadow: 'surface_hovered', transform: 'scale(1.02)' }}
+        _hover={{
+          outline: 'none',
+          transform: 'scale(1.02)',
+          boxShadow: 'surface_hovered',
+        }}
       >
-        <Box
-          bgGradient="linear-gradient(162.92deg, rgb(43, 43, 43) 12.36%, rgb(0, 0, 0) 94.75%)"
-          borderRadius="14px"
+        <Grid
+          bgGradient="linear-gradient(162.92deg, rgb(43, 43, 43) 1.36%, rgb(0, 0, 0) 94.75%)"
+          borderRadius="16px"
+          gap={0}
           overflow="hidden"
+          padding={6}
+          position="relative"
+          templateColumns="1fr"
         >
-          <Grid gap={0} padding={6} templateColumns="1fr" position="relative">
-            <Background underlyingSymbol={underlyingSymbol} />
-            <Stack spacing={6} zIndex="1">
-              <div>
-                <TagSection
-                  tags={[platform, underlyingSymbol]}
-                  underlyingSymbol={underlyingSymbol}
-                />
-              </div>
-              <Heading color="white">{name}</Heading>
-              <div>
-                <Text>Projected APY</Text>
-                <Heading fontFamily="Epilogue">{formattedApy}</Heading>
-              </div>
-            </Stack>
-          </Grid>
-        </Box>
+          <Background underlyingSymbol={underlyingSymbol} />
+          <Stack
+            maxWidth="50%"
+            color="white"
+            pointerEvents="none"
+            spacing={4}
+            zIndex="1"
+          >
+            <div>
+              <TagSection
+                tags={[platform, underlyingSymbol]}
+                underlyingSymbol={underlyingSymbol}
+              />
+            </div>
+            <Heading fontWeight="medium">{name}</Heading>
+            <div>
+              <Stat>
+                <StatNumber size="lg">{`20%`}</StatNumber>
+                <StatHelpText>Projected APY</StatHelpText>
+              </Stat>
+            </div>
+          </Stack>
+        </Grid>
       </Box>
       <VaultDrawer
         vault={vault}

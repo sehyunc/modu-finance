@@ -17,7 +17,7 @@ const Home: React.FC = () => {
             Modu Vault Aggregator
           </Heading>
           <Text>Find and compare strategies across the Opyn ecosystem</Text>
-          <AccessibleLink href="/dashboard" isExternal>
+          <AccessibleLink href="/dashboard">
             <Button
               size="lg"
               variant="outline"
