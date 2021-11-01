@@ -30,8 +30,7 @@ jobs:
       env:
         MORALIS_ID: ${{ secrets.MORALIS_ID }}
         DEV1_PRIVATE_KEY: ${{ secrets.DEV1_PRIVATE_KEY }}
-      run: |
-        npx hardhat compile
+      run: cd hardhat && npx hardhat compile
     - name: Unit tests
       env:
         MORALIS_ID: ${{ secrets.MORALIS_ID }}
