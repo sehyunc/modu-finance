@@ -64,9 +64,9 @@ export const MenuStack = (props: StackProps) => (
     <HStack pb={{ base: 4, md: 0 }}>
       <MenuItem to="/dashboard">Enter App</MenuItem>
     </HStack>
-    <HStack>
+    {/* <HStack>
       <DarkModeSwitch />
-    </HStack>
+    </HStack> */}
   </Stack>
 )
 
