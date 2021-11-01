@@ -28,7 +28,9 @@ const Leaderboard = () => {
           return (valA || 0) < (valB || 0) ? -1 : 1
         }
       } else {
+        //@ts-expect-error
         valA = vaultA[activeSortColumn]?.trim()
+        //@ts-expect-error
         valB = vaultB[activeSortColumn]?.trim()
         if (sortDirection === 'down') {
           return (valA || 0) < (valB || 0) ? -1 : 1
