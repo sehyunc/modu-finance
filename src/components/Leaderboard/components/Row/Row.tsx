@@ -8,9 +8,14 @@ interface RowProps {
   vault: Vault
 }
 
+const PlatformToImageMap: { [platform: string]: string } = {
+  ribbon: '/static/ribbon.svg',
+  fontis: '/static/fontis.png',
+  stakedao: '/static/stakedao.png',
+}
+
 const Row: React.FC<RowProps> = ({ vault }) => {
-  const imageUrl =
-    vault.platform === 'ribbon' ? '/static/ribbon.svg' : '/static/fontis.png'
+  const imageUrl = PlatformToImageMap[vault.platform]
   return (
     <Box
       alignItems="center"

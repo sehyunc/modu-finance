@@ -34,10 +34,14 @@ const Header = ({
       display="flex"
       flex={flex}
       onClick={onClick}
+      opacity="0.55"
       style={{ justifyContent }}
+      _hover={{
+        opacity: '1',
+      }}
     >
       {align === 'right' && icon}
-      <Text>{title}</Text>
+      <Text fontWeight="semibold">{title}</Text>
       {align === 'left' && icon}
     </Box>
   )

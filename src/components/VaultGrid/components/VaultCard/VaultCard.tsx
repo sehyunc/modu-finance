@@ -52,7 +52,6 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   return (
     <div>
       <Box
-        bgGradient={`linear(to-r, ${SymbolToColorMap[underlyingSymbol].start}, ${SymbolToColorMap[underlyingSymbol].end})`}
         borderRadius="20px"
         boxShadow="surface"
         onClick={handleOpenDrawer}
@@ -63,6 +62,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
       box-shadow 0.5s cubic-bezier(0, 0.28, 0.45, 0.95)
       `}
         _hover={{
+          bgGradient: `linear(to-r, ${SymbolToColorMap[underlyingSymbol].start}, ${SymbolToColorMap[underlyingSymbol].end})`,
           outline: 'none',
           transform: 'scale(1.02)',
           boxShadow: 'surface_hovered',

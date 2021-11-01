@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 
 import Header from 'components/Leaderboard/components/Header'
 import Row from 'components/Leaderboard/components/Row'
@@ -51,11 +51,15 @@ const Leaderboard = () => {
         return <Row key={vault.id} vault={vault} />
       })}
       <Box
+        display="flex"
         backgroundColor="gray.800"
         borderBottomEndRadius="10px"
         borderBottomStartRadius="10px"
-        height="30px"
-      ></Box>
+        flexDirection="row-reverse"
+        padding="6"
+      >
+        <Text opacity="0.65">Page 1 of 1</Text>
+      </Box>
     </Box>
   )
 }
