@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   return (
     <Box p={8}>
-      <VaultGrid title="My Vaults" vaults={[]} />
+      <VaultGrid title="My Vaults" vaults={vaults} />
       <Box pb={8} />
       <VaultGrid title="Watchlist" vaults={watchlistVaults} />
     </Box>
