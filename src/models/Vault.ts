@@ -7,7 +7,12 @@ import {
   Symbol,
 } from './types'
 
-export type Platform = 'ribbon' | 'fontis' | 'stakedao'
+// export type Platform = 'ribbon' | 'fontis' | 'stakedao'
+export enum Platform {
+  RIBBON = 'Ribbon',
+  FONTIS = 'Fontis',
+  STAKEDAO = 'StakeDAO',
+}
 
 export class Vault {
   public apy: number
@@ -48,7 +53,7 @@ export class Vault {
       id: options.id,
       lockedAmount: options.lockedAmount,
       name: formattedName,
-      platform: 'ribbon',
+      platform: Platform.RIBBON,
       totalWithdrawalFee: options.totalWithdrawalFee,
       underlyingSymbol: options.underlyingSymbol,
       uuid: this.createUUID('ribbon', options.id),
@@ -64,7 +69,7 @@ export class Vault {
       id: options.id,
       lockedAmount: options.collateralAmount,
       name: 'ETH Perpetual Strategy',
-      platform: 'fontis',
+      platform: Platform.FONTIS,
       underlyingSymbol: 'WETH',
       withdrawalFee: 0.04,
       uuid: this.createUUID('fontis', options.id),
@@ -89,7 +94,7 @@ export class Vault {
       id: options.id,
       lockedAmount: options.amount,
       name: formattedName,
-      platform: 'stakedao',
+      platform: Platform.STAKEDAO,
       underlyingSymbol,
       uuid: this.createUUID('stakedao', options.vault),
     })

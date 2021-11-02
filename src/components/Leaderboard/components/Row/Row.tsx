@@ -2,16 +2,16 @@ import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 
-import { Vault } from 'models/Vault'
+import { Platform, Vault } from 'models/Vault'
 
 interface RowProps {
   vault: Vault
 }
 
-const PlatformToImageMap: { [platform: string]: string } = {
-  ribbon: '/static/ribbon.svg',
-  fontis: '/static/fontis.png',
-  stakedao: '/static/stakedao.png',
+const PlatformToImageMap: { [key in Platform]: string } = {
+  Ribbon: '/static/ribbon.svg',
+  Fontis: '/static/fontis.png',
+  StakeDAO: '/static/stakedao.png',
 }
 
 const Row: React.FC<RowProps> = ({ vault }) => {
@@ -33,6 +33,9 @@ const Row: React.FC<RowProps> = ({ vault }) => {
       </Box>
       <Box alignItems="center" display="flex" flex={3} justifyContent="left">
         <Text>{vault.name}</Text>
+      </Box>
+      <Box alignItems="center" display="flex" flex={1} justifyContent="left">
+        <Text>{vault.underlyingSymbol.toUpperCase()}</Text>
       </Box>
       <Box
         alignItems="center"

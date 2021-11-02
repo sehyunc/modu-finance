@@ -46,6 +46,13 @@ const Header: React.FC<HeaderProps> = ({
         title="Vault Name"
       />
       <HeaderItem
+        direction={
+          activeSortColumn === 'underlyingSymbol' ? sortDirection : undefined
+        }
+        onClick={() => handleColumnClick('underlyingSymbol')}
+        title="Token"
+      />
+      <HeaderItem
         direction={activeSortColumn === 'platform' ? sortDirection : undefined}
         onClick={() => handleColumnClick('platform')}
         title="Platform"

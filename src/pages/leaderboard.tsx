@@ -1,22 +1,64 @@
-import { useMemo, useState } from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { useCallback, useMemo, useState } from 'react'
+import {
+  Box,
+  Button,
+  Flex,
+  Select,
+  Spacer,
+  Text,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
+} from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 import Header from 'components/Leaderboard/components/Header'
 import Row from 'components/Leaderboard/components/Row'
 
 import useVaults from 'contexts/vaults/useVaults'
+import { Platform } from 'models/Vault'
 
-export type SortColumnOption = 'name' | 'platform' | 'symbol' | 'apy'
+export type SortColumnOption =
+  | 'name'
+  | 'underlyingSymbol'
+  | 'platform'
+  | 'symbol'
+  | 'apy'
 export type SortDirection = 'up' | 'down'
+
+const tokens = ['WETH', 'WBTC', 'USDC']
+const platforms = [Platform.FONTIS, Platform.RIBBON, Platform.STAKEDAO]
 
 const Leaderboard = () => {
   const { vaults } = useVaults()
   const [activeSortColumn, setActiveSortColumn] =
     useState<SortColumnOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('down')
+  const [platformFilter, setPlatformFilter] = useState<Platform>()
+  console.log('🚀 ~ Leaderboard ~ platformFilter', platformFilter)
+  const [tokenFilter, setTokenFilter] = useState<string>()
+
+  const filteredVaults = useMemo(() => {
+    let tempVaults = vaults
+    if (platformFilter) {
+      tempVaults = tempVaults.filter((v) => v.platform === platformFilter)
+    }
+    if (tokenFilter) {
+      tempVaults = tempVaults.filter((v) => v.underlyingSymbol === tokenFilter)
+    }
+    return tempVaults
+  }, [platformFilter, tokenFilter, vaults])
+  console.log('🚀 ~ filteredVaults ~ filteredVaults', filteredVaults)
 
   const sortedRows = useMemo(() => {
-    return vaults.sort((vaultA, vaultB) => {
+    return filteredVaults.sort((vaultA, vaultB) => {
       let valA
       let valB
       if (activeSortColumn === 'apy') {
@@ -39,10 +81,59 @@ const Leaderboard = () => {
         }
       }
     })
-  }, [activeSortColumn, sortDirection, vaults])
+  }, [activeSortColumn, filteredVaults, sortDirection])
+
+  const handleClearFilters = useCallback(() => {
+    setPlatformFilter(undefined)
+    setTokenFilter(undefined)
+  }, [])
 
   return (
     <Box p={12}>
+      <Flex mb={3}>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>
+            {tokenFilter || 'Select Token'}
+          </MenuButton>
+          <MenuList>
+            {platformFilter ? (
+              <MenuItem
+                onClick={() => setTokenFilter(undefined)}
+                fontWeight="semibold"
+              >
+                Clear
+              </MenuItem>
+            ) : null}
+            {tokens.map((t) => (
+              <MenuItem key={t} onClick={() => setTokenFilter(t)} value={t}>
+                {t}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            {platformFilter || 'Select Platform'}
+          </MenuButton>
+          <MenuList>
+            {platformFilter ? (
+              <MenuItem
+                onClick={() => setPlatformFilter(undefined)}
+                fontWeight="semibold"
+              >
+                Clear
+              </MenuItem>
+            ) : null}
+            {platforms.map((p) => (
+              <MenuItem key={p} onClick={() => setPlatformFilter(p)} value={p}>
+                {p}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+        <Spacer />
+        <Button onClick={handleClearFilters}>Clear Filters</Button>
+      </Flex>
       <Header
         activeSortColumn={activeSortColumn}
         handleSetActiveSortColumn={setActiveSortColumn}
