@@ -6,9 +6,9 @@ import VaultCard from './components/VaultCard'
 import { Vault } from 'models/Vault'
 
 interface VaultGridProps {
-  placeholder: string
   title: string
   vaults: Vault[]
+  placeholder?: string
 }
 
 const VaultGrid: React.FC<VaultGridProps> = ({
