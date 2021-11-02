@@ -13,9 +13,13 @@ const Dashboard = () => {
 
   return (
     <Box p={8}>
-      <VaultGrid title="My Vaults" vaults={vaults} />
-      <Box pb={8} />
-      <VaultGrid title="Watchlist" vaults={watchlistVaults} />
+      {/* <VaultGrid title="My Vaults" vaults={vaults} /> */}
+      {/* <Box pb={8} /> */}
+      <VaultGrid
+        placeholder="See your favorite vaults here after adding them!"
+        title="Watchlist"
+        vaults={watchlistVaults}
+      />
     </Box>
   )
 }

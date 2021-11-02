@@ -6,6 +6,7 @@ import {
   Flex,
   HStack,
   IconButton,
+  Spacer,
   Stack,
   Text,
   useColorModeValue,
@@ -31,18 +32,18 @@ const Links = [
     label: 'Leaderboard',
     href: '/leaderboard',
   },
-  {
-    label: 'Fontis',
-    href: '/fontis',
-  },
-  {
-    label: 'Ribbon',
-    href: '/ribbon',
-  },
-  {
-    label: 'StakeDAO',
-    href: '/stakedao',
-  },
+  // {
+  //   label: 'Fontis',
+  //   href: '/fontis',
+  // },
+  // {
+  //   label: 'Ribbon',
+  //   href: '/ribbon',
+  // },
+  // {
+  //   label: 'StakeDAO',
+  //   href: '/stakedao',
+  // },
 ]
 
 interface NavLinkProps {
