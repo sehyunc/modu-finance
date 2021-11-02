@@ -7,10 +7,15 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { ethers, providers } from 'ethers'
+import { ChevronDownIcon } from '@chakra-ui/icons'
+import { ethers } from 'ethers'
 
 import erc20abi from 'constants/abi/erc20.json'
 
@@ -19,6 +24,8 @@ import useWallet from 'contexts/wallet/useWallet'
 import useBalance from 'hooks/useBalance'
 import usePosition from 'hooks/usePosition'
 import useRibbon from 'hooks/useRibbon'
+
+import { Platform } from 'models/Vault'
 
 import {
   symbolToDecimalMap,
@@ -32,30 +39,37 @@ interface VaultFormProps {
   onClose: () => void
   tokenSymbol: string
   vaultAddress?: string
+  platform: string
 }
+
+const tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 
 const VaultForm: React.FC<VaultFormProps> = ({
   onClose,
   tokenSymbol,
   vaultAddress = '',
+  platform,
 }) => {
-  let balanceReadable = '0'
-  let positionReadable = '0'
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
+  const [stakeDaoToken, setStakeDaoToken] = useState('FRAX')
   const [tokenContract, setTokenContract] = useState<ethers.Contract>()
   const { account, provider } = useWallet()
-  const tokenAddress = symbolToAddressMap[tokenSymbol]
+
+  const underlyingSymbol =
+    platform === Platform.STAKEDAO ? stakeDaoToken : tokenSymbol
+
+  const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
 
   const balance = useBalance(tokenAddress)
 
-  const tokenDecimals = symbolToDecimalMap[tokenSymbol]
+  const tokenDecimals = symbolToDecimalMap[tokenSymbol] // modify this for stakedao token
 
-  balanceReadable = roundOffBigNumber(balance!, tokenDecimals)
-  positionReadable = roundOffBigNumber(position!, tokenDecimals)
+  const balanceReadable = roundOffBigNumber(balance!, tokenDecimals)
+  const positionReadable = roundOffBigNumber(position!, tokenDecimals)
 
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
@@ -86,8 +100,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [handleFetchApproval])
 
   const footerText = isDeposit
-    ? `Wallet Balance: ${balanceReadable} ${tokenSymbol}`
-    : `Your Position: ${positionReadable} ${tokenSymbol}`
+    ? `Wallet Balance: ${balanceReadable} ${underlyingSymbol}`
+    : `Your Position: ${positionReadable} ${underlyingSymbol}`
 
   const handleApprove = useCallback(() => {
     approve(vaultAddress, tokenContract!, balance!)
@@ -104,16 +118,22 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [inputText, onClose, tokenDecimals, withdraw])
 
   const ApproveButton = (
-    <SubmitButton handleClick={handleApprove} text={`Approve ${tokenSymbol}`} />
+    <SubmitButton
+      handleClick={handleApprove}
+      text={`Approve ${underlyingSymbol}`}
+    />
   )
   const DepositButton = (
-    <SubmitButton handleClick={handleDeposit} text={`Deposit ${tokenSymbol}`} />
+    <SubmitButton
+      handleClick={handleDeposit}
+      text={`Deposit ${underlyingSymbol}`}
+    />
   )
 
   const WithdrawButton = (
     <SubmitButton
       handleClick={handleWithdraw}
-      text={`Withdraw ${tokenSymbol}`}
+      text={`Withdraw ${underlyingSymbol}`}
     />
   )
 
@@ -171,7 +191,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         spacing={6}
       >
         <div>
-          <Text mb="1">{`Amount (${tokenSymbol})`}</Text>
+          <Text mb="1">{`Amount (${underlyingSymbol})`}</Text>
           <InputGroup>
             <Input
               onChange={(event) => setInputText(event.target.value)}
@@ -186,6 +206,20 @@ const VaultForm: React.FC<VaultFormProps> = ({
             </InputRightElement>
           </InputGroup>
         </div>
+        {platform === Platform.STAKEDAO ? (
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>
+              {stakeDaoToken || 'Select Token'}
+            </MenuButton>
+            <MenuList>
+              {tokens.map((t, i) => (
+                <MenuItem key={i} onClick={() => setStakeDaoToken(t)} value={t}>
+                  {t}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+        ) : null}
         {ActionButton}
         <Text textAlign="center">{footerText}</Text>
       </Stack>

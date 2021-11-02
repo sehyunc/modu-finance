@@ -25,7 +25,7 @@ interface VaultCardProps {
 }
 
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState(false)
   const {
     account,
     needsSwitchNetwork,

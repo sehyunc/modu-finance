@@ -41,7 +41,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   onClose,
 }) => {
   const { onAddToWatchlist, onRemoveFromWatchlist, watchlist } = useWatchlist()
-  const vaultAddress = "0x9b8f14554f40705de7908879e2228d2ac94fde1a"// uuidToAddressMap[vault.uuid]
+  const vaultAddress = uuidToAddressMap[vault.uuid]
   const inWatchlist = watchlist.includes(vault.id)
 
   const WatchlistButton = inWatchlist ? (
@@ -63,13 +63,13 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
       Add To Watchlist
     </Button>
   )
-  const { name, underlyingSymbol, cap, lockedAmount, decimals, platform } =
-    vault
+  const { underlyingSymbol, cap, lockedAmount, decimals } = vault
 
   const formattedCap = numeral(utils.formatUnits(cap, decimals)).format('0a')
   const formattedLockedAmount = numeral(
     utils.formatUnits(lockedAmount, decimals)
   ).format('0.00a')
+
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
@@ -78,33 +78,34 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
           <DrawerCloseButton />
           <DrawerHeader>{vault.name}</DrawerHeader>
           <DrawerBody>
-            <VStack align="flex-start" spacing="6">
+            <VStack spacing={6}>
               <VaultForm
                 onClose={onClose}
+                platform={vault.platform}
                 tokenSymbol={vault.underlyingSymbol}
                 vaultAddress={vaultAddress}
               />
-              <div>
-                <Flex align="center" justify="space-between">
+              <Box width="90%">
+                <Flex justifyContent="space-between">
                   <Text>Current Deposits</Text>
-                  <Tag
+                  <Text
                     colorScheme="blue"
                     variant="solid"
-                  >{`${formattedLockedAmount} ${underlyingSymbol}`}</Tag>
+                  >{`${formattedLockedAmount} ${underlyingSymbol}`}</Text>
                 </Flex>
                 <Progress
                   value={(parseFloat(lockedAmount) / parseFloat(cap)) * 100}
                 />
                 <Flex align="center" justify="space-between">
                   <Text>Max Capacity</Text>
-                  <Tag
+                  <Text
                     colorScheme="blue"
                     variant="solid"
-                  >{`${formattedCap} ${underlyingSymbol}`}</Tag>
+                  >{`${formattedCap} ${underlyingSymbol}`}</Text>
                 </Flex>
-              </div>
-              <Heading size="md">{`Other ${vault.underlyingSymbol} Vaults`}</Heading>
-              <VaultRow />
+              </Box>
+              {/* <Heading size="md">{`Other ${vault.underlyingSymbol} Vaults`}</Heading>
+              <VaultRow /> */}
             </VStack>
           </DrawerBody>
 

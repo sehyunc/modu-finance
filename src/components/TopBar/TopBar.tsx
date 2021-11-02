@@ -96,7 +96,7 @@ const TopBar: React.FC = () => {
             </HStack>
           </Box>
           <Stack alignItems="center" direction="row" spacing={3}>
-            {false ? <WrongNetworkModal /> : null}
+            {needsSwitchNetwork ? <WrongNetworkModal /> : null}
             {account ? (
               <AccountModal />
             ) : (

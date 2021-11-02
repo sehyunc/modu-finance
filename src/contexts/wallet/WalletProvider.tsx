@@ -14,8 +14,8 @@ const WalletProvider: React.FC = ({ children }) => {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
 
   const handleSetNeedsNetworkChange = useCallback((chainId: number) => {
-    console.log("chainId",chainId)
-    setNeedsSwitchNetwork(chainId.toString() !== '0x539')
+    console.log('chainId', chainId)
+    setNeedsSwitchNetwork(chainId.toString() !== '0x2a')
   }, [])
 
   useEffect(() => {

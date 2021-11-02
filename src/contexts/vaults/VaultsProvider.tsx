@@ -23,7 +23,6 @@ const VaultsProvider: React.FC = ({ children }) => {
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])
   const [stakedaoVaults, setStakeDAOVaults] = useState<Vault[]>([])
   const [allVaults, setAllVaults] = useState<Vault[]>([])
-  console.log('🚀 ~ allVaults', allVaults)
 
   const handleFetchStakeDAOVaults = useCallback(async () => {
     const { data } = await fetch(STAKEDAO_URL, {
@@ -35,7 +34,6 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
-    console.log('🚀 ~ handleFetchStakeDAOVaults ~ data', data)
 
     const apyData = getStakeDaoApy(data)
     const newVaults: Vault[] = []

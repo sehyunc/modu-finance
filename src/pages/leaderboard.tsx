@@ -42,7 +42,6 @@ const Leaderboard = () => {
     useState<SortColumnOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('down')
   const [platformFilter, setPlatformFilter] = useState<Platform>()
-  console.log('🚀 ~ Leaderboard ~ platformFilter', platformFilter)
   const [tokenFilter, setTokenFilter] = useState<string>()
 
   const filteredVaults = useMemo(() => {
@@ -55,7 +54,6 @@ const Leaderboard = () => {
     }
     return tempVaults
   }, [platformFilter, tokenFilter, vaults])
-  console.log('🚀 ~ filteredVaults ~ filteredVaults', filteredVaults)
 
   const sortedRows = useMemo(() => {
     return filteredVaults.sort((vaultA, vaultB) => {
@@ -96,7 +94,7 @@ const Leaderboard = () => {
             {tokenFilter || 'Select Token'}
           </MenuButton>
           <MenuList>
-            {platformFilter ? (
+            {tokenFilter ? (
               <MenuItem
                 onClick={() => setTokenFilter(undefined)}
                 fontWeight="semibold"
