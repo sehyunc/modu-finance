@@ -41,9 +41,9 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   onClose,
 }) => {
   const { onAddToWatchlist, onRemoveFromWatchlist, watchlist } = useWatchlist()
+  console.log("🚀 ~ file: VaultDrawer.tsx ~ line 44 ~ watchlist", watchlist)
   const vaultAddress = uuidToAddressMap[vault.uuid]
   const inWatchlist = watchlist.includes(vault.id)
-
   const WatchlistButton = inWatchlist ? (
     <Button
       colorScheme="gray"
