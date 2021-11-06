@@ -27,7 +27,7 @@ export class Vault {
   public uuid: string
   public underlyingSymbol: Symbol
   public totalWithdrawalFee?: string
-
+  
   constructor(options: RibbonVaultConstructor) {
     this.apy = options.apy
     this.cap = options.cap
