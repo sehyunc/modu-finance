@@ -27,6 +27,7 @@ export class Vault {
   public uuid: string
   public underlyingSymbol: Symbol
   public totalWithdrawalFee?: string
+  public tokenArray?: string[]
   
   constructor(options: RibbonVaultConstructor) {
     this.apy = options.apy
@@ -39,6 +40,7 @@ export class Vault {
     this.platform = options.platform
     this.underlyingSymbol = options.underlyingSymbol
     this.uuid = options.uuid
+    this.tokenArray = options?.tokenArray
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
@@ -82,9 +84,12 @@ export class Vault {
       ETH: 'WETH',
       BTC: 'WBTC',
     }
+
     const underlyingSymbol = wrappedUnderlyingMap[underlyingFromName] as Symbol
     const strategy = this.isCall(options.name) ? 'Call' : 'Put'
     const formattedName = `${underlyingSymbol} ${strategy} Strategy`
+    const uuid = this.createUUID('stakedao', options.vault)
+    const tokenArray = this.chooseTokenArray(uuid)
 
     return new Vault({
       apy: options.apy,
@@ -96,7 +101,8 @@ export class Vault {
       name: formattedName,
       platform: Platform.STAKEDAO,
       underlyingSymbol,
-      uuid: this.createUUID('stakedao', options.vault),
+      uuid: uuid,
+      tokenArray: tokenArray
     })
   }
 
@@ -114,5 +120,20 @@ export class Vault {
 
   public static isCall = (name: string) => {
     return name.toLowerCase().indexOf('put') === -1
+  }
+
+  public static chooseTokenArray = (uuid: string) => {
+    const ETH_PUT_tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
+    const BTC_CALL_tokens = ['WBTC', 'crvRenWSBTC']
+    console.log("uuid", uuid)
+    switch (uuid) {
+      case 'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7':
+        console.log("lololol")
+        return ETH_PUT_tokens
+      case 'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9':
+        return BTC_CALL_tokens
+      case 'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a':
+        return ['ETH']
+    }
   }
 }

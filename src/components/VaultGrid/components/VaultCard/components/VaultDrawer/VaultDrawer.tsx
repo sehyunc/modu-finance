@@ -68,7 +68,6 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
   const formattedLockedAmount = numeral(
     utils.formatUnits(lockedAmount, decimals)
   ).format('0.00a')
-
   return (
     <Box>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="md">
@@ -83,6 +82,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
                 platform={vault.platform}
                 tokenSymbol={vault.underlyingSymbol}
                 vaultAddress={vaultAddress}
+                tokenArray={vault.tokenArray!}
               />
               <Box width="90%">
                 <Flex justifyContent="space-between">
