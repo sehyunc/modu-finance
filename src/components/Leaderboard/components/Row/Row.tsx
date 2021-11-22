@@ -51,6 +51,7 @@ const Row: React.FC<RowProps> = ({ vault }) => {
         onClick={handleOpenDrawer}
         px={12}
         py={10}
+        style={{ fontWeight: 'bold' }}
         _hover={{ backgroundColor: 'gray.700' }}
       >
         <Box

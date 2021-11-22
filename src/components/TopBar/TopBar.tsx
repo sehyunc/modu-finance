@@ -19,32 +19,8 @@ import useWallet from 'contexts/wallet/useWallet'
 
 import AccountModal from './components/AccountModal/AccountModal'
 import WrongNetworkModal from './components/WrongNetworkModal'
-const Links = [
-  {
-    label: 'Modu',
-    href: '/',
-  },
-  // {
-  //   label: 'Dashboard',
-  //   href: '/dashboard',
-  // },
-  {
-    label: 'Leaderboard',
-    href: '/leaderboard',
-  },
-  // {
-  //   label: 'Fontis',
-  //   href: '/fontis',
-  // },
-  // {
-  //   label: 'Ribbon',
-  //   href: '/ribbon',
-  // },
-  // {
-  //   label: 'StakeDAO',
-  //   href: '/stakedao',
-  // },
-]
+
+import { NAV_ITEMS } from './constants'
 
 interface NavLinkProps {
   children: ReactNode
@@ -52,7 +28,7 @@ interface NavLinkProps {
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ children, href }) => (
-  <Box px="2" py="1">
+  <Box px={1} py={2}>
     <AccessibleLink href={href} decoration={false}>
       {children}
     </AccessibleLink>
@@ -83,7 +59,7 @@ const TopBar: React.FC = () => {
           />
           <Box alignItems="center" display="flex">
             <HStack display={{ base: 'none', md: 'flex' }} spacing={4}>
-              {Links.map(({ label, href }) => (
+              {NAV_ITEMS.map(({ label, href }) => (
                 <NavLink key={href} href={href}>
                   <Text
                     fontWeight="500"
@@ -117,7 +93,7 @@ const TopBar: React.FC = () => {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
-              {Links.map(({ label, href }) => (
+              {NAV_ITEMS.map(({ label, href }) => (
                 <NavLink key={href} href={href}>
                   {label}
                 </NavLink>
