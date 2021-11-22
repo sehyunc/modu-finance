@@ -39,7 +39,7 @@ const Home: React.FC = () => {
             </Text>
           </HStack>
         </Stack>
-        <AccessibleLink href="/dashboard">
+        <AccessibleLink href="/leaderboard">
           <Button
             marginTop={6}
             size="lg"

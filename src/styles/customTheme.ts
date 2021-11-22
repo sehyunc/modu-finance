@@ -4,7 +4,7 @@ import { mode } from '@chakra-ui/theme-tools'
 const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
-    body: 'Inter, sans-serif',
+    body: 'DM Sans, sans-serif',
     heading: 'Manrope, serif',
   },
   config: {

@@ -24,10 +24,10 @@ const Links = [
     label: 'Modu',
     href: '/',
   },
-  {
-    label: 'Dashboard',
-    href: '/dashboard',
-  },
+  // {
+  //   label: 'Dashboard',
+  //   href: '/dashboard',
+  // },
   {
     label: 'Leaderboard',
     href: '/leaderboard',
