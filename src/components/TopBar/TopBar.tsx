@@ -1,116 +1,39 @@
-import AccessibleLink from 'components/AccessibleLink'
-import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  IconButton,
-  Spacer,
-  Stack,
-  Text,
-  useColorModeValue,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Button, ButtonGroup } from '@chakra-ui/button'
+import { Box } from '@chakra-ui/layout'
 import { useRouter } from 'next/router'
-import { ReactNode } from 'react'
+import React from 'react'
 
-import useWallet from 'contexts/wallet/useWallet'
+interface Props {}
 
-import AccountModal from './components/AccountModal/AccountModal'
-import WrongNetworkModal from './components/WrongNetworkModal'
-
-import { NAV_ITEMS } from './constants'
-
-interface NavLinkProps {
-  children: ReactNode
-  href: string
-}
-
-const NavLink: React.FC<NavLinkProps> = ({ children, href }) => (
-  <Box px={1} py={2}>
-    <AccessibleLink href={href} decoration={false}>
-      {children}
-    </AccessibleLink>
-  </Box>
-)
-
-const TopBar: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+const TopBar = (props: Props) => {
   const router = useRouter()
-  const { account, needsSwitchNetwork, onConnectToMetaMask } = useWallet()
-
+  const pathname = router.pathname
+  const background = 'linear(to-r, #3498db, #60ebfc)'
   return (
-    <>
-      <Box
-        bg={useColorModeValue('gray.100', '#000000')}
-        px={4}
-        position="sticky"
-        top="0"
-        zIndex={10}
+    <Box
+      alignItems="center"
+      display="flex"
+      flex={1}
+      marginTop={6}
+      justifyContent="center"
+    >
+      <Button
+        onClick={() => router.push('/')}
+        size="lg"
+        mr={8}
+        _focus={{ boxShadow: 'none' }}
       >
-        <Flex alignItems="center" h={16} justifyContent="space-between">
-          <IconButton
-            aria-label="Open Menu"
-            display={{ md: 'none' }}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            onClick={isOpen ? onClose : onOpen}
-            size="md"
-          />
-          <Box alignItems="center" display="flex">
-            <HStack display={{ base: 'none', md: 'flex' }} spacing={4}>
-              {NAV_ITEMS.map(({ label, href }) => (
-                <NavLink key={href} href={href}>
-                  <Text
-                    fontWeight="500"
-                    opacity={router.pathname === href ? 1 : 0.6}
-                    _hover={{ opacity: '1' }}
-                  >
-                    {label}
-                  </Text>
-                </NavLink>
-              ))}
-            </HStack>
-          </Box>
-          <Stack alignItems="center" direction="row" spacing={3}>
-            {needsSwitchNetwork ? <WrongNetworkModal /> : null}
-            {account ? (
-              <AccountModal />
-            ) : (
-              <Button
-                onClick={onConnectToMetaMask}
-                variant="solid"
-                colorScheme="teal"
-                size="sm"
-                mr={4}
-              >
-                Connect Wallet
-              </Button>
-            )}
-          </Stack>
-        </Flex>
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              {NAV_ITEMS.map(({ label, href }) => (
-                <NavLink key={href} href={href}>
-                  {label}
-                </NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
-      </Box>
-      <Box
-        bgGradient="linear(to-r, #f4b04a, #d15c6c)"
-        h="2px"
-        opacity="0.5"
-        position="fixed"
-        w="100%"
-        zIndex={10}
-      />
-    </>
+        Home
+      </Button>
+      <Button
+        colorScheme="purple"
+        onClick={() => router.push('/leaderboard')}
+        size="lg"
+        _focus={{ boxShadow: 'none' }}
+      >
+        Leaderboard
+      </Button>
+    </Box>
   )
 }
 
