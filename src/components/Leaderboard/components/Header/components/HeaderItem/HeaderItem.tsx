@@ -36,12 +36,15 @@ const Header = ({
       onClick={onClick}
       opacity="0.55"
       style={{ justifyContent }}
+      textAlign={align}
       _hover={{
         opacity: '1',
       }}
     >
       {align === 'right' && icon}
-      <Text fontWeight="semibold">{title}</Text>
+      <Text textAlign={align} fontWeight="semibold">
+        {title}
+      </Text>
       {align === 'left' && icon}
     </Box>
   )
