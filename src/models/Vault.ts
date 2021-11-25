@@ -128,7 +128,6 @@ export class Vault {
     console.log("uuid", uuid)
     switch (uuid) {
       case 'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7':
-        console.log("lololol")
         return ETH_PUT_tokens
       case 'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9':
         return BTC_CALL_tokens

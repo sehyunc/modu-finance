@@ -96,6 +96,7 @@ const useRibbon = (vaultAddress: string) => {
           gasPrice,
           // amount
         }
+        //TODO check fontis ETH allowance call
         //TODO estimate right amount, current overrides throwing rpc errors
         let tx;
         switch(uuid){

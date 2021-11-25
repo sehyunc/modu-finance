@@ -15,7 +15,7 @@ const WalletProvider: React.FC = ({ children }) => {
 
   const handleSetNeedsNetworkChange = useCallback((chainId: number) => {
     console.log('chainId', chainId)
-    setNeedsSwitchNetwork(chainId.toString() !== '0x2a')
+    setNeedsSwitchNetwork(chainId.toString() !== '0x2a' && chainId.toString() !== '0x539')
   }, [])
 
   useEffect(() => {
