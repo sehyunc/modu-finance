@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import '@fontsource/epilogue/latin.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/manrope/latin.css'
+import '@fontsource/dm-sans'
 
 import Providers from 'components/Providers'
 import TopBar from 'components/TopBar'
@@ -26,7 +27,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     ) {
       return
     }
-    router.push('/dashboard')
+    router.push('/leaderboard')
   }, [router])
 
   return (

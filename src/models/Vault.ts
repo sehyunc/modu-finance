@@ -44,7 +44,7 @@ export class Vault {
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
-    const strategy = this.isCall(options.name) ? 'Call' : 'Put'
+    const strategy = this.isCall(options.name) ? 'Covered Call' : 'Put'
     const formattedName = `${options.underlyingSymbol} ${strategy} Strategy`
     return new Vault({
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
@@ -86,7 +86,7 @@ export class Vault {
     }
 
     const underlyingSymbol = wrappedUnderlyingMap[underlyingFromName] as Symbol
-    const strategy = this.isCall(options.name) ? 'Call' : 'Put'
+    const strategy = this.isCall(options.name) ? 'Covered Call' : 'Put'
     const formattedName = `${underlyingSymbol} ${strategy} Strategy`
     const uuid = this.createUUID('stakedao', options.vault)
     const tokenArray = this.chooseTokenArray(uuid)

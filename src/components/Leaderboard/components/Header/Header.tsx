@@ -38,19 +38,19 @@ const Header: React.FC<HeaderProps> = ({
       py={8}
       width="100%"
     >
-      <HeaderItem flex={0.5} onClick={() => {}} title="" />
+      <HeaderItem flex={0.5} onClick={() => {}} title="Platform" />
       <HeaderItem
         direction={activeSortColumn === 'name' ? sortDirection : undefined}
-        flex={3}
+        flex={2}
         onClick={() => handleColumnClick('name')}
-        title="Vault Name"
+        title="Vault Strategy"
       />
       <HeaderItem
         direction={
           activeSortColumn === 'underlyingSymbol' ? sortDirection : undefined
         }
         onClick={() => handleColumnClick('underlyingSymbol')}
-        title="Token"
+        title="Collateral Asset"
       />
       <HeaderItem
         direction={activeSortColumn === 'platform' ? sortDirection : undefined}

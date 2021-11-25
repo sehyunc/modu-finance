@@ -51,6 +51,7 @@ const Row: React.FC<RowProps> = ({ vault }) => {
         onClick={handleOpenDrawer}
         px={12}
         py={10}
+        style={{ fontWeight: 'bold' }}
         _hover={{ backgroundColor: 'gray.700' }}
       >
         <Box
@@ -61,7 +62,7 @@ const Row: React.FC<RowProps> = ({ vault }) => {
         >
           <Image src={imageUrl} alt="platform" width="30px" height="30px" />
         </Box>
-        <Box alignItems="center" display="flex" flex={3} justifyContent="left">
+        <Box alignItems="center" display="flex" flex={2} justifyContent="left">
           <Text>{vault.name}</Text>
         </Box>
         <Box alignItems="center" display="flex" flex={1} justifyContent="left">

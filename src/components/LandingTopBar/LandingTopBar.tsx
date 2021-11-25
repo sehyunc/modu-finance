@@ -40,7 +40,7 @@ export const MenuItem = ({
   ...props
 }: MenuItemProps & ButtonProps) => {
   return (
-    <AccessibleLink href={to} isExternal={true}>
+    <AccessibleLink href={to}>
       <Button
         size="md"
         width="100%"
@@ -62,7 +62,7 @@ export const MenuStack = (props: StackProps) => (
     {...props}
   >
     <HStack pb={{ base: 4, md: 0 }}>
-      <MenuItem to="/dashboard">Enter App</MenuItem>
+      <MenuItem to="/leaderboard">Enter App</MenuItem>
     </HStack>
     {/* <HStack>
       <DarkModeSwitch />

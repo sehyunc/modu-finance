@@ -39,7 +39,7 @@ const platforms = [Platform.FONTIS, Platform.RIBBON, Platform.STAKEDAO]
 const Leaderboard = () => {
   const { vaults } = useVaults()
   const [activeSortColumn, setActiveSortColumn] =
-    useState<SortColumnOption>('name')
+    useState<SortColumnOption>('apy')
   const [sortDirection, setSortDirection] = useState<SortDirection>('down')
   const [platformFilter, setPlatformFilter] = useState<Platform>()
   const [tokenFilter, setTokenFilter] = useState<string>()
@@ -87,7 +87,7 @@ const Leaderboard = () => {
   }, [])
 
   return (
-    <Box p={12}>
+    <Box mx="auto" maxWidth="container.lg" p={12}>
       <Flex mb={3}>
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>

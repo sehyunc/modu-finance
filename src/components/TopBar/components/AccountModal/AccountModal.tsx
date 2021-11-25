@@ -24,15 +24,18 @@ export default function AccountModal() {
   const { account } = useWallet()
   const { onCopy } = useClipboard(account || '')
 
+  const formattedAddress = `${account?.substr(0, 6)}...${account?.substr(
+    account.length - 4
+  )}`
+
   return (
     <>
       <Button
         size="md"
         colorScheme={useColorModeValue('blue', 'gray')}
-        variant="solid"
         onClick={onOpen}
       >
-        {account?.substr(0, 6)}...{account?.substr(account.length - 4)}
+        {formattedAddress}
       </Button>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
