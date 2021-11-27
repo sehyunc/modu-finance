@@ -1,5 +1,5 @@
-import { utils } from 'ethers'
 import { symbolToDecimalMap } from 'utils/helpers'
+import { PlatformToDescriptionMap } from './constants'
 import {
   FontisVaultConstructor,
   RibbonVaultConstructor,
@@ -17,6 +17,7 @@ export class Vault {
   public apy: number
   public cap?: string
   public decimals: number
+  public description: string
   public depositors?: string[]
   public externalLink: string
   public id: string
@@ -31,6 +32,7 @@ export class Vault {
     this.apy = options.apy
     this.cap = options.cap
     this.decimals = symbolToDecimalMap[options.underlyingSymbol]
+    this.description = options.description
     this.externalLink = options.externalLink
     this.id = options.id
     this.lockedAmount = options.lockedAmount
@@ -42,11 +44,13 @@ export class Vault {
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
     const strategy = this.isCall(options.name) ? 'Covered Call' : 'Put'
-    const formattedName = `${options.underlyingSymbol} ${strategy} Strategy`
+    const formattedName = options.name.split(' ').slice(1).join(' ')
+    const underlying = formattedName.split(' ')[0]
     return new Vault({
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       cap: options.cap,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
+      description: PlatformToDescriptionMap[options.id],
       depositors: options.depositors,
       externalLink: 'https://app.ribbon.finance/',
       id: options.id,
@@ -63,6 +67,7 @@ export class Vault {
     return new Vault({
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       decimals: symbolToDecimalMap['WETH'],
+      description: PlatformToDescriptionMap[Platform.FONTIS],
       cap: '1000000000000000000000',
       externalLink: 'https://fontis.finance/vaults/thetagang',
       id: options.id,
@@ -88,6 +93,7 @@ export class Vault {
     return new Vault({
       apy: options.apy,
       decimals: symbolToDecimalMap[underlyingSymbol],
+      description: PlatformToDescriptionMap[Platform.STAKEDAO],
       externalLink: 'https://stakedao.org/ox/options',
       id: options.id,
       lockedAmount: options.amount,

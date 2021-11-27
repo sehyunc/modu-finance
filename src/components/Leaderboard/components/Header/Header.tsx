@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({
       py={8}
       width="100%"
     >
-      <HeaderItem flex={0.5} onClick={() => {}} title="Platformf" />
+      <HeaderItem flex={0.5} onClick={() => {}} title="Platform" />
       <HeaderItem
         direction={activeSortColumn === 'name' ? sortDirection : undefined}
         flex={2}

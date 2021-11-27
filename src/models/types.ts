@@ -10,6 +10,7 @@ export interface RibbonVaultConstructor {
   withdrawalFee?: number
   depositors?: string[]
   decimals: number
+  description: string
   platform: Platform
   apy: number
   address?: string

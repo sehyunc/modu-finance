@@ -49,7 +49,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
 }) => {
   const { onAddToWatchlist, onRemoveFromWatchlist, watchlist } = useWatchlist()
 
-  const { cap, decimals, lockedAmount, uuid } = vault
+  const { cap, decimals, description, lockedAmount, uuid } = vault
 
   const vaultAddress = uuidToAddressMap[uuid]
 
@@ -86,7 +86,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
         <Text>{vaultCapacityPercentage}</Text>
       </Box>
     )
-  }, [cap, decimals, lockedAmount])
+  }, [cap, decimals, lockedAmount, vault.externalLink])
 
   const ExternalLinkButton = (
     <AccessibleLink href={vault.externalLink} isExternal>
@@ -146,6 +146,14 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
               width="100%"
             >
               {CapacityRow}
+            </Box>
+            <Box
+              border="2px solid #242322"
+              borderRadius="8px"
+              p={6}
+              width="100%"
+            >
+              <Text>{description}</Text>
             </Box>
           </VStack>
         </DrawerBody>
