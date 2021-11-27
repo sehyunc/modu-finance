@@ -7,7 +7,6 @@ import {
   Symbol,
 } from './types'
 
-// export type Platform = 'ribbon' | 'fontis' | 'stakedao'
 export enum Platform {
   RIBBON = 'Ribbon',
   FONTIS = 'Fontis',
@@ -16,7 +15,7 @@ export enum Platform {
 
 export class Vault {
   public apy: number
-  public cap: string
+  public cap?: string
   public decimals: number
   public depositors?: string[]
   public externalLink: string
@@ -88,7 +87,6 @@ export class Vault {
 
     return new Vault({
       apy: options.apy,
-      cap: utils.parseUnits('1', 18).toString(),
       decimals: symbolToDecimalMap[underlyingSymbol],
       externalLink: 'https://stakedao.org/ox/options',
       id: options.id,

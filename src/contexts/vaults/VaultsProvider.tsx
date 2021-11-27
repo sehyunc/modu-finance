@@ -34,6 +34,7 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
+    console.log('🚀 ~ handleFetchStakeDAOVaults ~ data', data)
 
     const apyData = getStakeDaoApy(data)
     const newVaults: Vault[] = []

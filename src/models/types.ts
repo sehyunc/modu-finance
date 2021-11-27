@@ -5,7 +5,7 @@ export interface RibbonVaultConstructor {
   name: string
   underlyingSymbol: Symbol
   lockedAmount: string
-  cap: string
+  cap?: string
   totalWithdrawalFee?: string
   withdrawalFee?: number
   depositors?: string[]

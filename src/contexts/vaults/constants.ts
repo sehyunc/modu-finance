@@ -37,6 +37,7 @@ query Vaults {
  }
 }
 `
+
 export const STAKEDAO_QUERY = `
 query Vaults {
   options{

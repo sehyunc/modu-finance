@@ -143,6 +143,32 @@ const VaultForm: React.FC<VaultFormProps> = ({
     ? DepositButton
     : WithdrawButton
 
+  const StakeDaoTokenSelect = (
+    <Box alignItems="center" display="flex">
+      <Text flex={1}>Select Input</Text>
+      {platform === Platform.STAKEDAO ? (
+        <Box flex={1} width="100%">
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              width="100%"
+            >
+              {stakeDaoToken || 'Select Token'}
+            </MenuButton>
+            <MenuList>
+              {tokens.map((t, i) => (
+                <MenuItem key={i} onClick={() => setStakeDaoToken(t)} value={t}>
+                  {t}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+        </Box>
+      ) : null}
+    </Box>
+  )
+
   const Tabs = (
     <Flex>
       <Center
@@ -178,7 +204,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
   )
 
   return (
-    <Box width="100%">
+    <Box style={{ fontWeight: 'bold' }} width="100%">
       {Tabs}
       <Stack
         bgColor="#1c1a19"
@@ -187,7 +213,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         borderBottomRightRadius="8px"
         borderTopStyle="none"
         direction="column"
-        p="6"
+        p={6}
         spacing={6}
       >
         <div>
@@ -206,20 +232,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
             </InputRightElement>
           </InputGroup>
         </div>
-        {platform === Platform.STAKEDAO ? (
-          <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>
-              {stakeDaoToken || 'Select Token'}
-            </MenuButton>
-            <MenuList>
-              {tokens.map((t, i) => (
-                <MenuItem key={i} onClick={() => setStakeDaoToken(t)} value={t}>
-                  {t}
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
-        ) : null}
+        {StakeDaoTokenSelect}
         {ActionButton}
         <Text textAlign="center">{footerText}</Text>
       </Stack>
