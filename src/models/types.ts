@@ -16,9 +16,10 @@ export interface RibbonVaultConstructor {
   externalLink: string
   underlyingTokenAddress?: string
   yieldFromPremium?: string
+  tokenArray?: string[]
   uuid: string
 }
-
+//TODO Remove all other vault constructor thingies
 export interface FontisVaultConstructor {
   id: string
   collateralAmount: string

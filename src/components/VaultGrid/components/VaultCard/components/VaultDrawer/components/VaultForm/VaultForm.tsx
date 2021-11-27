@@ -40,30 +40,32 @@ interface VaultFormProps {
   tokenSymbol: string
   vaultAddress?: string
   platform: string
+  tokenArray: string[]
 }
-
-const tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 
 const VaultForm: React.FC<VaultFormProps> = ({
   onClose,
   tokenSymbol,
   vaultAddress = '',
   platform,
+  tokenArray = []
 }) => {
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
-  const [stakeDaoToken, setStakeDaoToken] = useState('FRAX')
+  const [currentTokenSymbol, setCurrentTokenSymbol] = useState(tokenArray[0]? tokenArray[0] : tokenSymbol)
+  const [tokenAddress, setTokenAddress] = useState(symbolToAddressMap[currentTokenSymbol])
   const [tokenContract, setTokenContract] = useState<ethers.Contract>()
   const { account, provider } = useWallet()
 
-  const underlyingSymbol =
-    platform === Platform.STAKEDAO ? stakeDaoToken : tokenSymbol
+  const underlyingSymbol = tokenSymbol
 
-  const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
+  // const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
+  console.log("🚀 ~ file: VaultForm.tsx ~ line 65 ~ tokenAddress", tokenAddress)
 
+  //TODO: do we want to change balance everytime the person changes the token type?
   const balance = useBalance(tokenAddress)
 
   const tokenDecimals = symbolToDecimalMap[tokenSymbol] // modify this for stakedao token
@@ -93,7 +95,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
     const signer = provider.getSigner()
     const c = new ethers.Contract(tokenAddress, erc20abi, signer)
     setTokenContract(c)
-  }, [provider, tokenAddress])
+  }, [provider, tokenAddress, tokenSymbol])
 
   useEffect(() => {
     handleFetchApproval()
@@ -209,11 +211,14 @@ const VaultForm: React.FC<VaultFormProps> = ({
         {platform === Platform.STAKEDAO ? (
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>
-              {stakeDaoToken || 'Select Token'}
+              {currentTokenSymbol || 'Select Token'}
             </MenuButton>
             <MenuList>
-              {tokens.map((t, i) => (
-                <MenuItem key={i} onClick={() => setStakeDaoToken(t)} value={t}>
+              {tokenArray.map((t, i) => (
+                <MenuItem key={i} onClick={() => {
+                  setCurrentTokenSymbol(t)
+                  setTokenAddress(symbolToAddressMap[t])
+                  }} value={t}>
                   {t}
                 </MenuItem>
               ))}
