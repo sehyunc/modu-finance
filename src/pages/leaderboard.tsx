@@ -87,7 +87,7 @@ const Leaderboard = () => {
   }, [])
 
   return (
-    <Box mx="auto" maxWidth="container.lg" p={12}>
+    <Box mx="auto" maxWidth="container.xl" p={12}>
       <Flex mb={3}>
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>

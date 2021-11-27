@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Box, Text } from '@chakra-ui/react'
+import { utils } from 'ethers'
 import Image from 'next/image'
 
 import useWallet from 'contexts/wallet/useWallet'
@@ -7,6 +8,7 @@ import useWallet from 'contexts/wallet/useWallet'
 import { Platform, Vault } from 'models/Vault'
 
 import VaultDrawer from 'components/VaultGrid/components/VaultCard/components/VaultDrawer'
+import numeral from 'numeral'
 
 interface RowProps {
   vault: Vault
@@ -38,6 +40,15 @@ const Row: React.FC<RowProps> = ({ vault }) => {
       setIsOpen(true)
     }
   }, [account, needsSwitchNetwork, onConnectToMetaMask, onRequestSwitchNetwork])
+
+  const formattedTvl = useMemo(() => {
+    if (vault.platform === 'StakeDAO') {
+      return '--'
+    }
+    const tvl = utils.formatUnits(vault.lockedAmount, vault.decimals)
+    const formattedTvl = numeral(tvl).format('0,0.00a')
+    return formattedTvl
+  }, [vault.decimals, vault.lockedAmount, vault.platform])
 
   return (
     <>
@@ -76,6 +87,9 @@ const Row: React.FC<RowProps> = ({ vault }) => {
           style={{ textTransform: 'capitalize' }}
         >
           <Text>{vault.platform}</Text>
+        </Box>
+        <Box alignItems="center" display="flex" flex={1} justifyContent="right">
+          <Text>{formattedTvl}</Text>
         </Box>
         <Box alignItems="center" display="flex" flex={1} justifyContent="right">
           <Text>{`${String(vault.apy * 100).substr(0, 5)}%`}</Text>

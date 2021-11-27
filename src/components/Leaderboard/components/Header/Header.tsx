@@ -60,6 +60,11 @@ const Header: React.FC<HeaderProps> = ({
       <HeaderItem
         onClick={() => handleColumnClick('apy')}
         align="right"
+        title="TVL"
+      />
+      <HeaderItem
+        onClick={() => handleColumnClick('apy')}
+        align="right"
         title="Projected APY"
       />
     </Box>

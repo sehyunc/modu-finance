@@ -71,6 +71,15 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const balanceReadable = roundOffBigNumber(balance!, tokenDecimals)
   const positionReadable = roundOffBigNumber(position!, tokenDecimals)
 
+  const handleApprove = useCallback(() => {
+    approve(vaultAddress, tokenContract!, balance!)
+  }, [approve, balance, tokenContract, vaultAddress])
+
+  const handleDeposit = useCallback(() => {
+    depositErc20(Number(inputText), tokenDecimals)
+    onClose()
+  }, [depositErc20, inputText, onClose, tokenDecimals])
+
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
       return
@@ -88,6 +97,11 @@ const VaultForm: React.FC<VaultFormProps> = ({
     }
   }, [balanceReadable, isDeposit, positionReadable])
 
+  const handleWithdraw = useCallback(() => {
+    withdraw(Number(inputText), tokenDecimals)
+    onClose()
+  }, [inputText, onClose, tokenDecimals, withdraw])
+
   useEffect(() => {
     if (!provider) return
     const signer = provider.getSigner()
@@ -103,26 +117,13 @@ const VaultForm: React.FC<VaultFormProps> = ({
     ? `Wallet Balance: ${balanceReadable} ${underlyingSymbol}`
     : `Your Position: ${positionReadable} ${underlyingSymbol}`
 
-  const handleApprove = useCallback(() => {
-    approve(vaultAddress, tokenContract!, balance!)
-  }, [approve, balance, tokenContract, vaultAddress])
-
-  const handleDeposit = useCallback(() => {
-    depositErc20(Number(inputText), tokenDecimals)
-    onClose()
-  }, [depositErc20, inputText, onClose, tokenDecimals])
-
-  const handleWithdraw = useCallback(() => {
-    withdraw(Number(inputText), tokenDecimals)
-    onClose()
-  }, [inputText, onClose, tokenDecimals, withdraw])
-
   const ApproveButton = (
     <SubmitButton
       handleClick={handleApprove}
       text={`Approve ${underlyingSymbol}`}
     />
   )
+
   const DepositButton = (
     <SubmitButton
       handleClick={handleDeposit}
