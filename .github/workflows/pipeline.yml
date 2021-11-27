@@ -5,13 +5,12 @@ name: Contracts Quality Test
 
 on:
   push:
-    branches: [ main, oz-audit ]
+    branches: [main, oz-audit]
   pull_request:
-    branches: [ main, oz-audit ]
+    branches: [main, oz-audit]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,19 +19,19 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install
-    - name: Compile contracts
-      env:
-        MORALIS_ID: ${{ secrets.MORALIS_ID }}
-        DEV1_PRIVATE_KEY: ${{ secrets.DEV1_PRIVATE_KEY }}
-      run: cd hardhat && npx hardhat compile
-    - name: Unit tests
-      env:
-        MORALIS_ID: ${{ secrets.MORALIS_ID }}
-        DEV1_PRIVATE_KEY: ${{ secrets.DEV1_PRIVATE_KEY }}
-      run: cd hardhat && npx hardhat test
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - name: Compile contracts
+        env:
+          MORALIS_ID: ${{ secrets.MORALIS_ID }}
+          DEV1_PRIVATE_KEY: ${{ secrets.DEV1_PRIVATE_KEY }}
+        run: cd hardhat && npx hardhat compile
+      - name: Unit tests
+        env:
+          MORALIS_ID: ${{ secrets.MORALIS_ID }}
+          DEV1_PRIVATE_KEY: ${{ secrets.DEV1_PRIVATE_KEY }}
+        run: cd hardhat && npx hardhat test

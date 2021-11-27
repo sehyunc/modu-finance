@@ -25,9 +25,7 @@
                 "storageLayout",
                 "evm.gasEstimates"
               ],
-              "": [
-                "ast"
-              ]
+              "": ["ast"]
             }
           },
           "metadata": {
@@ -36,12 +34,8 @@
         }
       },
       "imports": [],
-      "versionPragmas": [
-        ">=0.8.4"
-      ],
-      "artifacts": [
-        "DummyContract"
-      ]
+      "versionPragmas": [">=0.8.4"],
+      "artifacts": ["DummyContract"]
     }
   }
 }

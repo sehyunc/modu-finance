@@ -43,9 +43,7 @@ export class Vault {
   }
 
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
-    const strategy = this.isCall(options.name) ? 'Covered Call' : 'Put'
     const formattedName = options.name.split(' ').slice(1).join(' ')
-    const underlying = formattedName.split(' ')[0]
     return new Vault({
       apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       cap: options.cap,

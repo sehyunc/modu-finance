@@ -1,7 +1,14 @@
 import { useMemo } from 'react'
 import {
+  AddIcon,
+  CloseIcon,
+  ExternalLinkIcon,
+  SearchIcon,
+} from '@chakra-ui/icons'
+import {
   Box,
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -9,24 +16,14 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
-  Heading,
-  Progress,
-  Tag,
   Text,
   VStack,
 } from '@chakra-ui/react'
-import {
-  ExternalLinkIcon,
-  SearchIcon,
-  AddIcon,
-  CloseIcon,
-} from '@chakra-ui/icons'
 import { utils } from 'ethers'
 import numeral from 'numeral'
 
 import AccessibleLink from 'components/AccessibleLink'
-
+import { SymbolToColorMap } from 'components/VaultGrid/components/VaultCard/constants'
 import useWatchlist from 'contexts/watchlist/useWatchlist'
 
 import { Vault } from 'models/Vault'
@@ -34,7 +31,6 @@ import { Vault } from 'models/Vault'
 import { uuidToAddressMap } from 'utils/helpers'
 
 import VaultForm from './components/VaultForm'
-import VaultRow from './components/VaultRow'
 
 interface VaultDrawerProps {
   vault: Vault
@@ -145,6 +141,15 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
               p={6}
               width="100%"
             >
+              <Text
+                bgGradient={`linear(to-r, ${SymbolToColorMap.WETH.start}, ${SymbolToColorMap.WETH.end})`}
+                bgClip="text"
+                fontSize="lg"
+                fontWeight="bold"
+              >
+                Info
+              </Text>
+              <Divider />
               {CapacityRow}
             </Box>
             <Box
@@ -153,6 +158,15 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
               p={6}
               width="100%"
             >
+              <Text
+                bgGradient={`linear(to-r, ${SymbolToColorMap.WETH.start}, ${SymbolToColorMap.WETH.end})`}
+                bgClip="text"
+                fontSize="lg"
+                fontWeight="bold"
+                mb={3}
+              >
+                Description
+              </Text>
               <Text>{description}</Text>
             </Box>
           </VStack>

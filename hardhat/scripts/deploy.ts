@@ -3,11 +3,11 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { ethers } from 'hardhat'
 import hre from 'hardhat'
-import { ETH_ADDRESS } from "../utils/constants";
-import SDETHCALL_ABI from "../utils/abi/stakeDAO_eth_call.json";
-import {impersonateTransferFrom} from "../utils/testUtils";
+import { ETH_ADDRESS } from '../utils/constants'
+import SDETHCALL_ABI from '../utils/abi/stakeDAO_eth_call.json'
+import { impersonateTransferFrom } from '../utils/testUtils'
 
 async function main() {
   const Greeter = await hre.ethers.getContractFactory('Greeter')

@@ -81,7 +81,10 @@ describe('ribbon fi', async function () {
     const response = await vaultContract.deposit('10000000')
     // console.log(response)
 
-    console.log("poolShares : ",(await vaultContract.balanceOf(signer.address)).toString())
+    console.log(
+      'poolShares : ',
+      (await vaultContract.balanceOf(signer.address)).toString()
+    )
     const signerVaultBalance = await vaultContract.balanceOf(signer.address)
     const signerTokenBalance = await balanceOf(vaultAddress, signer.address)
 
@@ -119,7 +122,10 @@ describe('ribbon fi', async function () {
     const response = await vaultContract.deposit('1000000000')
     // console.log(response)
 
-    console.log("poolShares : ",(await vaultContract.balanceOf(signer.address)).toString())
+    console.log(
+      'poolShares : ',
+      (await vaultContract.balanceOf(signer.address)).toString()
+    )
     const signerVaultBalance = await vaultContract.balanceOf(signer.address)
     const signerTokenBalance = await balanceOf(vaultAddress, signer.address)
 
@@ -156,7 +162,10 @@ describe('ribbon fi', async function () {
     const response = await vaultContract.deposit('1000000000')
     // console.log(response)
 
-    console.log("poolShares : ",(await vaultContract.balanceOf(signer.address)).toString())
+    console.log(
+      'poolShares : ',
+      (await vaultContract.balanceOf(signer.address)).toString()
+    )
     const signerVaultBalance = await vaultContract.balanceOf(signer.address)
     const signerTokenBalance = await balanceOf(vaultAddress, signer.address)
 
@@ -168,4 +177,5 @@ describe('ribbon fi', async function () {
     ).toString()
 
     expect(usdcBalanceAfter === usdcBalanceBefore)
-  })})
+  })
+})

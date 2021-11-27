@@ -16,11 +16,7 @@ export const useStakeDAO = (vaultAddress: string) => {
     if (!provider || !vaultAddress) return
     const signer = provider.getSigner()
     try {
-      const contract = new ethers.Contract(
-        vaultAddress,
-        ethcall,
-        signer
-      )
+      const contract = new ethers.Contract(vaultAddress, ethcall, signer)
       setContract(contract)
     } catch (err) {
       console.log(err)

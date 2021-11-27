@@ -1,41 +1,41 @@
 import { Platform } from 'models/Vault'
 
 export interface RibbonVaultConstructor {
-  id: string
-  name: string
-  underlyingSymbol: Symbol
-  lockedAmount: string
+  address?: string
+  apy: number
   cap?: string
-  totalWithdrawalFee?: string
-  withdrawalFee?: number
   depositors?: string[]
   decimals: number
   description: string
-  platform: Platform
-  apy: number
-  address?: string
   externalLink: string
+  id: string
+  lockedAmount: string
+  name: string
+  platform: Platform
+  totalWithdrawalFee?: string
+  underlyingSymbol: Symbol
   underlyingTokenAddress?: string
-  yieldFromPremium?: string
   uuid: string
+  withdrawalFee?: number
+  yieldFromPremium?: string
 }
 
 export interface FontisVaultConstructor {
-  id: string
+  address?: string
   collateralAmount: string
+  id: string
   otokenAmount: string
+  platform: Platform
+  underlyingTokenAddress?: string
   vaultTotalAssets: string
   yieldFromPremium: string
-  platform: Platform
-  address?: string
-  underlyingTokenAddress?: string
 }
 
 export interface StakeDAOVaultConstructor {
+  amount: string
+  apy: number
   id: string
   name: string
-  apy: number
-  amount: string
   shares: string
   vault: string
 }

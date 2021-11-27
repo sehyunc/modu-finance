@@ -1,7 +1,9 @@
-import { Button, ButtonGroup } from '@chakra-ui/button'
+import { Button, Text } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/layout'
 import { useRouter } from 'next/router'
 import React from 'react'
+
+import { SymbolToColorMap } from 'components/VaultGrid/components/VaultCard/constants'
 
 interface Props {}
 
@@ -17,22 +19,14 @@ const TopBar = (props: Props) => {
       marginTop={6}
       justifyContent="center"
     >
-      <Button
-        onClick={() => router.push('/')}
-        size="lg"
-        mr={8}
-        _focus={{ boxShadow: 'none' }}
+      <Text
+        bgGradient={`linear(to-r, ${SymbolToColorMap.WETH.start}, ${SymbolToColorMap.WETH.end})`}
+        bgClip="text"
+        fontWeight="bold"
+        fontSize={{ base: '7vw', md: '4xl', xl: '50px' }}
       >
-        Home
-      </Button>
-      <Button
-        colorScheme="purple"
-        onClick={() => router.push('/leaderboard')}
-        size="lg"
-        _focus={{ boxShadow: 'none' }}
-      >
-        Leaderboard
-      </Button>
+        Vault Leaderboard
+      </Text>
     </Box>
   )
 }

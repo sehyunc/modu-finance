@@ -1,4 +1,3 @@
-import { Platform } from './Vault'
 export const PlatformToDescriptionMap: {
   [key: string]: string
 } = {

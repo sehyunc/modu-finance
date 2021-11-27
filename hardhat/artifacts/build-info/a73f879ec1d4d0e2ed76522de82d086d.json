@@ -28,9 +28,7 @@
             "storageLayout",
             "evm.gasEstimates"
           ],
-          "": [
-            "ast"
-          ]
+          "": ["ast"]
         }
       },
       "metadata": {
@@ -93,9 +91,7 @@
         "ast": {
           "absolutePath": "contracts/DummyContract.sol",
           "exportedSymbols": {
-            "DummyContract": [
-              2
-            ]
+            "DummyContract": [2]
           },
           "id": 3,
           "license": "MIT",
@@ -103,12 +99,7 @@
           "nodes": [
             {
               "id": 1,
-              "literals": [
-                "solidity",
-                ">=",
-                "0.8",
-                ".4"
-              ],
+              "literals": ["solidity", ">=", "0.8", ".4"],
               "nodeType": "PragmaDirective",
               "src": "32:24:0"
             },
@@ -119,9 +110,7 @@
               "contractKind": "contract",
               "fullyImplemented": true,
               "id": 2,
-              "linearizedBaseContracts": [
-                2
-              ],
+              "linearizedBaseContracts": [2],
               "name": "DummyContract",
               "nameLocation": "66:13:0",
               "nodeType": "ContractDefinition",
