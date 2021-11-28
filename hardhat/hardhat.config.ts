@@ -1,5 +1,3 @@
-import * as dotenv from "dotenv";
-
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
 import '@nomiclabs/hardhat-ethers'
@@ -11,8 +9,6 @@ import 'hardhat-deploy-ethers'
 import 'hardhat-gas-reporter'
 import 'solidity-coverage'
 import '@tenderly/hardhat-tenderly'
-// import './scripts'
-dotenv.config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -31,22 +27,17 @@ const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   networks: {
     hardhat: {
+      gasPrice: 'auto',
       forking: {
         url: 'https://speedy-nodes-nyc.moralis.io/8d4672da1ad48c865fd49fde/eth/mainnet/archive', // <---- YOUR INFURA ID! (or it won't work)
-        blockNumber: 13526433,
+        blockNumber: 13703696,
       },
     },
-    rinkeby: {
-      url: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
-    },
-    kovan: {
-      url: 'https://kovan.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
-    },
     mainnet: {
-      url: 'https://speedy-nodes-nyc.moralis.io/8d4672da1ad48c865fd49fde/eth/mainnet', // <---- YOUR INFURA ID! (or it won't work)
+      url: 'https://speedy-nodes-nyc.moralis.io/8d4672da1ad48c865fd49fde/eth/mainnet/archive', // <---- YOUR INFURA ID! (or it won't work)
       forking: {
-        url: 'https://speedy-nodes-nyc.moralis.io/8d4672da1ad48c865fd49fde/eth/mainnet', // <---- YOUR INFURA ID! (or it won't work)
-        blockNumber: 13526433,
+        url: 'https://speedy-nodes-nyc.moralis.io/8d4672da1ad48c865fd49fde/eth/mainnet/archive', // <---- YOUR INFURA ID! (or it won't work)
+        blockNumber: 13703696,
       },
     },
   },
