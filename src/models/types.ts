@@ -12,6 +12,7 @@ export interface RibbonVaultConstructor {
   lockedAmount: string
   name: string
   platform: Platform
+  totalBalance: string
   totalWithdrawalFee?: string
   underlyingSymbol: Symbol
   underlyingTokenAddress?: string
@@ -36,6 +37,7 @@ export interface StakeDAOVaultConstructor {
   apy: number
   id: string
   name: string
+  maxCap: string
   shares: string
   vault: string
 }

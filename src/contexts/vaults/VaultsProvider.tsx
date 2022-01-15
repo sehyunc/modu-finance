@@ -22,32 +22,7 @@ const VaultsProvider: React.FC = ({ children }) => {
   const [ribbonVaults, setRibbonVaults] = useState<Vault[]>([])
   const [fontisVaults, setFontisVaults] = useState<Vault[]>([])
   const [stakedaoVaults, setStakeDAOVaults] = useState<Vault[]>([])
-  console.log('🚀 ~ stakedaoVaults', stakedaoVaults)
   const [allVaults, setAllVaults] = useState<Vault[]>([])
-
-  const handleFetchStakeDAOVaults = useCallback(async () => {
-    const { data } = await fetch(STAKEDAO_URL, {
-      body: JSON.stringify({
-        query: STAKEDAO_QUERY,
-      }),
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => res.json())
-
-    const apyData = getStakeDaoApy(data)
-    const newVaults: Vault[] = []
-    data.options.forEach((vault: StakeDAOVaultConstructor) => {
-      const v = Vault.fromStakeDAOSubgraph({
-        ...vault,
-        apy: apyData[vault.id as any].apy as unknown as number,
-      })
-      newVaults.push(v)
-    })
-    setStakeDAOVaults(newVaults)
-  }, [])
-
   const handleFetchFontisVaults = useCallback(async () => {
     const { data } = await fetch(FONTIS_URL, {
       body: JSON.stringify({
@@ -90,6 +65,30 @@ const VaultsProvider: React.FC = ({ children }) => {
     setRibbonVaults(newVaults)
   }, [])
 
+  const handleFetchStakeDAOVaults = useCallback(async () => {
+    const { data } = await fetch(STAKEDAO_URL, {
+      body: JSON.stringify({
+        query: STAKEDAO_QUERY,
+      }),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json())
+
+    const apyData = getStakeDaoApy(data)
+    const newVaults: Vault[] = []
+    data.options.forEach((vault: StakeDAOVaultConstructor) => {
+      const v = Vault.fromStakeDAOSubgraph({
+        ...vault,
+        apy: apyData[vault.id as any].apy as unknown as number,
+      })
+      newVaults.push(v)
+    })
+    console.log('🚀 ~ handleFetchStakeDAOVaults ~ newVaults', newVaults)
+    setStakeDAOVaults(newVaults)
+  }, [])
+
   const handleIdToVault = useCallback(
     (vaultIds: string[]) => {
       const vaults: Vault[] = []
@@ -107,9 +106,9 @@ const VaultsProvider: React.FC = ({ children }) => {
     setAllVaults([...fontisVaults, ...ribbonVaults, ...stakedaoVaults])
   }, [fontisVaults, ribbonVaults, stakedaoVaults])
 
-  useEffect(() => {
-    handleFetchFontisVaults()
-  }, [handleFetchFontisVaults])
+  // useEffect(() => {
+  //   handleFetchFontisVaults()
+  // }, [handleFetchFontisVaults])
 
   useEffect(() => {
     handleFetchRibbonVaults()

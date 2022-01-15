@@ -42,13 +42,13 @@ const Row: React.FC<RowProps> = ({ vault }) => {
   }, [account, needsSwitchNetwork, onConnectToMetaMask, onRequestSwitchNetwork])
 
   const formattedTvl = useMemo(() => {
-    if (vault.platform === 'StakeDAO') {
+    if (!vault.totalBalance) {
       return '--'
     }
-    const tvl = utils.formatUnits(vault.lockedAmount, vault.decimals)
-    const formattedTvl = numeral(tvl).format('0,0.00a')
+    const totalBalance = utils.formatUnits(vault.totalBalance, vault.decimals)
+    const formattedTvl = numeral(totalBalance).format('0,0.00a')
     return formattedTvl
-  }, [vault.decimals, vault.lockedAmount, vault.platform])
+  }, [vault.decimals, vault.totalBalance])
 
   return (
     <>

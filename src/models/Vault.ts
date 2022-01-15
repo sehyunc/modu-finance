@@ -24,6 +24,7 @@ export class Vault {
   public lockedAmount: string
   public name: string
   public platform: Platform
+  public totalBalance?: string
   public uuid: string
   public underlyingSymbol: Symbol
   public totalWithdrawalFee?: string
@@ -38,6 +39,7 @@ export class Vault {
     this.lockedAmount = options.lockedAmount
     this.name = options.name
     this.platform = options.platform
+    this.totalBalance = options.totalBalance
     this.underlyingSymbol = options.underlyingSymbol
     this.uuid = options.uuid
   }
@@ -56,6 +58,7 @@ export class Vault {
       name: formattedName,
       platform: Platform.RIBBON,
       totalWithdrawalFee: options.totalWithdrawalFee,
+      totalBalance: options.totalBalance,
       underlyingSymbol: options.underlyingSymbol,
       uuid: this.createUUID('ribbon', options.id),
     })
@@ -72,6 +75,7 @@ export class Vault {
       lockedAmount: options.collateralAmount,
       name: 'ETH Perpetual Strategy',
       platform: Platform.FONTIS,
+      totalBalance: '',
       underlyingSymbol: 'WETH',
       withdrawalFee: 0.04,
       uuid: this.createUUID('fontis', options.id),
@@ -90,6 +94,7 @@ export class Vault {
 
     return new Vault({
       apy: options.apy,
+      cap: options.maxCap,
       decimals: symbolToDecimalMap[underlyingSymbol],
       description: PlatformToDescriptionMap[Platform.STAKEDAO],
       externalLink: 'https://stakedao.org/ox/options',
@@ -97,6 +102,7 @@ export class Vault {
       lockedAmount: options.amount,
       name: formattedName,
       platform: Platform.STAKEDAO,
+      totalBalance: options.amount,
       underlyingSymbol,
       uuid: this.createUUID('stakedao', options.vault),
     })

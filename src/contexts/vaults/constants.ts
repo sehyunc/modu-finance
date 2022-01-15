@@ -20,8 +20,9 @@ query Vaults {
     id
     name
     symbol
-    underlyingSymbol
     lockedAmount
+    underlyingSymbol
+    totalBalance
     cap
     totalWithdrawalFee
     depositors
@@ -46,6 +47,7 @@ query Vaults {
     vault
     amount
     shares
+    maxCap
   }
   optWeeks{
     id
