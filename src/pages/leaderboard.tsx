@@ -34,7 +34,7 @@ export type SortColumnOption =
 export type SortDirection = 'up' | 'down'
 
 const tokens = ['WETH', 'WBTC', 'USDC']
-const platforms = [Platform.FONTIS, Platform.RIBBON, Platform.STAKEDAO]
+const platforms = [Platform.RIBBON, Platform.STAKEDAO]
 
 const Leaderboard = () => {
   const { vaults } = useVaults()

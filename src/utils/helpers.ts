@@ -126,6 +126,7 @@ export const getRibbonApy = (
 }
 
 export const getStakeDaoApy = (data: any) => {
+  console.log('🚀 ~ getStakeDaoApy ~ data', data)
   const options = data.options
   const optWeeks = data.optWeeks
 

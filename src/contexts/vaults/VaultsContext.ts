@@ -3,7 +3,6 @@ import { createContext } from 'react'
 import { Vault } from 'models/Vault'
 
 export interface VaultsContextValues {
-  fontisVaults: Vault[]
   ribbonVaults: Vault[]
   stakedaoVaults: Vault[]
   onIdToVault: (vaultIds: string[]) => Vault[]
@@ -11,7 +10,6 @@ export interface VaultsContextValues {
 }
 
 const VaultsContext = createContext<VaultsContextValues>({
-  fontisVaults: [],
   ribbonVaults: [],
   stakedaoVaults: [],
   onIdToVault: (vaultIds: string[]) => [],
