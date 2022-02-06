@@ -1,6 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 
 import {
+  KOVAN_DAI,
   KOVAN_OPYNBTC_ADDRESS,
   KOVAN_OPYNUSDC_ADDRESS,
   KOVAN_PETHC,
@@ -17,6 +18,7 @@ export const symbolToAddressMap: {
   WETH: KOVAN_WETH_ADDRESS,
   WBTC: KOVAN_OPYNBTC_ADDRESS,
   USDC: KOVAN_OPYNUSDC_ADDRESS,
+  DAI: KOVAN_DAI,
 }
 
 export const symbolToDecimalMap: { [symbol: string]: number } = {

@@ -43,7 +43,8 @@ interface VaultFormProps {
 }
 
 const tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
-
+const ETH_PUT_tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
+const BTC_CALL_tokens = ['WBTC', 'crvRenWSBTC']
 const VaultForm: React.FC<VaultFormProps> = ({
   onClose,
   tokenSymbol,
@@ -55,7 +56,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
-  const [stakeDaoToken, setStakeDaoToken] = useState('FRAX')
+  const [stakeDaoToken, setStakeDaoToken] = useState('DAI')
   const [tokenContract, setTokenContract] = useState<ethers.Contract>()
   const { account, provider } = useWallet()
 
