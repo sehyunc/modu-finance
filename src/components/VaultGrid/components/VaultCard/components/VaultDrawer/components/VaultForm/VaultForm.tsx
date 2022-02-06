@@ -34,6 +34,7 @@ import {
 } from 'utils/helpers'
 
 import SubmitButton from '../SubmitButton'
+import { STAKEDAO_VAULT_ADDRESSES } from 'constants/addresses'
 
 interface VaultFormProps {
   onClose: () => void
@@ -42,7 +43,7 @@ interface VaultFormProps {
   platform: string
 }
 
-const tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
+let tokens: string[];
 const ETH_PUT_tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 const BTC_CALL_tokens = ['WBTC', 'crvRenWSBTC']
 const VaultForm: React.FC<VaultFormProps> = ({
@@ -65,6 +66,13 @@ const VaultForm: React.FC<VaultFormProps> = ({
 
   const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
 
+  switch(vaultAddress){
+    case STAKEDAO_VAULT_ADDRESSES['ETH_PUT']:
+      tokens = ETH_PUT_tokens
+      break
+    case STAKEDAO_VAULT_ADDRESSES['BTC_CALL']:
+      tokens = 
+  }
   const balance = useBalance(tokenAddress)
 
   const tokenDecimals = symbolToDecimalMap[tokenSymbol] // modify this for stakedao token
