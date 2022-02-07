@@ -91,9 +91,16 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [approve, balance, tokenContract, vaultAddress])
 
   const handleDeposit = useCallback(() => {
-    depositErc20(Number(inputText), tokenDecimals)
+    console.log("🚀 ~ file: VaultForm.tsx ~ line 97 ~ handleDeposit ~ inputText", inputText)
+    const signer = provider?.getSigner()
+    if(platform === Platform.STAKEDAO){
+      
+      depositErc20(Number(inputText), tokenDecimals, signer, uuid, tokens.indexOf(stakeDaoToken))
+    } else {
+      depositErc20(Number(inputText), tokenDecimals, signer, uuid)
+    }
     onClose()
-  }, [depositErc20, inputText, onClose, tokenDecimals])
+  }, [depositErc20, inputText, onClose, platform, provider, stakeDaoToken, tokenDecimals, uuid])
 
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
@@ -233,7 +240,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         spacing={6}
       >
         <div>
-          <Text mb="1">{`Amount (${underlyingSymbol})`}</Text>
+           {underlyingSymbol!="" ? <Text mb="1">{`Amount (${underlyingSymbol})`}</Text> : <Text mb="1">Amount</Text>}
           <InputGroup>
             <Input
               onChange={(event) => setInputText(event.target.value)}

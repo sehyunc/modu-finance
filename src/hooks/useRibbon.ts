@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import { BigNumberish, ethers } from 'ethers'
+import { BigNumberish, ethers, Signer } from 'ethers'
 
 import ribbonthetavault from 'constants/abi/ribbonthetavault.json'
-
+import stakeDAO_eth_call from 'constants/abi/stakeDAO_eth_call.json'
+import stakeDAO_eth_put from 'constants/abi/stakeDAO_eth_put.json'
+import stakeDAO_btc_call from 'constants/abi/stakeDAO_btc_call.json'
 import useWallet from 'contexts/wallet/useWallet'
 
 import { convertNumberToBigNumber } from 'utils/helpers'
@@ -89,6 +91,7 @@ const useRibbon = (vaultAddress: string) => {
   const depositErc20 = async (
     value: number,
     decimals: number,
+    signer?: Signer,
     uuid?: string,
     tokenIndex?: number
   ) => {
@@ -103,38 +106,74 @@ const useRibbon = (vaultAddress: string) => {
         }
         //TODO estimate right amount, current overrides throwing rpc errors
         let tx
+        let contract: ethers.Contract
         switch (uuid) {
           case 'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_eth_put,
+              signer
+            )
             switch (tokenIndex) {
               case 0:
               case 1:
               case 2:
               case 3:
                 //TODO setting minCrvLP amount here as 1
+                console.log(
+                  'contract.depositUnderlying' +
+                    'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7'
+                )
                 tx = await contract.depositUnderlying(amount, 1, tokenIndex)
                 break
               case 4:
+                console.log(
+                  'contract.depositCrvLP' +
+                    'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7'
+                )
                 tx = await contract.depositCrvLP(amount)
             }
             break
           case 'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_btc_call,
+              signer
+            )
             switch (tokenIndex) {
               case 0:
                 //TODO setting minCrvLP amount here as 1
+                console.log(
+                  'contract.depositUnderlying' +
+                    'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9'
+                )
                 tx = await contract.depositUnderlying(amount, 1)
                 break
               case 1:
+                console.log(
+                  'contract.depositCrvLP' +
+                    'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9'
+                )
                 tx = await contract.depositCrvLP(amount)
             }
 
             break
 
           case 'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_eth_call,
+              signer
+            )
+            console.log(
+              'depositETH' +
+                'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a'
+            )
             depositETH(amount)
             break
 
           default:
-            tx = await contract.deposit(amount) //, overrides);
+            tx = await contract!.deposit(amount) //, overrides);
         }
         const receipt = await tx.wait()
         return receipt

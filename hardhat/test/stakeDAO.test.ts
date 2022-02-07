@@ -18,8 +18,6 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import SDETHCALL_ABI from '../utils/abi/stakeDAO_eth_call.json'
 import SDETHPUT_ABI from '../utils/abi/stakeDAO_eth_put.json'
 import SDWBTCCALL_ABI from '../utils/abi/stakeDAO_wbtc_call.json'
-import { valueScaleCorrection } from 'framer-motion/types/render/dom/projection/scale-correction'
-import { Code } from '@chakra-ui/layout'
 import { expect } from 'chai'
 
 describe('stakedao', async function () {
