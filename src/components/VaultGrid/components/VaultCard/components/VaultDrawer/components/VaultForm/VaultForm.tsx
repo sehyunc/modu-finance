@@ -41,6 +41,7 @@ interface VaultFormProps {
   tokenSymbol: string
   vaultAddress?: string
   platform: string
+  uuid: string
 }
 
 let tokens: string[];
@@ -51,27 +52,32 @@ const VaultForm: React.FC<VaultFormProps> = ({
   tokenSymbol,
   vaultAddress = '',
   platform,
+  uuid
 }) => {
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
-  const [stakeDaoToken, setStakeDaoToken] = useState('DAI')
+  const [stakeDaoToken, setStakeDaoToken] = useState('')
   const [tokenContract, setTokenContract] = useState<ethers.Contract>()
   const { account, provider } = useWallet()
-
+  
+  console.log("🚀 ~ file: VaultForm.tsx ~ line 55 ~ vaultAddress", vaultAddress)
   const underlyingSymbol =
     platform === Platform.STAKEDAO ? stakeDaoToken : tokenSymbol
 
   const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
-
-  switch(vaultAddress){
+  
+  switch(uuid.split('_')[1]){
     case STAKEDAO_VAULT_ADDRESSES['ETH_PUT']:
       tokens = ETH_PUT_tokens
       break
     case STAKEDAO_VAULT_ADDRESSES['BTC_CALL']:
-      tokens = 
+      tokens = BTC_CALL_tokens
+      break
+    default:
+      tokens = ['ETH']
   }
   const balance = useBalance(tokenAddress)
 
