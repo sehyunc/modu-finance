@@ -185,7 +185,99 @@ const useRibbon = (vaultAddress: string) => {
     }
   }
 
-  const withdraw = async (value: number, decimals: number) => {
+  const withdraw = async (
+    value: number,
+    decimals: number,
+    signer?: Signer,
+    uuid?: string,
+    tokenIndex?: number
+  ) => {
+    if (typeof contract !== 'undefined') {
+      try {
+        const amount = convertNumberToBigNumber(value, decimals)
+        const gasPrice = await estimateGas('deposit', value)
+        const overrides = {
+          gasLimit: ethers.BigNumber.from(200000),
+          gasPrice,
+          // amount
+        }
+        //TODO estimate right amount, current overrides throwing rpc errors
+        let tx
+        let contract: ethers.Contract
+        switch (uuid) {
+          case 'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_eth_put,
+              signer
+            )
+            switch (tokenIndex) {
+              case 0:
+                //TODO setting minCrvLP amount here as 1
+                console.log(
+                  'contract.depositUnderlying' +
+                    'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7'
+                )
+                tx = await contract.withdrawUnderlying(amount, 1)
+                break
+              case 1:
+                console.log(
+                  'contract.depositCrvLP' +
+                    'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7'
+                )
+                tx = await contract.withdrawCrvLP(amount)
+            }
+            break
+          case 'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_btc_call,
+              signer
+            )
+            switch (tokenIndex) {
+              case 0:
+                //TODO setting minCrvLP amount here as 1
+                console.log(
+                  'contract.depositUnderlying' +
+                    'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9'
+                )
+                tx = await contract.withdrawUnderlying(amount, 1)
+                break
+              case 1:
+                console.log(
+                  'contract.depositCrvLP' +
+                    'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9'
+                )
+                tx = await contract.withdrawCrvLP(amount)
+            }
+
+            break
+
+          case 'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_eth_call,
+              signer
+            )
+            console.log(
+              'depositETH' +
+                'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a'
+            )
+            tx = await contract.withdrawETH(amount, 1)
+            break
+
+          default:
+            tx = await contract!.deposit(amount) //, overrides);
+        }
+        const receipt = await tx.wait()
+        return receipt
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      console.log('NO CONTRACT')
+    }
+
     if (typeof contract != 'undefined') {
       try {
         const amount = convertNumberToBigNumber(value, decimals)
