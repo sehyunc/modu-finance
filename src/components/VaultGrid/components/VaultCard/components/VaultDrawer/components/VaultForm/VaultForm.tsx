@@ -120,9 +120,15 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [balanceReadable, isDeposit, positionReadable])
 
   const handleWithdraw = useCallback(() => {
-    withdraw(Number(inputText), tokenDecimals)
+    const signer = provider?.getSigner()
+    if(platform === Platform.STAKEDAO){
+      withdraw(Number(inputText), tokenDecimals, signer, uuid, tokens.indexOf(stakeDaoToken))
+    } else {
+      withdraw(Number(inputText), tokenDecimals)
+    }
+
     onClose()
-  }, [inputText, onClose, tokenDecimals, withdraw])
+  }, [inputText, onClose, platform, provider, stakeDaoToken, tokenDecimals, uuid, withdraw])
 
   useEffect(() => {
     if (!provider) return
