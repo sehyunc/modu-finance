@@ -44,6 +44,9 @@ interface VaultFormProps {
   uuid: string
 }
 
+const depositTokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
+const withdrawTokens = ['FRAX', 'FRAX3CRV-f']
+
 let tokens: string[];
 const ETH_PUT_tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 const BTC_CALL_tokens = ['WBTC', 'crvRenWSBTC']
@@ -54,6 +57,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
   platform,
   uuid
 }) => {
+  console.log(' ~ vaultAddress', vaultAddress)
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
@@ -171,6 +175,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
     : isDeposit
     ? DepositButton
     : WithdrawButton
+
+  const tokens = isDeposit ? depositTokens : withdrawTokens
 
   const StakeDaoTokenSelect = (
     <Box alignItems="center" display="flex">

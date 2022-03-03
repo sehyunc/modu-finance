@@ -39,7 +39,6 @@ export function useFontis(vaultAddress: string) {
         if (formatter && typeof formatter === 'function') {
           res = formatter(res)
         }
-        console.log('🚀 ~ res', res)
 
         return res
       } catch (err) {

@@ -22,10 +22,6 @@ export const useStakeDAO = (vaultAddress: string) => {
       console.log(err)
     }
   }, [provider, vaultAddress])
-  console.log(
-    '🚀 ~ file: useRibbon.ts ~ line 28 ~ useRibbon ~ vaultAddress',
-    vaultAddress
-  )
 
   useEffect(() => {
     handleLoadContract()
