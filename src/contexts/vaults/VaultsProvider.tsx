@@ -1,22 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import {
-  FontisVaultConstructor,
-  RibbonVaultConstructor,
-  StakeDAOVaultConstructor,
-} from 'models/types'
+import { RibbonVaultConstructor, StakeDAOVaultConstructor } from 'models/types'
 import { Vault } from 'models/Vault'
 
 import {
-  FONTIS_QUERY,
-  FONTIS_URL,
   RIBBON_QUERY,
   RIBBON_URL,
   STAKEDAO_QUERY,
   STAKEDAO_URL,
 } from './constants'
 import VaultsContext from './VaultsContext'
-import { getRibbonApy, getStakeDaoApy } from 'utils/helpers'
+import { getRibbonApy } from 'utils/helpers'
+
+const stakeDaoIdToApyMap: { [id: string]: string } = {
+  '0': 'eth',
+  '1': 'btc',
+  '2': 'fraxRetail',
+}
 
 const VaultsProvider: React.FC = ({ children }) => {
   const [allVaults, setAllVaults] = useState<Vault[]>([])
@@ -33,6 +33,7 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
+    console.log('🚀 ~ handleFetchRibbonVaults ~ data', data)
 
     const apyData = getRibbonApy(data.vaultOptionTrades)
     const newVaults: Vault[] = []
@@ -57,12 +58,15 @@ const VaultsProvider: React.FC = ({ children }) => {
       },
     }).then((res) => res.json())
 
-    const apyData = getStakeDaoApy(data)
+    const apy = await fetch('https://stakedao.org/api/options-history').then(
+      (res) => res.json()
+    )
+
     const newVaults: Vault[] = []
     data.options.forEach((vault: StakeDAOVaultConstructor) => {
       const v = Vault.fromStakeDAOSubgraph({
         ...vault,
-        apy: apyData[vault.id as any].apy as unknown as number,
+        apy: Number(apy[stakeDaoIdToApyMap[vault.id]].APY) / 100,
       })
       newVaults.push(v)
     })

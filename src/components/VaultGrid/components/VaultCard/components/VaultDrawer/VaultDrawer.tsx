@@ -31,6 +31,7 @@ import { Vault } from 'models/Vault'
 import { uuidToAddressMap } from 'utils/helpers'
 
 import VaultForm from './components/VaultForm'
+import StakeDaoVaultForm from './components/StakeDaoVaultForm'
 
 interface VaultDrawerProps {
   vault: Vault
@@ -95,6 +96,8 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
     </AccessibleLink>
   )
 
+  const Form = vault.platform === 'StakeDAO' ? StakeDaoVaultForm : VaultForm
+
   const inWatchlist = watchlist.includes(vault.id)
 
   const WatchlistButton = inWatchlist ? (
@@ -129,7 +132,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
         <DrawerHeader>{vault.name}</DrawerHeader>
         <DrawerBody>
           <VStack spacing={6}>
-            <VaultForm
+            <Form
               onClose={onClose}
               platform={vault.platform}
               tokenSymbol={vault.underlyingSymbol}
@@ -147,10 +150,10 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
                 bgClip="text"
                 fontSize="lg"
                 fontWeight="bold"
+                mb={3}
               >
                 Info
               </Text>
-              <Divider />
               {CapacityRow}
             </Box>
             <Box
