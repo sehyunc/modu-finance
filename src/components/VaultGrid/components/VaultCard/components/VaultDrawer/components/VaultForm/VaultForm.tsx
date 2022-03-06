@@ -47,7 +47,6 @@ interface VaultFormProps {
 const depositTokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 const withdrawTokens = ['FRAX', 'FRAX3CRV-f']
 
-let tokens: string[];
 const ETH_PUT_tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 const BTC_CALL_tokens = ['WBTC', 'crvRenWSBTC']
 const VaultForm: React.FC<VaultFormProps> = ({
@@ -57,7 +56,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   platform,
   uuid
 }) => {
-
+  
+  let tokens: string[] = [];
   if(vaultAddress === '') vaultAddress = uuid.split('_')[1]
   console.log(' ~ vaultAddress', vaultAddress)
   const position = usePosition(vaultAddress)
@@ -75,7 +75,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
 
   const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
   
-  switch(uuid.split('_')[1]){
+  if(platform === Platform.STAKEDAO){
+    switch(uuid.split('_')[1]){
     case STAKEDAO_VAULT_ADDRESSES['ETH_PUT']:
       tokens = ETH_PUT_tokens
       break
@@ -85,6 +86,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
     default:
       tokens = ['ETH']
   }
+}
   const balance = useBalance(tokenAddress)
 
   const tokenDecimals = symbolToDecimalMap[tokenSymbol] // modify this for stakedao token
@@ -177,7 +179,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
     : isDeposit
     ? DepositButton
     : WithdrawButton
-    let tokens = isDeposit ? depositTokens : withdrawTokens
+    tokens = isDeposit ? depositTokens : withdrawTokens
 
   const StakeDaoTokenSelect = (
     <Box alignItems="center" display="flex">
