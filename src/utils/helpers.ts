@@ -124,27 +124,3 @@ export const getRibbonApy = (
   })
   return results
 }
-
-export const getStakeDaoApy = (data: any) => {
-  const options = data.options
-  const optWeeks = data.optWeeks
-
-  const options_with_ids: { [id: string]: SD_Option } = {}
-
-  options.forEach((option: SD_Option) => {
-    options_with_ids[option.id] = option
-  })
-
-  const usefulOptWeeks: { [id: string]: SD_OptWeek } = {}
-  optWeeks.forEach((optWeek: SD_OptWeek) => {
-    if (
-      !usefulOptWeeks[optWeek.id[0]] ||
-      (usefulOptWeeks[optWeek.id[0]].id.split('-').slice(-1) <
-        optWeek.id.split('-').slice(-1) &&
-        optWeek.apy != null)
-    ) {
-      usefulOptWeeks[optWeek.id[0]] = optWeek
-    }
-  })
-  return usefulOptWeeks
-}
