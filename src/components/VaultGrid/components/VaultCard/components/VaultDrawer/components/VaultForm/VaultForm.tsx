@@ -57,6 +57,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   platform,
   uuid
 }) => {
+
+  if(vaultAddress === '') vaultAddress = uuid.split('_')[1]
   console.log(' ~ vaultAddress', vaultAddress)
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
@@ -175,8 +177,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
     : isDeposit
     ? DepositButton
     : WithdrawButton
-
-  const tokens = isDeposit ? depositTokens : withdrawTokens
+    let tokens = isDeposit ? depositTokens : withdrawTokens
 
   const StakeDaoTokenSelect = (
     <Box alignItems="center" display="flex">
