@@ -48,7 +48,7 @@ export class Vault {
     const formattedName = options.name.split(' ').slice(1).join(' ')
     return new Vault({
       // apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
-      apy: options.yieldFromPremium,
+      apy: Number(options.yieldFromPremium),
       cap: options.cap,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       description: PlatformToDescriptionMap[options.id],
