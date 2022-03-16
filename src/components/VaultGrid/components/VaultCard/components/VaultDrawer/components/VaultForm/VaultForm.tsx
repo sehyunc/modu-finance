@@ -179,9 +179,10 @@ const VaultForm: React.FC<VaultFormProps> = ({
     : isDeposit
     ? DepositButton
     : WithdrawButton
+    
     tokens = isDeposit ? depositTokens : withdrawTokens
-
-  const StakeDaoTokenSelect = (
+  
+    const StakeDaoTokenSelect = (
     <Box alignItems="center" display="flex">
       <Text flex={1}>Select Input</Text>
       {platform === Platform.STAKEDAO ? (
