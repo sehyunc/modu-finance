@@ -137,6 +137,7 @@ const VaultDrawer: React.FC<VaultDrawerProps> = ({
               platform={vault.platform}
               tokenSymbol={vault.underlyingSymbol}
               vaultAddress={vaultAddress}
+              uuid={uuid}
             />
             <Box
               border="2px solid #242322"

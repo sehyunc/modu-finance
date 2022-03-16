@@ -34,38 +34,59 @@ import {
 } from 'utils/helpers'
 
 import SubmitButton from '../SubmitButton'
+import { STAKEDAO_VAULT_ADDRESSES } from 'constants/addresses'
 
 interface VaultFormProps {
   onClose: () => void
   tokenSymbol: string
   vaultAddress?: string
   platform: string
+  uuid: string
 }
 
 const depositTokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
 const withdrawTokens = ['FRAX', 'FRAX3CRV-f']
 
+const ETH_PUT_tokens = ['FRAX', 'DAI', 'USDC', 'USDT', 'FRAX3CRV-f']
+const BTC_CALL_tokens = ['WBTC', 'crvRenWSBTC']
 const VaultForm: React.FC<VaultFormProps> = ({
   onClose,
   tokenSymbol,
   vaultAddress = '',
   platform,
+  uuid
 }) => {
+  
+  let tokens: string[] = [];
+  if(vaultAddress === '') vaultAddress = uuid.split('_')[1]
   console.log(' ~ vaultAddress', vaultAddress)
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
-  const [stakeDaoToken, setStakeDaoToken] = useState('FRAX')
+  const [stakeDaoToken, setStakeDaoToken] = useState('')
   const [tokenContract, setTokenContract] = useState<ethers.Contract>()
   const { account, provider } = useWallet()
-
+  
+  console.log("🚀 ~ file: VaultForm.tsx ~ line 55 ~ vaultAddress", vaultAddress)
   const underlyingSymbol =
     platform === Platform.STAKEDAO ? stakeDaoToken : tokenSymbol
 
   const tokenAddress = symbolToAddressMap[tokenSymbol] // modify this for stakedao token
-
+  
+  if(platform === Platform.STAKEDAO){
+    switch(uuid.split('_')[1]){
+    case STAKEDAO_VAULT_ADDRESSES['ETH_PUT']:
+      tokens = ETH_PUT_tokens
+      break
+    case STAKEDAO_VAULT_ADDRESSES['BTC_CALL']:
+      tokens = BTC_CALL_tokens
+      break
+    default:
+      tokens = ['ETH']
+  }
+}
   const balance = useBalance(tokenAddress)
 
   const tokenDecimals = symbolToDecimalMap[tokenSymbol] // modify this for stakedao token
@@ -78,9 +99,16 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [approve, balance, tokenContract, vaultAddress])
 
   const handleDeposit = useCallback(() => {
-    depositErc20(Number(inputText), tokenDecimals)
+    console.log("🚀 ~ file: VaultForm.tsx ~ line 97 ~ handleDeposit ~ inputText", inputText)
+    const signer = provider?.getSigner()
+    if(platform === Platform.STAKEDAO){
+      
+      depositErc20(Number(inputText), tokenDecimals, signer, uuid, tokens.indexOf(stakeDaoToken))
+    } else {
+      depositErc20(Number(inputText), tokenDecimals, signer, uuid)
+    }
     onClose()
-  }, [depositErc20, inputText, onClose, tokenDecimals])
+  }, [depositErc20, inputText, onClose, platform, provider, stakeDaoToken, tokenDecimals, uuid])
 
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
@@ -100,9 +128,15 @@ const VaultForm: React.FC<VaultFormProps> = ({
   }, [balanceReadable, isDeposit, positionReadable])
 
   const handleWithdraw = useCallback(() => {
-    withdraw(Number(inputText), tokenDecimals)
+    const signer = provider?.getSigner()
+    if(platform === Platform.STAKEDAO){
+      withdraw(Number(inputText), tokenDecimals, signer, uuid, tokens.indexOf(stakeDaoToken))
+    } else {
+      withdraw(Number(inputText), tokenDecimals)
+    }
+
     onClose()
-  }, [inputText, onClose, tokenDecimals, withdraw])
+  }, [inputText, onClose, platform, provider, stakeDaoToken, tokenDecimals, uuid, withdraw])
 
   useEffect(() => {
     if (!provider) return
@@ -145,8 +179,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
     : isDeposit
     ? DepositButton
     : WithdrawButton
-
-  const tokens = isDeposit ? depositTokens : withdrawTokens
+    tokens = isDeposit ? depositTokens : withdrawTokens
 
   const StakeDaoTokenSelect = (
     <Box alignItems="center" display="flex">
@@ -222,7 +255,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
         spacing={6}
       >
         <div>
-          <Text mb="1">{`Amount (${underlyingSymbol})`}</Text>
+           {underlyingSymbol!="" ? <Text mb="1">{`Amount (${underlyingSymbol})`}</Text> : <Text mb="1">Amount</Text>}
           <InputGroup>
             <Input
               onChange={(event) => setInputText(event.target.value)}
