@@ -17,7 +17,6 @@ export const TUSDCP = '0x16772a7f4a3ca291C21B8AcE76F9332dDFfbb5Ef'
 export const PETHC = '0xCc323557c71C0D1D20a1861Dc69c06C5f3cC9624'
 export const TWBTC = '0x65a833afDc250D9d38f8CD9bC2B1E3132dB13B2F'
 export const WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-// export const
 // Kovan Token Addresses
 export const KOVAN_WETH_ADDRESS = '0xd0A1E359811322d97991E03f863a0C30C2cF029C'
 export const KOVAN_OPYNBTC_ADDRESS =

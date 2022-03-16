@@ -47,7 +47,8 @@ export class Vault {
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
     const formattedName = options.name.split(' ').slice(1).join(' ')
     return new Vault({
-      apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
+      // apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
+      apy: Number(options.yieldFromPremium),
       cap: options.cap,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       description: PlatformToDescriptionMap[options.id],

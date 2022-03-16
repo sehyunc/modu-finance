@@ -51,7 +51,6 @@ const VaultForm: React.FC<VaultFormProps> = ({
   vaultAddress = '',
   platform,
 }) => {
-  console.log(' ~ vaultAddress', vaultAddress)
   const position = usePosition(vaultAddress)
   const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
