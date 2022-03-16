@@ -8,6 +8,7 @@ import {
   RIBBON_URL,
   STAKEDAO_QUERY,
   STAKEDAO_URL,
+  APY_DATA,
 } from './constants'
 import VaultsContext from './VaultsContext'
 import { getRibbonApy } from 'utils/helpers'
@@ -33,14 +34,13 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
-    console.log('🚀 ~ handleFetchRibbonVaults ~ data', data)
 
     const apyData = getRibbonApy(data.vaultOptionTrades)
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
       const v = Vault.fromRibbonSubgraph({
         ...vault,
-        yieldFromPremium: apyData[vault.name],
+        yieldFromPremium: APY_DATA[vault.name].toString(),
       })
       newVaults.push(v)
     })

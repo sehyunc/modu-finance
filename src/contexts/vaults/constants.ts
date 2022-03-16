@@ -57,3 +57,10 @@ query Vaults {
   }
 }
 `
+
+export const APY_DATA: { [key: string]: number } = {
+  'Ribbon ETH Theta Vault': 0.1701,
+  'Ribbon USDC Theta Vault ETH Put': 0,
+  'Ribbon BTC Theta Vault': 0.1683,
+  'Ribbon yvUSDC Theta Vault ETH Put': 0.2906,
+}
