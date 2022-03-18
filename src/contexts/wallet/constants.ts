@@ -23,7 +23,6 @@ query Vaults {
     underlyingSymbol
     lockedAmount
     cap
-    totalWithdrawalFee
     depositors
   }
 }

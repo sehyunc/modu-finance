@@ -1,6 +1,7 @@
 import { Platform } from 'models/Vault'
 
 export interface RibbonVaultConstructor {
+  lockedAmount: string
   address?: string
   apy: number
   cap?: string
@@ -9,11 +10,9 @@ export interface RibbonVaultConstructor {
   description: string
   externalLink: string
   id: string
-  lockedAmount: string
   name: string
   platform: Platform
   totalBalance: string
-  totalWithdrawalFee?: string
   underlyingSymbol: Symbol
   underlyingTokenAddress?: string
   uuid: string

@@ -25,7 +25,7 @@ const VaultsProvider: React.FC = ({ children }) => {
   const [stakedaoVaults, setStakeDAOVaults] = useState<Vault[]>([])
 
   const handleFetchRibbonVaults = useCallback(async () => {
-    const { data } = await fetch(RIBBON_URL, {
+    const { data } = await fetch('https://api.thegraph.com/subgraphs/name/ribbon-finance/ribbon-v2', {
       body: JSON.stringify({
         query: RIBBON_QUERY,
       }),
@@ -34,13 +34,17 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
+    console.log("🚀 ~ file: VaultsProvider.tsx ~ line 37 ~ handleFetchRibbonVaults ~ data", data)
 
+    
     const apyData = getRibbonApy(data.vaultOptionTrades)
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
+      
+      console.log("🚀 ~ file: VaultsProvider.tsx ~ line 47 ~ data.vaults.forEach ~ vault.name", vault.name)
       const v = Vault.fromRibbonSubgraph({
         ...vault,
-        yieldFromPremium: APY_DATA[vault.name].toString(),
+        yieldFromPremium: apyData[vault.name]?.toString(),
       })
       newVaults.push(v)
     })
