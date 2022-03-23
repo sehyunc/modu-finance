@@ -61,8 +61,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   let tokens: string[] = []
   if (vaultAddress === '') vaultAddress = uuid.split('_')[1]
   const position = usePosition(vaultAddress)
-  const { depositErc20, depositETH, withdraw, approve } = useRibbonV2(vaultAddress)
-  const {depositErc20SD, depositETHSD, withdrawSD} = useStakeDAO(vaultAddress)
+  const { depositErc20, withdraw, approve } = useRibbonV2(vaultAddress)
+  const {depositErc20SD, withdrawSD} = useStakeDAO(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
