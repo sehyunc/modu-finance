@@ -35,6 +35,8 @@ import {
 
 import SubmitButton from '../SubmitButton'
 import { STAKEDAO_VAULT_ADDRESSES } from 'constants/addresses'
+import useRibbonV2 from 'hooks/useRibbonV2'
+import { useStakeDAO } from 'hooks/useStakeDAO'
 
 interface VaultFormProps {
   onClose: () => void
@@ -59,7 +61,8 @@ const VaultForm: React.FC<VaultFormProps> = ({
   let tokens: string[] = []
   if (vaultAddress === '') vaultAddress = uuid.split('_')[1]
   const position = usePosition(vaultAddress)
-  const { depositErc20, withdraw, approve } = useRibbon(vaultAddress)
+  const { depositErc20, depositETH, withdraw, approve } = useRibbonV2(vaultAddress)
+  const {depositErc20SD, depositETHSD, withdrawSD} = useStakeDAO(vaultAddress)
   const [isApproved, setIsApproved] = useState(true)
   const [isDeposit, setIsDeposit] = useState(true)
   const [inputText, setInputText] = useState<string>()
@@ -99,7 +102,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const handleDeposit = useCallback(() => {
     const signer = provider?.getSigner()
     if (platform === Platform.STAKEDAO) {
-      depositErc20(
+      depositErc20SD(
         Number(inputText),
         tokenDecimals,
         signer,
@@ -110,17 +113,7 @@ const VaultForm: React.FC<VaultFormProps> = ({
       depositErc20(Number(inputText), tokenDecimals, signer, uuid)
     }
     onClose()
-  }, [
-    depositErc20,
-    inputText,
-    onClose,
-    platform,
-    provider,
-    stakeDaoToken,
-    tokenDecimals,
-    tokens,
-    uuid,
-  ])
+  }, [depositErc20, depositErc20SD, inputText, onClose, platform, provider, stakeDaoToken, tokenDecimals, tokens, uuid])
 
   const handleFetchApproval = useCallback(async () => {
     if (!tokenContract) {
@@ -142,28 +135,16 @@ const VaultForm: React.FC<VaultFormProps> = ({
   const handleWithdraw = useCallback(() => {
     const signer = provider?.getSigner()
     if (platform === Platform.STAKEDAO) {
-      withdraw(
+      withdrawSD(
         Number(inputText),
         tokenDecimals,
-        signer,
-        uuid,
-        tokens.indexOf(stakeDaoToken)
       )
     } else {
       withdraw(Number(inputText), tokenDecimals)
     }
 
     onClose()
-  }, [
-    inputText,
-    onClose,
-    platform,
-    provider,
-    stakeDaoToken,
-    tokenDecimals,
-    uuid,
-    withdraw,
-  ])
+  }, [inputText, onClose, platform, provider, tokenDecimals, withdraw, withdrawSD])
 
   useEffect(() => {
     if (!provider) return

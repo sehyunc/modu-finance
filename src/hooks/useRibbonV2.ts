@@ -28,7 +28,7 @@ const useVaultContract = (vaultAddress: string) => {
       value: number,
       decimals: number,
       signer?: Signer,
-      uuid?: number,
+      uuid?: string,
       tokenIndex?: number
     ) => {
       if (!vaultContract) return
@@ -47,7 +47,7 @@ const useVaultContract = (vaultAddress: string) => {
       value: number,
       decimals: number,
       signer?: Signer,
-      uuid?: number,
+      uuid?: string,
       tokenIndex?: number
     ) => {
       if (!vaultContract) return
@@ -66,7 +66,7 @@ const useVaultContract = (vaultAddress: string) => {
       value: number,
       decimals: number,
       signer?: Signer,
-      uuid?: number,
+      uuid?: string,
       tokenIndex?: number
     ) => {
       if (!vaultContract) return
