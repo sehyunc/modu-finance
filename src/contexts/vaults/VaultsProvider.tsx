@@ -34,13 +34,14 @@ const VaultsProvider: React.FC = ({ children }) => {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json())
-
+    
     const apyData = getRibbonApy(data.vaultOptionTrades)
     const newVaults: Vault[] = []
     data.vaults.forEach((vault: RibbonVaultConstructor) => {
+      
       const v = Vault.fromRibbonSubgraph({
         ...vault,
-        yieldFromPremium: APY_DATA[vault.name].toString(),
+        yieldFromPremium: apyData[vault.name]?.toString(),
       })
       newVaults.push(v)
     })

@@ -267,7 +267,7 @@ const useRibbon = (vaultAddress: string) => {
             break
 
           default:
-            tx = await contract!.deposit(amount) //, overrides);
+            tx = await contract!.withdraw(amount) //, overrides);
         }
         const receipt = await tx.wait()
         return receipt

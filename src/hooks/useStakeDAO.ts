@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { BigNumberish, ethers } from 'ethers'
+import { BigNumberish, ethers, Signer } from 'ethers'
 
 import ethcall from 'constants/abi/stakeDAO_eth_call.json'
 import ethput from 'constants/abi/stakeDAO_eth_put.json'
+
+import ribbonthetavault from 'constants/abi/ribbonthetavault.json'
+import stakeDAO_eth_call from 'constants/abi/stakeDAO_eth_call.json'
+import stakeDAO_eth_put from 'constants/abi/stakeDAO_eth_put.json'
+import stakeDAO_btc_call from 'constants/abi/stakeDAO_btc_call.json'
 
 import useWallet from 'contexts/wallet/useWallet'
 
@@ -61,7 +66,10 @@ export const useStakeDAO = (vaultAddress: string) => {
     }
   }
 
-  const depositETH = async (value: ethers.BigNumber) => {
+  const depositETH = async (
+    contract: ethers.Contract,
+    value: ethers.BigNumber
+  ) => {
     if (typeof contract !== 'undefined') {
       try {
         const gasPrice = await estimateGas('depositETH', {
@@ -83,7 +91,13 @@ export const useStakeDAO = (vaultAddress: string) => {
     }
   }
 
-  const depositErc20 = async (value: number, decimals: number) => {
+  const depositErc20 = async (
+    value: number,
+    decimals: number,
+    signer?: Signer,
+    uuid?: string,
+    tokenIndex?: number
+  ) => {
     if (typeof contract !== 'undefined') {
       try {
         const amount = convertNumberToBigNumber(value, decimals)
@@ -94,7 +108,76 @@ export const useStakeDAO = (vaultAddress: string) => {
           // amount
         }
         //TODO estimate right amount, current overrides throwing rpc errors
-        const tx = await contract.deposit(amount) //, overrides);
+        let tx
+        let contract: ethers.Contract
+        switch (uuid) {
+          case 'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_eth_put,
+              signer
+            )
+            switch (tokenIndex) {
+              case 0:
+              case 1:
+              case 2:
+              case 3:
+                //TODO setting minCrvLP amount here as 1
+                console.log(
+                  'contract.depositUnderlying' +
+                    'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7'
+                )
+                tx = await contract.depositUnderlying(amount, 1, tokenIndex)
+                break
+              case 4:
+                console.log(
+                  'contract.depositCrvLP' +
+                    'stakedao_0x839a989be40f2d60f00beeb648903732c041cbd7'
+                )
+                tx = await contract.depositCrvLP(amount)
+            }
+            break
+          case 'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_btc_call,
+              signer
+            )
+            switch (tokenIndex) {
+              case 0:
+                //TODO setting minCrvLP amount here as 1
+                console.log(
+                  'contract.depositUnderlying' +
+                    'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9'
+                )
+                tx = await contract.depositUnderlying(amount, 1)
+                break
+              case 1:
+                console.log(
+                  'contract.depositCrvLP' +
+                    'stakedao_0x227e4635c5fe22d1e36dab1c921b62f8acc451b9'
+                )
+                tx = await contract.depositCrvLP(amount)
+            }
+
+            break
+
+          case 'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a':
+            contract = new ethers.Contract(
+              uuid.split('_')[1],
+              stakeDAO_eth_call,
+              signer
+            )
+            console.log(
+              'depositETH' +
+                'stakedao_0x9b8f14554f40705de7908879e2228d2ac94fde1a'
+            )
+            depositETH(contract, amount)
+            break
+
+          default:
+            tx = await contract!.deposit(amount) //, overrides);
+        }
         const receipt = await tx.wait()
         return receipt
       } catch (err) {
@@ -138,12 +221,12 @@ export const useStakeDAO = (vaultAddress: string) => {
     }
   }
   return {
-    approve,
-    contract,
-    depositErc20,
-    depositETH,
-    estimateGas,
-    readValue,
-    withdraw,
+    approveSD: approve,
+    contractSD: contract,
+    depositErc20SD: depositErc20,
+    depositETHSD: depositETH,
+    estimateGasSD: estimateGas,
+    readValueSD: readValue,
+    withdrawSD: withdraw,
   }
 }

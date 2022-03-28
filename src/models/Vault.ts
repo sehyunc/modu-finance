@@ -47,18 +47,17 @@ export class Vault {
   public static fromRibbonSubgraph(options: RibbonVaultConstructor): Vault {
     const formattedName = options.name.split(' ').slice(1).join(' ')
     return new Vault({
-      // apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
-      apy: Number(options.yieldFromPremium),
+      apy: Math.pow(1 + Number(options.yieldFromPremium), 52) - 1,
       cap: options.cap,
       decimals: symbolToDecimalMap[options.underlyingSymbol],
       description: PlatformToDescriptionMap[options.id],
       depositors: options.depositors,
       externalLink: 'https://app.ribbon.finance/',
       id: options.id,
-      lockedAmount: options.lockedAmount,
+      lockedAmount: options.totalBalance,
       name: formattedName,
       platform: Platform.RIBBON,
-      totalWithdrawalFee: options.totalWithdrawalFee,
+      // totalWithdrawalFee: options.totalWithdrawalFee,
       totalBalance: options.totalBalance,
       underlyingSymbol: options.underlyingSymbol,
       uuid: this.createUUID('ribbon', options.id),
