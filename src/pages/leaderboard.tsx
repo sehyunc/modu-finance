@@ -87,71 +87,80 @@ const Leaderboard = () => {
   }, [])
 
   return (
-    <Box mx="auto" maxWidth="container.xl" p={12}>
-      <Flex mb={3}>
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>
-            {tokenFilter || 'Select Token'}
-          </MenuButton>
-          <MenuList>
-            {tokenFilter ? (
-              <MenuItem
-                onClick={() => setTokenFilter(undefined)}
-                fontWeight="semibold"
-              >
-                Clear
-              </MenuItem>
-            ) : null}
-            {tokens.map((t) => (
-              <MenuItem key={t} onClick={() => setTokenFilter(t)} value={t}>
-                {t}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            {platformFilter || 'Select Platform'}
-          </MenuButton>
-          <MenuList>
-            {platformFilter ? (
-              <MenuItem
-                onClick={() => setPlatformFilter(undefined)}
-                fontWeight="semibold"
-              >
-                Clear
-              </MenuItem>
-            ) : null}
-            {platforms.map((p) => (
-              <MenuItem key={p} onClick={() => setPlatformFilter(p)} value={p}>
-                {p}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-        <Spacer />
-        <Button onClick={handleClearFilters}>Clear Filters</Button>
-      </Flex>
-      <Header
-        activeSortColumn={activeSortColumn}
-        handleSetActiveSortColumn={setActiveSortColumn}
-        handleSetSortDirection={setSortDirection}
-        sortDirection={sortDirection}
-      />
-      {sortedRows.map((vault) => {
-        return <Row key={vault.id} vault={vault} />
-      })}
-      <Box
-        display="flex"
-        backgroundColor="gray.800"
-        borderBottomEndRadius="10px"
-        borderBottomStartRadius="10px"
-        flexDirection="row-reverse"
-        padding="6"
-      >
-        <Text opacity="0.65">Page 1 of 1</Text>
+    <>
+      <Box mx="auto" maxWidth="container.xl" p={12}>
+        <Flex mb={3}>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />} mr={3}>
+              {tokenFilter || 'Select Token'}
+            </MenuButton>
+            <MenuList>
+              {tokenFilter ? (
+                <MenuItem
+                  onClick={() => setTokenFilter(undefined)}
+                  fontWeight="semibold"
+                >
+                  Clear
+                </MenuItem>
+              ) : null}
+              {tokens.map((t) => (
+                <MenuItem key={t} onClick={() => setTokenFilter(t)} value={t}>
+                  {t}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              {platformFilter || 'Select Platform'}
+            </MenuButton>
+            <MenuList>
+              {platformFilter ? (
+                <MenuItem
+                  onClick={() => setPlatformFilter(undefined)}
+                  fontWeight="semibold"
+                >
+                  Clear
+                </MenuItem>
+              ) : null}
+              {platforms.map((p) => (
+                <MenuItem
+                  key={p}
+                  onClick={() => setPlatformFilter(p)}
+                  value={p}
+                >
+                  {p}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+          <Spacer />
+          <Button onClick={handleClearFilters}>Clear Filters</Button>
+        </Flex>
+        <Header
+          activeSortColumn={activeSortColumn}
+          handleSetActiveSortColumn={setActiveSortColumn}
+          handleSetSortDirection={setSortDirection}
+          sortDirection={sortDirection}
+        />
+        {sortedRows.map((vault) => {
+          return <Row key={vault.id} vault={vault} />
+        })}
+        <Box
+          display="flex"
+          backgroundColor="gray.800"
+          borderBottomEndRadius="10px"
+          borderBottomStartRadius="10px"
+          flexDirection="row-reverse"
+          padding="6"
+        >
+          <Text opacity="0.65">Page 1 of 1</Text>
+        </Box>
       </Box>
-    </Box>
+      <Box my={12} opacity={0.5} textAlign="center">
+        <Text>This is an experimental app, use it at your own risk.</Text>
+      </Box>
+    </>
   )
 }
 
