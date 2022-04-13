@@ -160,6 +160,10 @@ const Leaderboard = () => {
       <Box my={12} opacity={0.5} textAlign="center">
         <Text>This is an experimental app, use it at your own risk.</Text>
         <Text>All contracts are owned by their respective platforms.</Text>
+        <Text>
+          All data is fetched from platform-created subgraphs hosted on The
+          Graph.
+        </Text>
       </Box>
     </>
   )
