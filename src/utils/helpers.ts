@@ -1,6 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber'
 
 import {
+  ETH__AAVE_ADDRESS,
+  ETH__APE_ADDRESS,
   ETH__DAI,
   ETH__OPYNBTC_ADDRESS,
   ETH__OPYNUSDC_ADDRESS,
@@ -15,6 +17,8 @@ import { VaultOptionTrade } from './types'
 export const symbolToAddressMap: {
   [symbol: string]: string
 } = {
+  AAVE: ETH__AAVE_ADDRESS,
+  APE: ETH__APE_ADDRESS,
   WETH: ETH__WETH_ADDRESS,
   WBTC: ETH__OPYNBTC_ADDRESS,
   USDC: ETH__OPYNUSDC_ADDRESS,
